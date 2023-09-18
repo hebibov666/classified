@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useSelector,useDispatch } from 'react-redux';
-import { selectModels } from './redux/slices/categorySlices';
+import { selectModels } from '@/redux/slices/categorySlices';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 function NewPost() {

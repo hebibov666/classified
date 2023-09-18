@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { booksData} from './slices/categorySlices'
+import { booksData } from './slices/categorySlices'
 import { models } from './slices/ModelSlices'
 
 export const store = configureStore({
