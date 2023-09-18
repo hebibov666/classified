@@ -63,7 +63,8 @@ export  const booksData = createSlice({
     colors:colors,
     screenSize:screenSize,
     components:components,
-    formId:null
+    formId:null,
+    menuShow:false
   },
   reducers: {
     selectModels:(state,action)=>{
@@ -78,11 +79,14 @@ export  const booksData = createSlice({
         }
         console.log(state.brands)
         state.formId=Number(action.payload.id)
+        },
+        openMenu:(state)=>{
+state.menuShow=true
         }
 
   },
 });
 
-export const {selectModels } = booksData.actions;
+export const {selectModels,openMenu } = booksData.actions;
 
 export default booksData.reducer;

@@ -3,11 +3,14 @@ import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
+import { openMenu } from '@/redux/slices/categorySlices';
+import { useDispatch } from 'react-redux';
 function Header({openLogin}){
+    const dispatch=useDispatch()
     return(
     <div className="w-full h-[70px] bg-[#685CFE] flex justify-between pl-4 pr-2 items-center">
 <div className='flex items-center justify-center gap-[10px]'>
-    <MenuIcon fontSize='large' className='text-white lg:hidden'/>
+    <MenuIcon fontSize='large' className='text-white lg:hidden' onClick={()=>{dispatch(openMenu())}}/>
     <h1 className="text-2xl text-white font-bold">Elan.az</h1>
 </div>
 <div className='flex items-center justify-between gap-[15px] pr-[10px]'>

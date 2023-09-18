@@ -4,14 +4,14 @@ import TextField from '@mui/material/TextField';
 function Login() {
   
   return (
-   <div className='flex flex-col items-center gap-[20px]'>
+   <div className='flex w-full flex-col items-center gap-[20px]'>
   <TextField
           id="outlined-password-input"
           label="Ad və ya email"
           type="text"
           autoComplete="current-password"
         size='small'
-        className='w-full'
+        fullWidth
       
         />
         <TextField
@@ -20,8 +20,7 @@ function Login() {
           type="password"
           autoComplete="current-password"
         size='small'
-        className='w-full'
-    
+    fullWidth
         />
         <button className='outline-none bg-[#FF6617] rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'>
             Giriş et

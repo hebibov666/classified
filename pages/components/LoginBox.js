@@ -16,7 +16,7 @@ function LoginBox({closeLogin}){
     };
     return (
     <div className="fixed z-[10000] bg-[#00000073] flex justify-center items-center w-[100%] h-[100%] top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%]">
-<div className="w-[35%] h-[55%] relative bg-[#F8F9FD] pt-[40px] flex flex-col items-center rounded-[10px] shadow-sm shadow-black">
+<div className="w-[35%] max-[475px]:w-[95%] max-[1019px]:w-[70%] object-contain h-[55%] relative bg-[#F8F9FD] pt-[40px] flex flex-col items-center rounded-[10px] shadow-sm shadow-black">
 <CancelIcon onClick={()=>{closeLogin(false)}} className='absolute right-2 top-2 ' fontSize='large'/>
 <Box  sx={{ width: '100%', typography: 'body1', display:"flex",flexDirection:"column",alignItems:"CENTER" }}>
       <TabContext value={value} className="w-full flex justify-center bg-red-600">
@@ -26,8 +26,9 @@ function LoginBox({closeLogin}){
             <Tab label="Qeydiyyat" value="2" />
           </TabList>
         </Box>
-        <TabPanel value="1"><Login/></TabPanel>
-        <TabPanel value="2"><Register/></TabPanel>
+        <TabPanel value="1" sx={{width:"100%"}}><Login/></TabPanel>
+        <TabPanel value="2" sx={{width:"100%"}}><Register/></TabPanel>
+        
       </TabContext>
     </Box>
 </div>
