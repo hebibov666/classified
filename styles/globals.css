@@ -19,6 +19,7 @@
 body {
 
     background: #F8F9FD !important;
+    touch-action: manipulation;
 
 }
 *{
