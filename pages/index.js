@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main>
      <Header openLogin={setLogin}/>
-     <div className='flex'>
+     <div className='flex pt-[60px]'>
       <Sidebar/>
       <Books/>
      </div>

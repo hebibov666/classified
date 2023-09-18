@@ -64,7 +64,8 @@ export  const booksData = createSlice({
     screenSize:screenSize,
     components:components,
     formId:null,
-    menuShow:false
+    menuShow:false,
+    darkMode:false
   },
   reducers: {
     selectModels:(state,action)=>{
@@ -85,11 +86,18 @@ state.menuShow=true
         },
         closeMenu:(state)=>{
             state.menuShow=false
+        },
+        goDarkMode:(state)=>{
+          if(state.darkMode===false){
+            state.darkMode=true
+          }else{
+            state.darkMode=false
+          }
         }
 
   },
 });
 
-export const {selectModels,openMenu,closeMenu } = booksData.actions;
+export const {selectModels,openMenu,closeMenu,goDarkMode } = booksData.actions;
 
 export default booksData.reducer;
