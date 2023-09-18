@@ -82,11 +82,14 @@ export  const booksData = createSlice({
         },
         openMenu:(state)=>{
 state.menuShow=true
+        },
+        closeMenu:(state)=>{
+            state.menuShow=false
         }
 
   },
 });
 
-export const {selectModels,openMenu } = booksData.actions;
+export const {selectModels,openMenu,closeMenu } = booksData.actions;
 
 export default booksData.reducer;

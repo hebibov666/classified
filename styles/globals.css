@@ -31,3 +31,6 @@ body {
 select,input{
   background-color: white !important;
 }
+.search-input{
+  background-color: transparent !important;
+}
