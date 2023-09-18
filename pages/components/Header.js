@@ -12,13 +12,9 @@ function Header({openLogin}){
     return(
     <div className='w-full fixed top-0 left-0  h-[70px] bg-[#685CFE] flex justify-between pl-4 pr-2 items-center'>
 <div className='flex items-center justify-center gap-[10px]'>
-    <MenuIcon fontSize='large' className='text-white lg:hidden' onClick={()=>{dispatch(openMenu())}}/>
     <h1 className="text-2xl text-white font-bold">Axtar.az</h1>
 </div>
 <div className='flex items-center justify-between gap-[15px] pr-[10px]'>
-   <div className='w-[30px] h-[30px] rounded-[10px] bg-white flex items-center justify-center'>
-   <WbSunnyIcon  fontSize='medium' className='text-black font-bold'/>
-   </div>
    <div className='w-[30px] h-[30px] rounded-[10px] bg-white flex items-center justify-center'>
    <Link href="/newpost">
    <AddIcon fontSize='medium' className='text-black font-bold'/>
