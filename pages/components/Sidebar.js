@@ -1,15 +1,10 @@
 "use client"
 import { useSelector } from "react-redux"
 import { useState } from "react";
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { useDispatch } from "react-redux";
-import { closeMenu } from "@/redux/slices/categorySlices";
-import { createTheme } from "@mui/material";
-import SelectCategory from "./SelectCategory";
+import { closeMenu } from "@/redux/slices/categorySlices";;
+import AdvancedSearch from "./AdvancedSearch";
 function Sidebar(){
-    const categories=useSelector((state)=>state.book.list)
-  const [border,setBorder]=useState(0);
-  const show=useSelector(state=>state.book.menuShow)
   
   const dispatch=useDispatch()
   
@@ -22,6 +17,7 @@ function Sidebar(){
     <span className=" bg-red-600 flex items-center justify-center w-[80px] p-[5px] rounded-[10px] text-white font-bold">Axtar</span>
 </div>
     </div>
+    <AdvancedSearch/>
 </div>
     )
 }

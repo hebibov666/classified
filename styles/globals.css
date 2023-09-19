@@ -38,3 +38,6 @@ select,input{
 .noscroll::-webkit-scrollbar{
   display: none;
 }
+.anime{
+  transition: 1s ease;
+}

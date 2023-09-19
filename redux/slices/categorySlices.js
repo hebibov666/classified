@@ -71,6 +71,7 @@ export  const booksData = createSlice({
     components:components,
     formId:null,
    openCategory:false
+
   },
   reducers: {
     selectModels:(state,action)=>{
