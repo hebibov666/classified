@@ -9,18 +9,22 @@ const categories=[
         key:0,
         name:"Telefon",
         models:["Iphone","Samsung","Huawei","Honor","Xiaomi","Alcatel","Realme","Nokia","Hisense","Fly","Tecno","Htc","ZTE","Casper","BlackBerry","Sony","Philips","Oppo","Hoffman","Infinix","Lg"],
+    icon:<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+  </svg>
+  
     },
     {
         key:1,
         name:"Komputer",
         models:["Toshiba","Fijutsi","Macbook","Hp","Asus","Acer","Dell","Lg","Nexus","Samsung","Casper","Honor","Lenevo","Sony"],
-      
+        icon:"./notebook.png"
     },
     {
         key:2,
         name:"Televizor",
         models:["Toshiba","Arcelik","Shiwaki","Vestel","Zimmer","Acer","Thomson","Lg","Supra","Samsung","Supermax","Vestel","Westburg","Sony","Crystal","Corfug","Elenberg","Discovery","Daewo","Braun","Benq","Artel","Akai","Akira","Awai"],
-
+icon:"./tv.png"
     },
     {
         key:3,
@@ -64,8 +68,7 @@ export  const booksData = createSlice({
     screenSize:screenSize,
     components:components,
     formId:null,
-    menuShow:false,
-    darkMode:false
+   openCategory:false
   },
   reducers: {
     selectModels:(state,action)=>{
@@ -93,11 +96,14 @@ state.menuShow=true
           }else{
             state.darkMode=false
           }
+        },
+        openCategory:(state)=>{
+           state.openCategory= state.openCategory ? false : true
         }
 
   },
 });
 
-export const {selectModels,openMenu,closeMenu,goDarkMode } = booksData.actions;
+export const {selectModels,openMenu,closeMenu,goDarkMode,openCategory } = booksData.actions;
 
 export default booksData.reducer;
