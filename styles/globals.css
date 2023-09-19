@@ -31,6 +31,7 @@ body {
 }
 select,input{
   background-color: white !important;
+
 }
 .search-input{
   background-color: transparent !important;
@@ -39,5 +40,5 @@ select,input{
   display: none;
 }
 .anime{
-  transition: 0.8 ease;
+  transition: 0.8s ease;
 }

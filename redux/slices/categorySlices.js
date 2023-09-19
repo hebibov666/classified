@@ -70,7 +70,8 @@ export  const booksData = createSlice({
     screenSize:screenSize,
     components:components,
     formId:null,
-   openCategory:false
+   openCategory:false,
+   border:0,
 
   },
   reducers: {
@@ -105,11 +106,14 @@ state.menuShow=true
         },
         closeCategory:(state)=>{
             state.openCategory=false
+        },
+        setBorder:(state,action)=>{
+state.border=action.payload.id
         }
 
   },
 });
 
-export const {selectModels,openMenu,closeMenu,goDarkMode,openCategory,closeCategory } = booksData.actions;
+export const {selectModels,openMenu,closeMenu,goDarkMode,openCategory,closeCategory,setBorder } = booksData.actions;
 
 export default booksData.reducer;
