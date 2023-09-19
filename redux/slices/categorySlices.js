@@ -101,12 +101,15 @@ state.menuShow=true
           }
         },
         openCategory:(state)=>{
-           state.openCategory= state.openCategory ? false : true
+           state.openCategory= true
+        },
+        closeCategory:(state)=>{
+            state.openCategory=false
         }
 
   },
 });
 
-export const {selectModels,openMenu,closeMenu,goDarkMode,openCategory } = booksData.actions;
+export const {selectModels,openMenu,closeMenu,goDarkMode,openCategory,closeCategory } = booksData.actions;
 
 export default booksData.reducer;

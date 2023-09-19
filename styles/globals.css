@@ -39,5 +39,5 @@ select,input{
   display: none;
 }
 .anime{
-  transition: 1s ease;
+  transition: 0.8 ease;
 }
