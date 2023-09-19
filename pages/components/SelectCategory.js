@@ -11,19 +11,11 @@ function SelectCategory() {
   const categoryClass = showCategory ? 'flex' : 'hidden';
 
   return (
-    <div className={`mt-2 pl-4 pr-2 flex flex-col items-center w-full text-[#a9a9a9] `}>
-      <span className="h-[35px] flex justify-between items-center pl-1 rounded-[5px] w-full bg-white">
-        <h1>Kateqoriya secin</h1>
-        <ArrowDropDownIcon onClick={() => dispatch(openCategory())} className="lg:hidden" />
-      </span>
-      <div className={`overflow-hidden flex justify-center w-full transition-max-height ease-in-out duration-500`}>
-        <ul className={`bg-white mt-2 w-full rounded-[5px] flex flex-col gap-[5px] ${categoryClass} lg:flex`}>
-          {categories.map((item) => {
-            return <li className="flex pl-[5px] h-[30px]">{item.name}</li>;
-          })}
-        </ul>
-      </div>
-    </div>
+  <div className='flex pt-2 pl-2  h-[60px] gap-[15px] pb-[20px] overflow-scroll noscroll'>
+{categories.map(item=>{
+    return <span className='flex w-[130px] gap-[5px] items-center justify-between pl-2 pr-2  border-[2px] border-red-600 rounded-[7px]'>{item.icon}<span className='flex w-full justify-center items-center'>{item.name}</span></span>
+})}
+  </div>
   );
 }
 

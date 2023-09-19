@@ -4,33 +4,35 @@ import NotebookForm from '@/pages/forms/Notebook.Form'
 import PhoneForm from '@/pages/forms/PhoneForm'
 import Tvform from '@/pages/forms/TvForm'
 import { createSlice } from '@reduxjs/toolkit'
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import TvIcon from '@mui/icons-material/Tv';
+import ComputerIcon from '@mui/icons-material/Computer';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 const categories=[
     {
         key:0,
         name:"Telefon",
         models:["Iphone","Samsung","Huawei","Honor","Xiaomi","Alcatel","Realme","Nokia","Hisense","Fly","Tecno","Htc","ZTE","Casper","BlackBerry","Sony","Philips","Oppo","Hoffman","Infinix","Lg"],
-    icon:<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
-  </svg>
+    icon:<PhoneIphoneIcon/>
   
     },
     {
         key:1,
         name:"Komputer",
         models:["Toshiba","Fijutsi","Macbook","Hp","Asus","Acer","Dell","Lg","Nexus","Samsung","Casper","Honor","Lenevo","Sony"],
-        icon:"./notebook.png"
+        icon:<ComputerIcon/>
     },
     {
         key:2,
         name:"Televizor",
         models:["Toshiba","Arcelik","Shiwaki","Vestel","Zimmer","Acer","Thomson","Lg","Supra","Samsung","Supermax","Vestel","Westburg","Sony","Crystal","Corfug","Elenberg","Discovery","Daewo","Braun","Benq","Artel","Akai","Akira","Awai"],
-icon:"./tv.png"
+icon:<TvIcon/>
     },
     {
         key:3,
         name:"Aksessuar",
-        models:["Qulaqciq","Mouse","Klavyiatura","Antiudar","Batareya","Usb","Flaskart","Adapter","Printer","Web kamera","Modem","Router","Kabro","Ekran"]
-  
+        models:["Qulaqciq","Mouse","Klavyiatura","Antiudar","Batareya","Usb","Flaskart","Adapter","Printer","Web kamera","Modem","Router","Kabro","Ekran"],
+  icon:<HeadphonesIcon/>
     },
 ]
 const city=["Ağcabədi","Ağdam","Ağdaş","Ağstafa","Ağsu","Astara","Ağdərə","Bakı","Balakən","Beyləqan","Bərdə","Biləsuvar","Cəbrayıl","Cəlilabad","Culfa","Daşkəsən","Füzuli","Gədəbəy","Gəncə","Goranboy","Göyçay","Göygöl","Hacıqabul","Imişli","Saatlı","Kürdəmir","Kəlbəcər","Laçın","Lerik","Lənkəran","Masallı","Mingəçevir","Naftalan","Neftçala","Oğuz","Ordubad","Qax","Qazax","Qəbələ","Qobustan","Quba","Qubadlı","Qusar","Sabirabad","Səlyan","Samux","Şamaxı","Şəki","Şəmkir","Şərur","Şirvan","Siyəzən","Sumqayıt","Şuşa","Tərtər","Tovuz","Ucar","Xaçmaz","Xankəndi","Xocalı","Xocavənd","Xudat","Yardımlı","Yevlax","Zaqatala","Zəngilan","Zərdab"]
@@ -42,7 +44,7 @@ const screenSize=["51","53","56","58","61","64","66","69","71","74","76","79","8
 const components=[
     {
         id:0,
-        phone:<PhoneForm/>
+        phone:<PhoneForm/>,
     },
     {
         id:1,
