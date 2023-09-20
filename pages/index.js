@@ -6,6 +6,7 @@ import Books from './components/Books'
 import LoginBox from './components/LoginBox'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import SelectCategory from './components/SelectCategory'
 
 const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
