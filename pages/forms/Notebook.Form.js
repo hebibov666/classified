@@ -38,16 +38,7 @@ return(
   return <option>{color}</option>
 })}
        </select>
-       <select className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
-                  <option hidden>Yeni?</option>
-        <option>Bəli</option>
-        <option>Xeyr</option>
-       </select>
-       <select className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
-                  <option hidden>Çatdrılıma var?</option>
-        <option>Bəli</option>
-        <option>Xeyr</option>
-       </select>
+
        
 </form>) : null }
     </div>

@@ -7,18 +7,19 @@ import LoginBox from './components/LoginBox'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import AdvancedSearch from './components/AdvancedSearch'
-
+import SelectCategory from './components/SelectCategory'
 const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [login,setLogin]=useState(false)
   return (
     <main>
      <Header openLogin={setLogin}/>
+     <SelectCategory/>
      <AdvancedSearch/>
      <div className='flex w-full pt-[25px] max-[1015px]:flex-col'>
       <Books/>
      </div>
-     {login===true ? <LoginBox closeLogin={setLogin}></LoginBox> : null}
+     {login===true ? <LoginBox  closeLogin={setLogin}></LoginBox> : null}
     </main>
   )
 }

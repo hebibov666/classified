@@ -39,7 +39,7 @@ const selectPhoto = () => {
     }
   };
     return (
-      <div className='flex flex-col items-center pt-[10px] pb-[60px]'>
+      <div className='flex newpost flex-col items-center pt-[10px] pb-[60px]'>
         <div className='flex w-full items-center gap-[20px] justify-start pl-2'>
        <Link href="/">
        <ArrowBackIcon fontSize='medium'/>
@@ -61,7 +61,16 @@ const selectPhoto = () => {
   </div>
 )}
 
-             
+<select className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
+                  <option hidden>Yeni?</option>
+        <option>Bəli</option>
+        <option>Xeyr</option>
+       </select>
+       <select className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
+                  <option hidden>Çatdrılıma var?</option>
+        <option>Bəli</option>
+        <option>Xeyr</option>
+       </select>
         
                 <input required placeholder='Elan başlığı' type='text' className='w-[80%] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></input>
                 <input required placeholder='Qiymət' type='text' className='w-[80%] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></input>
