@@ -8,7 +8,7 @@ function AdvancedSearch(){
     const show=useSelector(state=>state.book.openCategory)
     const dispatch=useDispatch()
     return(
-        <div className={`flex flex-col max-[1015px]:shadow-lg max-[1015px]:shadow-black max-[1015px]:fixed ${show ? 'bottom-0' : 'bottom-[-300%]'} z-[10000000] anime bottom-0 left-0 max-[1015px]:bg-[#00000046;] h-full  max-[1015px]:rounded-t-[20px] w-full pt-[10px] gap-[10px]`}>
+        <div className={`flex flex-col max-[1015px]:shadow-lg max-[1015px]:shadow-black max-[1015px]:fixed ${show ? 'bottom-0' : 'bottom-[-300%]'} lg:z-[0] z-[100000000] anime bottom-0 left-0 max-[1015px]:bg-[#00000046;] h-full  max-[1015px]:rounded-t-[20px] w-full pt-[10px] gap-[10px]`}>
 <div className={`flex flex-col max-[1015px]:shadow-lg max-[1015px]:shadow-[grey] max-[1015px]:fixed ${show ? 'bottom-0' : 'bottom-[-300%]'} anime bottom-0 left-0 max-[1015px]:bg-white h-[65%] max-[1015px]:rounded-t-[20px] w-full pt-[10px] gap-[10px]`}>
 <CloseIcon className="absolute right-2 top-1 lg:hidden" onClick={()=>{dispatch(closeCategory())}}/>
 <div className="p-2 flex flex-col gap-[20px] max-[1015px]:mt-6 relative">

@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main>
      <Header openLogin={setLogin}/>
-     <div className='flex w-full pt-[60px] max-[1015px]:flex-col'>
+     <div className='flex w-full pt-[25px] max-[1015px]:flex-col'>
       <Sidebar/>
       <Books/>
      </div>
