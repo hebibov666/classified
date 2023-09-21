@@ -5,9 +5,9 @@ return(
 <div className="flex justify-center  w-full">
 <img className="rounded-t-[7px] h-full w-full object-contain" src="/masin.webp"></img>
 </div>
-<div className="flex flex-col  pl-2  gap-[5px] object-fit">
-    <h1 className="text-[#5F2C3A] text-[21px] font-bold">10 AZN</h1>
-    <p className="text-[18px]">Hundai</p>
+<div className="flex flex-col  pl-2  gap-[5px]">
+    <h1 className="text-black text-[21px] font-bold">10 AZN</h1>
+    <p className="text-[18px] h-[50px] w-[90%] overflow-ellipsis overflow-hidden">Samsung dsffgegrhthtrj A21 qara teze kohne yeni</p>
     <p className="text-[12px] text-[grey] ">21.09.2023</p>
 </div>
     </div>

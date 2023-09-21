@@ -14,7 +14,7 @@ function SelectCategory() {
        <div className={`h-[60px] w-[60px] bg-[#F1F3F7;] p-3 rounded-[10px] ${border===item.key ? "active" : null} `}>
        <img className='w-full h-full' src={item.icon}></img>
        </div>
-            <h1 className={`text-[16px] ${border===item.key ? "active-text" : null}`}>{item.name}</h1>
+            <h1 className={`text-[16px] w-[70px] truncate ${border===item.key ? "active-text" : null}`}>{item.name}</h1>
         </div>
     })}
 </div>

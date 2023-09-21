@@ -27,7 +27,7 @@ const categories=[
         key:2,
         name:"Televizor",
         models:["Toshiba","Arcelik","Shiwaki","Vestel","Zimmer","Acer","Thomson","Lg","Supra","Samsung","Supermax","Vestel","Westburg","Sony","Crystal","Corfug","Elenberg","Discovery","Daewo","Braun","Benq","Artel","Akai","Akira","Awai"],
-icon:"../tv.png"
+icon:"../tv.png",
     },
     {
         key:3,
