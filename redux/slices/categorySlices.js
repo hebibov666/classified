@@ -13,26 +13,26 @@ const categories=[
         key:0,
         name:"Telefon",
         models:["Iphone","Samsung","Huawei","Honor","Xiaomi","Alcatel","Realme","Nokia","Hisense","Fly","Tecno","Htc","ZTE","Casper","BlackBerry","Sony","Philips","Oppo","Hoffman","Infinix","Lg"],
-    icon:<PhoneIphoneIcon/>
+    icon:"../phone.png"
   
     },
     {
         key:1,
         name:"Komputer",
         models:["Toshiba","Fijutsi","Macbook","Hp","Asus","Acer","Dell","Lg","Nexus","Samsung","Casper","Honor","Lenevo","Sony"],
-        icon:<ComputerIcon/>
+        icon:"../laptop-screen.png"
     },
     {
         key:2,
         name:"Televizor",
         models:["Toshiba","Arcelik","Shiwaki","Vestel","Zimmer","Acer","Thomson","Lg","Supra","Samsung","Supermax","Vestel","Westburg","Sony","Crystal","Corfug","Elenberg","Discovery","Daewo","Braun","Benq","Artel","Akai","Akira","Awai"],
-icon:<TvIcon/>
+icon:"../tv.png"
     },
     {
         key:3,
         name:"Aksessuar",
         models:["Qulaqciq","Mouse","Klavyiatura","Antiudar","Batareya","Usb","Flaskart","Adapter","Printer","Web kamera","Modem","Router","Kabro","Ekran"],
-  icon:<HeadphonesIcon/>
+  icon:"../headphone.png"
     },
 ]
 const city=["Ağcabədi","Ağdam","Ağdaş","Ağstafa","Ağsu","Astara","Ağdərə","Bakı","Balakən","Beyləqan","Bərdə","Biləsuvar","Cəbrayıl","Cəlilabad","Culfa","Daşkəsən","Füzuli","Gədəbəy","Gəncə","Goranboy","Göyçay","Göygöl","Hacıqabul","Imişli","Saatlı","Kürdəmir","Kəlbəcər","Laçın","Lerik","Lənkəran","Masallı","Mingəçevir","Naftalan","Neftçala","Oğuz","Ordubad","Qax","Qazax","Qəbələ","Qobustan","Quba","Qubadlı","Qusar","Sabirabad","Səlyan","Samux","Şamaxı","Şəki","Şəmkir","Şərur","Şirvan","Siyəzən","Sumqayıt","Şuşa","Tərtər","Tovuz","Ucar","Xaçmaz","Xankəndi","Xocalı","Xocavənd","Xudat","Yardımlı","Yevlax","Zaqatala","Zəngilan","Zərdab"]
@@ -72,6 +72,7 @@ export  const booksData = createSlice({
     formId:null,
    openCategory:false,
    border:0,
+   isScroll:false
 
   },
   reducers: {

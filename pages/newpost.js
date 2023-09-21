@@ -39,12 +39,13 @@ const selectPhoto = () => {
     }
   };
     return (
-      <div className='flex newpost flex-col items-center pt-[10px] pb-[60px]'>
-        <div className='flex w-full items-center gap-[20px] justify-start pl-2'>
-       <Link href="/">
-       <ArrowBackIcon fontSize='medium'/>
+      <div className='flex newpost flex-col items-center bg-[#F8F9FD]  pb-[60px]'>
+        <div className='flex w-full items-center gap-[20px] justify-start'>
+       
+<div className='flex relative h-[40px] w-full justify-center bg-[transform] items-center'>
+<Link href="/">
+       <ArrowBackIcon className='absolute top-2 left-2' fontSize='medium'/>
        </Link>
-<div className='flex w-full justify-center'>
 <h1 className='text-xl'>Yeni elan əlavə et</h1>
 </div>
         </div>

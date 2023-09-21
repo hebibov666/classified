@@ -16,7 +16,7 @@ export default function Home() {
      <Header openLogin={setLogin}/>
      <SelectCategory/>
      <AdvancedSearch/>
-     <div className='flex w-full pt-[25px] max-[1015px]:flex-col'>
+     <div className='flex w-full  max-[1015px]:flex-col'>
       <Books/>
      </div>
      {login===true ? <LoginBox  closeLogin={setLogin}></LoginBox> : null}
