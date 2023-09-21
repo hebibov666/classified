@@ -3,41 +3,39 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useSelector,useDispatch } from 'react-redux';
 import { selectModels } from '@/redux/slices/categorySlices';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DoNotDisturbOnIcon from '@mui/icons-material/DoNotDisturbOn';
 import Link from 'next/link';
 function NewPost() {
   const options=useSelector(state=>state.book.list)
   const models=useSelector(state=>state.book.brands)
   const city=useSelector(state=>state.book.city)
-  const brands=models.map(item=>item.models)
   const components=useSelector(state=>state.book.components)
  const form=useSelector(state=>state.book.formId)
-    const img = useRef()
     const photo = useRef()
 const imgbox=useRef()
 const dispatch=useDispatch()
-console.log(components);
-const selectPhoto = () => {
-    const file = photo.current.files;
-  
-    if (file && file.length > 0) {
-      const imagesHtml = Array.from(file).map((image, i) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(image);
-  
-        return new Promise((resolve) => {
-          reader.onload = (e) => {
-            resolve(`
-              <img src="${e.target.result}" class="photo" alt="${i + 1} onClick=${(e)=>{e.current.style.display="none"}}}">
-            `);
-          };
-        });
-      });
-  
-      Promise.all(imagesHtml).then((imageArray) => {
-        imgbox.current.innerHTML += imageArray.join('');
-      });
-    }
-  };
+const [images, setImages] = useState([]);
+const [selectedImage, setSelectedImage] = useState(null);
+
+const handleImageChange = (e) => {
+  const selectedFile = e.target.files[0];
+
+  if (selectedFile) {
+    // Resmi state'e ekleyin
+    setImages([...images, selectedFile]);
+    setSelectedImage(URL.createObjectURL(selectedFile));
+  }
+};
+
+const deleteImage=(e)=>{
+ const refreshImage= images.filter((image,index)=>index!=e)
+ setImages(refreshImage)
+}
+
+
+
+
+
     return (
       <div className='flex newpost flex-col items-center bg-[#F8F9FD]  pb-[60px]'>
         <div className='flex w-full items-center gap-[20px] justify-start'>
@@ -76,6 +74,7 @@ const selectPhoto = () => {
                 <input required placeholder='Elan başlığı' type='text' className='w-[80%] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></input>
                 <input required placeholder='Qiymət' type='text' className='w-[80%] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></input>
                 <select  className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
+<option hidden>Şəhər</option>
 {city.map(city=>{
   return <option>{city}</option>
 })}
@@ -85,6 +84,7 @@ const selectPhoto = () => {
                <label
                     for="customFileInput"
                     class="inline-block w-[80%] gap-[20px] flex items-center justify-center h-[40px] bg-white shadow-sm shadow-[15px] text-white rounded-md cursor-pointer"
+          
                 >
                     <AddPhotoAlternateIcon fontSize='large' className='text-blue-700'/>
                     <h1 className='text-blue-600'>Şəkil əlavə et</h1>
@@ -94,12 +94,17 @@ const selectPhoto = () => {
                     class="hidden"
                     id="customFileInput"
                     ref={photo}
-                    onChange={selectPhoto}
+                    onChange={handleImageChange}
                     multiple
                 />
             
                 <div className='w-[80%] h-auto pb-[10px] flex justify-start flex-wrap gap-[15px]' ref={imgbox}>
-                   
+                {images.map((image,index)=>{
+                  return <div className='photo'>
+                     <img className='photosrc' src={URL.createObjectURL(image)}></img>
+                     <DoNotDisturbOnIcon className='icon' onClick={()=>{deleteImage(index)}} fontSize='large'/>
+                    </div>
+                })}
                 </div>
                  
                 <button className='outline-none bg-[#FF6617] rounded-[5px] w-[80%] h-[40px] flex items-center justify-center p-[5px] text-white'>

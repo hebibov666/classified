@@ -8,6 +8,7 @@ import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import TvIcon from '@mui/icons-material/Tv';
 import ComputerIcon from '@mui/icons-material/Computer';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
+import ConsoleForm from '@/pages/forms/ConsoleForm'
 const categories=[
     {
         key:0,
@@ -34,6 +35,12 @@ icon:"../tv.png"
         models:["Qulaqciq","Mouse","Klavyiatura","Antiudar","Batareya","Usb","Flaskart","Adapter","Printer","Web kamera","Modem","Router","Kabro","Ekran"],
   icon:"../headphone.png"
     },
+    {
+        key:4,
+        name:"Oyun konsolu",
+        models:["Playstation","Xbox","Sega","Nintendo"],
+  icon:"../controller.png"
+    },
 ]
 const city=["Ağcabədi","Ağdam","Ağdaş","Ağstafa","Ağsu","Astara","Ağdərə","Bakı","Balakən","Beyləqan","Bərdə","Biləsuvar","Cəbrayıl","Cəlilabad","Culfa","Daşkəsən","Füzuli","Gədəbəy","Gəncə","Goranboy","Göyçay","Göygöl","Hacıqabul","Imişli","Saatlı","Kürdəmir","Kəlbəcər","Laçın","Lerik","Lənkəran","Masallı","Mingəçevir","Naftalan","Neftçala","Oğuz","Ordubad","Qax","Qazax","Qəbələ","Qobustan","Quba","Qubadlı","Qusar","Sabirabad","Səlyan","Samux","Şamaxı","Şəki","Şəmkir","Şərur","Şirvan","Siyəzən","Sumqayıt","Şuşa","Tərtər","Tovuz","Ucar","Xaçmaz","Xankəndi","Xocalı","Xocavənd","Xudat","Yardımlı","Yevlax","Zaqatala","Zəngilan","Zərdab"]
 
@@ -57,6 +64,10 @@ const components=[
     {
         id:3,
         phone:<AccessoriesForm/>
+    },
+    {
+        id:4,
+        phone:<ConsoleForm/>
     }
 ]
 
@@ -84,6 +95,8 @@ export  const booksData = createSlice({
         }else if(action.payload.id==2){
             state.brands=categories.filter(item=>item.key==action.payload.id)
         }else if(action.payload.id==3){
+            state.brands=categories.filter(item=>item.key==action.payload.id)
+        }else if(action.payload.id==4){
             state.brands=categories.filter(item=>item.key==action.payload.id)
         }
         console.log(state.brands)
