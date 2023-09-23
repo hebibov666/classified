@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectModels } from '@/redux/slices/categorySlices';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -16,16 +15,16 @@ const dispatch=useDispatch()
 
 
   const submit = ()=>{
-    // formData'yi Redux aksiyonu ile gönderin
+  
     dispatch(writeData(formData));
   }
 const [formData, setFormData] = useState({
  
 });
 
-// input değerleri değiştikçe bu işlevi kullanarak state'i güncelleriz
+
 const handleInputChange = (e) => {
-  const { name, value } = e.target; // input'un ismi ve değerini alın
+  const { name, value } = e.target; 
   setFormData((prevData) => ({
     ...prevData,
     [name]: value,
@@ -33,13 +32,13 @@ const handleInputChange = (e) => {
 };
 
 const handleImageChange = (e) => {
-  const files = e.target.files; // Seçilen dosyaları alın
+  const files = e.target.files; 
 
   const imageArray = [];
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
 
-  const imageUrl = URL.createObjectURL(file); // Resmi bir URL'ye dönüştürün
+  const imageUrl = URL.createObjectURL(file); 
       imageArray.push(imageUrl);
    
   }

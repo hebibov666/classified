@@ -44,16 +44,16 @@ export const writeData = (formData) => {
     try {
       const response = await axios.post('http://localhost:3001/api/ilanlar', formData);
 
-      // API yanıtını işleyin (örneğin, başarılı bir işlem veya hata mesajı)
+    
       console.log('API Yanıtı:', response.data);
 
-      // Başarılı bir işlem olduğunda Redux'a bir aksiyon gönderin (isteğe bağlı)
+
       dispatch({ type: 'WRITE_DATA_SUCCESS', payload: response.data });
     } catch (error) {
-      // Hata durumunda işlem yapın
+     
       console.error('Hata:', error);
 
-      // Hata olduğunda Redux'a bir hata aksiyonu gönderin (isteğe bağlı)
+    
       dispatch({ type: 'WRITE_DATA_ERROR', payload: error.message });
     }
   };
