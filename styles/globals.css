@@ -34,10 +34,11 @@ border:1px solid black
 .icon{
   position: absolute;
   top:-13%;
-  color: rgb(252, 10, 10);
+  color: rgb(255, 255, 255);
   right:-10%;
   height: 30px;
   width: 30px;
+  background: black;
 }
 .photosrc{
   width:100%;
@@ -78,4 +79,10 @@ select,input{
 }
 .active-text{
   transform:scale(0.8) !important;
+}
+.textarea{
+  min-width: 80%;
+  max-width: 80%;
+  min-height: 150px;
+  max-height: 150px;
 }

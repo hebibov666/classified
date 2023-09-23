@@ -1,118 +1,153 @@
 import React, { useState, useRef } from 'react';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectModels } from '@/redux/slices/categorySlices';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import DoNotDisturbOnIcon from '@mui/icons-material/DoNotDisturbOn';
 import Link from 'next/link';
+import ClearIcon from '@mui/icons-material/Clear';
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import { writeData } from '@/redux/slices/categorySlices';
 function NewPost() {
-  const options=useSelector(state=>state.book.list)
-  const models=useSelector(state=>state.book.brands)
-  const city=useSelector(state=>state.book.city)
-  const components=useSelector(state=>state.book.components)
- const form=useSelector(state=>state.book.formId)
-    const photo = useRef()
-const imgbox=useRef()
+  const [category, setCategory] = useState(0)
+  const options = useSelector(state => state.book.list)
+  const screens = useSelector(state => state.book.screenSize)
+  const [selectedCategory, setSelectedCategory] = useState()
+const [images,setImages]=useState([])
 const dispatch=useDispatch()
-const [images, setImages] = useState([]);
-const [selectedImage, setSelectedImage] = useState(null);
 
-const handleImageChange = (e) => {
-  const selectedFile = e.target.files[0];
 
-  if (selectedFile) {
-    // Resmi state'e ekleyin
-    setImages([...images, selectedFile]);
-    setSelectedImage(URL.createObjectURL(selectedFile));
+  const submit = ()=>{
+    // formData'yi Redux aksiyonu ile gönderin
+    dispatch(writeData(formData));
   }
+const [formData, setFormData] = useState({
+ 
+});
+
+// input değerleri değiştikçe bu işlevi kullanarak state'i güncelleriz
+const handleInputChange = (e) => {
+  const { name, value } = e.target; // input'un ismi ve değerini alın
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: value,
+  }));
 };
 
-const deleteImage=(e)=>{
- const refreshImage= images.filter((image,index)=>index!=e)
- setImages(refreshImage)
+const handleImageChange = (e) => {
+  const files = e.target.files; // Seçilen dosyaları alın
+
+  const imageArray = [];
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+
+  const imageUrl = URL.createObjectURL(file); // Resmi bir URL'ye dönüştürün
+      imageArray.push(imageUrl);
+   
+  }
+
+  setImages([...images, ...imageArray]);
+  console.log(images)
+};
+
+
+
+  const renderFormBasedOnCategory = () => {
+    switch (selectedCategory) {
+      case "Telefon":
+        return (
+          <select  value="" onChange={handleInputChange} className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
+            {options[0].models.map(item => {
+              return <option>{item}</option>
+            })}
+          </select>
+        );
+      case "Komputer":
+        return (
+          <select value="" onChange={handleInputChange} className='w-[80%]  h-[30px] outline-none border-0 pl-2 text-[#a9a9a9]'>
+            {options[1].models.map(item => {
+              return <option>{item}</option>
+            })}
+          </select>
+        );
+      case "Televizor":
+        return (
+         <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
+           <select onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+            {options[2].models.map(item => {
+              return <option>{item}</option>
+            })}
+          </select>
+         </div>
+        );
+        case "Akksesuar":
+        return (
+         <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
+           <select  onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+            {options[3].models.map(item => {
+              return <option>{item}</option>
+            })}
+          </select>
+         </div>
+        );
+      default:
+        return null;
+    }
+  };
+const deleteImage=(ind)=>{
+  const filterimg=images.filter((image,index)=>index!=ind)
+  setImages(filterimg)
+}
+const write=()=>{
+  console.log(formData);
 }
 
+  return (
+    <div className='flex newpost flex-col items-center bg-[#F8F9FD]  pb-[60px] '>
+      <div className='flex w-full items-center gap-[20px] justify-start'>
 
-
-
-
-    return (
-      <div className='flex newpost flex-col items-center bg-[#F8F9FD]  pb-[60px]'>
-        <div className='flex w-full items-center gap-[20px] justify-start'>
-       
-<div className='flex relative h-[40px] w-full justify-center bg-[transform] items-center'>
-<Link href="/">
-       <ArrowBackIcon className='absolute top-2 left-2' fontSize='medium'/>
-       </Link>
-<h1 className='text-xl'>Yeni elan əlavə et</h1>
-</div>
+        <div className='flex relative h-[40px] w-full justify-center bg-[transform] items-center'>
+          <Link href="/">
+            <ArrowBackIcon className='absolute top-2 left-2' fontSize='medium' />
+          </Link>
+          <h1 className='text-xl'>Yeni elan əlavə et</h1>
         </div>
-            <div className="w-[100%] noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
-                <select onChange={(e)=>{dispatch(selectModels({id:e.currentTarget.value}))}}  className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
-                  <option hidden>Kateqoriya secin</option>
-                  {options.map(item=>{
-                    return <option value={item.key} >{item.name}</option>
-                  })}
-                </select>
-                {form !== null && components[form] && (
-  <div className='w-[100%] h-[auto] flex flex-col'>
-    {components[form].phone}
-  </div>
-)}
-
-<select className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
-                  <option hidden>Yeni?</option>
-        <option>Bəli</option>
-        <option>Xeyr</option>
-       </select>
-       <select className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
-                  <option hidden>Çatdrılıma var?</option>
-        <option>Bəli</option>
-        <option>Xeyr</option>
-       </select>
+      </div>
+      <div className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
+        <select name='category' value={formData.category || ''}  onChange={(e) => { setSelectedCategory(e.currentTarget.value),handleInputChange(e)}} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+          {options.map(category => {
+            return <option  value={category.name}>{category.name}</option>
+          })}
+        </select>
+        {renderFormBasedOnCategory()}
+        <input type='text'   name="title"
+        value={formData.title || ''}
+      
+        onChange={handleInputChange} placeholder='Elan basligi' className='w-[80%] outline-none border-0  h-[30px] pl-2'></input>
+        <input type='text'  
+           name="price"
+           value={formData.price || ''}
+        onChange={handleInputChange} placeholder='Qiymet' className='w-[80%] outline-none border-0  h-[30px] pl-2'></input>
+        <textarea name="description" 
         
-                <input required placeholder='Elan başlığı' type='text' className='w-[80%] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></input>
-                <input required placeholder='Qiymət' type='text' className='w-[80%] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></input>
-                <select  className='w-[80%] text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
-<option hidden>Şəhər</option>
-{city.map(city=>{
-  return <option>{city}</option>
-})}
-                </select>
-                <textarea required placeholder='Məhsul haqqında məlumat' className='min-w-[80%] max-w-[80%] min-h-[150px] max-h-[150px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></textarea>
-    
-               <label
-                    for="customFileInput"
-                    class="inline-block w-[80%] gap-[20px] flex items-center justify-center h-[40px] bg-white shadow-sm shadow-[15px] text-white rounded-md cursor-pointer"
-          
-                >
-                    <AddPhotoAlternateIcon fontSize='large' className='text-blue-700'/>
-                    <h1 className='text-blue-600'>Şəkil əlavə et</h1>
-                </label>
-                <input
-                    type="file"
-                    class="hidden"
-                    id="customFileInput"
-                    ref={photo}
-                    onChange={handleImageChange}
-                    multiple
-                />
-            
-                <div className='w-[80%] h-auto pb-[10px] flex justify-start flex-wrap gap-[15px]' ref={imgbox}>
-                {images.map((image,index)=>{
-                  return <div className='photo'>
-                     <img className='photosrc' src={URL.createObjectURL(image)}></img>
-                     <DoNotDisturbOnIcon className='icon' onClick={()=>{deleteImage(index)}} fontSize='large'/>
-                    </div>
-                })}
-                </div>
-                 
-                <button className='outline-none bg-[#FF6617] rounded-[5px] w-[80%] h-[40px] flex items-center justify-center p-[5px] text-white'>
-                    Əlavə et
-                </button>
-            </div>
-            </div>
-    );
+           value={formData.description || ''}
+        onChange={handleInputChange} placeholder='description' className='w-[80%] outline-none border-0 textarea pl-2'></textarea>
+        <label htmlFor='fileInput' className='w-[80%] h-[35px] gap-[10px] bg-white flex items-center justify-center text-blue-600 font-bold'>
+          <InsertPhotoIcon/>
+          <h1>Şəkil seç</h1>
+        <input type='file'  id="fileInput" multiple className='hidden'  accept="image/*" onChange={handleImageChange} ></input>
+        </label>
+  
+        <div className='w-[80%] flex gap-[20px]'>
+          {images.map((image,index)=>{
+            return <div className='photo'>
+              <img src={image} className='photosrc'></img>
+              <ClearIcon onClick={()=>{deleteImage(index)}} className='icon'/>
+              </div>
+          })}
+        </div>
+        <button onClick={submit} className='w-[80%] bg-red-600 h-[40px] text-white'>Paylas</button>
+      </div>
+    </div>
+  );
 };
 
 export default NewPost;

@@ -26,7 +26,7 @@ function AdvancedSearch(){
 <div className={`flex shadow-sm shadow-[#F1F3F7] p-2 flex-col bg-white rounded-[7px] w-full pt-[10px] gap-[10px]`}>
     <h1 className="pl-2">Ətraflı axtarış</h1>
 <div className="w-[100%] noscroll h-full  custom  gap-[20px]  grid grid-cols-1 justify-center  place-items-center">
-                <select onChange={(e)=>{dispatch(selectModels({id:e.currentTarget.value}))}}  className='w-full text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
+                <select   className='w-full text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
                   <option hidden>Kateqoriya</option>
                   {options.map(item=>{
                     return <option value={item.key} >{item.name}</option>
@@ -36,11 +36,7 @@ function AdvancedSearch(){
                 <input required placeholder='Min qiymət' type='text' className='w-full h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></input>
                 <input required placeholder='Max qiymət' type='text' className='w-full h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'></input>
                 </div>
-                {form !== null && components[form] && (
-  <div className='w-[100%] h-[auto] flex flex-col'>
-    {components[form].phone}
-  </div>
-)}
+  
 
                 <select  className='w-full text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
 <option hidden>Şəhər</option>

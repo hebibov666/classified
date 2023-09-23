@@ -1,14 +1,6 @@
-
-import AccessoriesForm from '@/pages/forms/AccessoriesForm'
-import NotebookForm from '@/pages/forms/Notebook.Form'
-import PhoneForm from '@/pages/forms/PhoneForm'
-import Tvform from '@/pages/forms/TvForm'
 import { createSlice } from '@reduxjs/toolkit'
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
-import TvIcon from '@mui/icons-material/Tv';
-import ComputerIcon from '@mui/icons-material/Computer';
-import HeadphonesIcon from '@mui/icons-material/Headphones';
-import ConsoleForm from '@/pages/forms/ConsoleForm'
+import axios from 'axios'
+
 const categories=[
     {
         key:0,
@@ -46,30 +38,26 @@ const city=["Ağcabədi","Ağdam","Ağdaş","Ağstafa","Ağsu","Astara","Ağdər
 
 const colors=["Qara","Ağ","Qırmızı","Yaşıl","Boz","Qəhvəyi","Sarı","Narıncı","Qızılı"]
 
-const screenSize=["51","53","56","58","61","64","66","69","71","74","76","79","81","82","84","86","89","91","94","96","99","102","104","107","109","111","114","117","119","122","124","127","130","132","137","139","142","145","147","150","152","155",""]
 
-const components=[
-    {
-        id:0,
-        phone:<PhoneForm/>,
-    },
-    {
-        id:1,
-        phone:<NotebookForm/>
-    },
-    {
-        id:2,
-        phone:<Tvform/>
-    },
-    {
-        id:3,
-        phone:<AccessoriesForm/>
-    },
-    {
-        id:4,
-        phone:<ConsoleForm/>
+export const writeData = (formData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post('http://localhost:3001/api/ilanlar', formData);
+
+      // API yanıtını işleyin (örneğin, başarılı bir işlem veya hata mesajı)
+      console.log('API Yanıtı:', response.data);
+
+      // Başarılı bir işlem olduğunda Redux'a bir aksiyon gönderin (isteğe bağlı)
+      dispatch({ type: 'WRITE_DATA_SUCCESS', payload: response.data });
+    } catch (error) {
+      // Hata durumunda işlem yapın
+      console.error('Hata:', error);
+
+      // Hata olduğunda Redux'a bir hata aksiyonu gönderin (isteğe bağlı)
+      dispatch({ type: 'WRITE_DATA_ERROR', payload: error.message });
     }
-]
+  };
+};
 
 export  const booksData = createSlice({
   name: 'counter',
@@ -78,30 +66,11 @@ export  const booksData = createSlice({
     brands:[],
     city:city,
     colors:colors,
-    screenSize:screenSize,
-    components:components,
-    formId:null,
    openCategory:false,
    border:0,
-   isScroll:false
-
-  },
+   isScroll:false,
+},
   reducers: {
-    selectModels:(state,action)=>{
-        if(action.payload.id==0){
-         state.brands=categories.filter(item=>item.key==action.payload.id)
-        }else if(action.payload.id==1){
-            state.brands=categories.filter(item=>item.key==action.payload.id)
-        }else if(action.payload.id==2){
-            state.brands=categories.filter(item=>item.key==action.payload.id)
-        }else if(action.payload.id==3){
-            state.brands=categories.filter(item=>item.key==action.payload.id)
-        }else if(action.payload.id==4){
-            state.brands=categories.filter(item=>item.key==action.payload.id)
-        }
-        console.log(state.brands)
-        state.formId=Number(action.payload.id)
-        },
         openMenu:(state)=>{
 state.menuShow=true
         },
@@ -123,11 +92,18 @@ state.menuShow=true
         },
         setBorder:(state,action)=>{
 state.border=action.payload.id
-        }
-
+        },
+        changeForm:(state,action)=>{
+           state.formData.title=action.payload.title
+           state.formData.description=action.payload.description
+           state.formData.price=action.payload.price
+            console.log(state.formData.title)
+        },
+      
+      
   },
 });
 
-export const {selectModels,openMenu,closeMenu,goDarkMode,openCategory,closeCategory,setBorder } = booksData.actions;
+export const {openMenu,closeMenu,goDarkMode,openCategory,closeCategory,setBorder,changeForm} = booksData.actions;
 
 export default booksData.reducer;
