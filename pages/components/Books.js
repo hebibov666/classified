@@ -1,6 +1,7 @@
 import Card from "./Card"
 import Header from "./Header"
 import SelectCategory from "./SelectCategory"
+import Link from "next/link"
 import { useSelector,useDispatch } from "react-redux"
 import { products } from "@/redux/slices/products"
 import { useEffect } from "react"
@@ -20,7 +21,9 @@ function Books(){
  <h1 className="mt-2 pl-2 text-xl text-blue-600">Bütün elanlar</h1>
   <div className="grid p-2 basis-[100%] grid-cols-3 max-[480px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
    {data.map(product=>{
-    return <Card title={product.title} image={product.image} price={product.price}/>
+    return <Link href={`/detail/${product.id}`}>
+        <Card title={product.title} image={product.images[0]} price={product.price}/>
+    </Link>
    })}
   </div>
 </div>
