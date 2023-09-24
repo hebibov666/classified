@@ -1,44 +1,71 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 3001;
 
+// MongoDB bağlantısı
+mongoose.connect("mongodb+srv://guldwrwy.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const ilanSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  city: String,
+  price: Number,
+  color: String,
+  marka: String,
+  screen: String,
+  image: String,
+  category: String,
+});
+
+const Ilan = mongoose.model("Ilan", ilanSchema);
+
 app.use(express.json());
 app.use(cors());
 
-const ilanlar = []; // İlanları saklamak için bir dizi
+app.post('/api/ilanlar', async (req, res) => {
+  try {
+    const { title, description, city, price, color, marka, screen, image, category } = req.body;
 
-app.post('/api/ilanlar', (req, res) => {
-  const { title, description, city, price,color,marka,screen,image,category } = req.body; // POST isteği ile gelen verileri al
+    // Yeni ilan oluştur
+    const yeniIlan = new Ilan({
+      title,
+      description,
+      city,
+      price,
+      color,
+      marka,
+      screen,
+      image,
+      category,
+    });
 
-  // Gelen verileri kullanarak yeni bir ilan oluştur
-  const yeniIlan = {
-    title,
-    description,
-    city,
-    price,
-    color,
-    marka,
-    image,
-    category,
-  };
+    // Veriyi MongoDB'ye kaydet
+    await yeniIlan.save();
 
-  // Yeni ilanı ilanlar dizisine ekleyin
-  ilanlar.push(yeniIlan);
-
-  // Yeni eklenen ilanı yanıt olarak gönderin
-  res.status(201).json(yeniIlan);
+    // Yeni eklenen ilanı yanıt olarak gönderin
+    res.status(201).json(yeniIlan);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Veri kaydedilemedi.' });
+  }
 });
 
-app.get('/api/ilanlar', (req, res) => {
-    // İlanları bir örnek dizi içinden alalım
-    
-      // Daha fazla ilan ekleyebilirsiniz
-    
-  
-    // İlanları JSON formatında yanıt olarak gönderin
+app.get('/api/ilanlar', async (req, res) => {
+  try {
+    // Tüm ilanları MongoDB'den alın
+    const ilanlar = await Ilan.find();
     res.json(ilanlar);
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Veriler alınamadı.' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`API sunucusu ${port} numaralı portta çalışıyor.`);
 });
