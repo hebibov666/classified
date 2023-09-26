@@ -1,10 +1,12 @@
 import { useSelector,useDispatch } from "react-redux"
 import { products } from "@/redux/slices/products"
 import { useEffect } from "react"
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 function Card({title,image,price}){
 
 return(
-    <div className="w-full bg-white h-[250px] pb-[5px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
+    <div className="w-full relative bg-white h-[250px] pb-[5px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
+<BookmarkBorderIcon fontSize="large" className="absolute p-[4px] text-black bg-white rounded-[50%] top-2 right-2"></BookmarkBorderIcon>
 <div className="flex justify-center h-[150px] w-full">
 <img className="rounded-t-[7px] h-full w-full object-cover" src={image}></img>
 </div>

@@ -42,7 +42,7 @@ const colors=["Qara","Ağ","Qırmızı","Yaşıl","Boz","Qəhvəyi","Sarı","Nar
 export const writeData = (formData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/ilanlar', formData);
+      const response = await axios.post(' http://localhost:3001/api/products', formData);
 
     
       console.log('API Yanıtı:', response.data);
