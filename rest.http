@@ -1,0 +1,13 @@
+GET http://localhost:3001/products
+###Post metodu
+POST http://localhost:3001/products
+
+###Get id
+
+GET  http://localhost:3001/products/id
+
+###Putch metodu
+PATCH   http://localhost:3001/products/id
+
+###Delete metodu
+DELETE   http://localhost:3001/abc_xyz

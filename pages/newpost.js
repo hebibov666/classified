@@ -14,15 +14,10 @@ const [images,setImages]=useState([])
 const dispatch=useDispatch()
 
 
-  const submit = ()=>{
-  
-    dispatch(writeData(formData));
-  }
+ 
 const [formData, setFormData] = useState({
  
 });
-
-
 const handleInputChange = (e) => {
   const { name, value } = e.target; 
   setFormData((prevData) => ({
@@ -30,6 +25,32 @@ const handleInputChange = (e) => {
     [name]: value,
   }));
 };
+const submit =async () => {
+  try {
+    const response = await fetch('http://localhost:3001/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error('HTTP Hatası: ' + response.status);
+    }
+
+    const responseData = await response.json();
+
+    console.log('API Response:', responseData);
+
+    
+  } catch (error) {
+    console.error('Hata:', error);
+
+
+  }
+};
+
 
 const handleImageChange = (e) => {
   const files = e.target.files; 

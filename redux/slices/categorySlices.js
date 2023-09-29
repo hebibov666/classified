@@ -39,26 +39,6 @@ const city=["Ağcabədi","Ağdam","Ağdaş","Ağstafa","Ağsu","Astara","Ağdər
 const colors=["Qara","Ağ","Qırmızı","Yaşıl","Boz","Qəhvəyi","Sarı","Narıncı","Qızılı"]
 
 
-export const writeData = (formData) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.post(' http://localhost:3001/api/products', formData);
-
-    
-      console.log('API Yanıtı:', response.data);
-
-
-      dispatch({ type: 'WRITE_DATA_SUCCESS', payload: response.data });
-    } catch (error) {
-     
-      console.error('Hata:', error);
-
-    
-      dispatch({ type: 'WRITE_DATA_ERROR', payload: error.message });
-    }
-  };
-};
-
 export  const booksData = createSlice({
   name: 'counter',
   initialState:{
