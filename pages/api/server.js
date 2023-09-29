@@ -1,9 +1,11 @@
 const express=require("express");
 const mongoose=require("mongoose");
-const cors=require("cors")
+const cors=require("cors");
+const bodyParser=require("body-parser");
 const app=express();
 const DataUrl='mongodb+srv://asuslap503:<password>@cluster0.vnro9yz.mongodb.net/'
 app.use(cors())
+app.use(bodyParser.json());
 mongoose.connect(DataUrl,{
     dbName:'Classifieds',
     user:'asuslap503',

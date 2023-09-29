@@ -3,7 +3,7 @@ const router=express.Router();
 const Product=require("../Product.model.js")
 router.get('/',(req,res,next)=>{
     next(new Error("Cannot get a products list"))
-    res.send("getting a list of products")
+    res.send("Waiting...")
 })
 router.post('/',(req,res,next)=>{
     const product=new Product({
