@@ -27,7 +27,7 @@ const handleInputChange = (e) => {
 };
 const submit =async () => {
   try {
-    const response = await fetch('https://elan.onrender.com/products', {
+    const response = await fetch('https://project1-3q4c.onrender.com/products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
