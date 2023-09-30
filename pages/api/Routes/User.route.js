@@ -1,26 +1,23 @@
 const express=require("express");
 const router=express.Router();
-const Product=require("../Product.model.js")
-router.get('/',async (req,res,next)=>{
-    try {
-        const products = await Product.find(); // Tüm ürünleri al
-        res.status(200).json(products); // Ürünleri JSON formatında yanıtla
-      } catch (error) {
-        next(error); // Hata oluşursa hatayı sonraki middleware'e ilet
-      }
+const User=require("../User.model.js")
+router.get('/',(req,res,next)=>{
+    next(new Error("Cannot get a products list"))
+    res.send("Userler...")
 })
 router.post('/',(req,res,next)=>{
-    const product=new Product({
-        name:req.body.title,
-        price:req.body.price,
-        description:req.body.description
+    const user=new User({
+        name:req.body.name,
+email:req.body.email,
+        password:req.body.password
     })
     console.log(req.body);
-    product.save()
+    user.save()
     .then(result=>{
         console.log(result);
         res.send(result)
     })
+
     .catch(err=>{
         console.log(err.message);
     })

@@ -17,8 +17,9 @@ mongoose.connect(DataUrl,{
     console.log("Mongodb connected");
 })
 const ProductRoute=require("./Routes/Product.route");
+const UserRoute=require("./Routes/User.route")
 app.use("/products",ProductRoute)
-
+app.use("/users",UserRoute)
 app.use((req,res,next)=>{
    const err=new Error("Not found");
    err.status=404

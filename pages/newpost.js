@@ -41,8 +41,8 @@ const submit =async () => {
 
     const responseData = await response.json();
 
-    console.log('API Response:', responseData);
-
+  
+console.log(formData)
     
   } catch (error) {
     console.error('Hata:', error);
@@ -53,19 +53,45 @@ const submit =async () => {
 
 
 const handleImageChange = (e) => {
-  const files = e.target.files; 
+  const files = e.target.files;
+  const { name, value } = e.target;
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: value,
+  }));
 
   const imageArray = [];
+  const imagePromises = []; // Resimleri Base64'e dönüştürmek için kullanılacak bir dizi promise
+
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
 
-  const imageUrl = URL.createObjectURL(file); 
-      imageArray.push(imageUrl);
-   
+    const promise = new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        resolve(e.target.result); // Resmi Base64 olarak döndür
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
+      reader.readAsDataURL(file); // Resmi Base64'e dönüştür
+    });
+
+    imagePromises.push(promise);
   }
 
-  setImages([...images, ...imageArray]);
-  console.log(images)
+  // Tüm resimleri Base64'e dönüştürdükten sonra işleme devam et
+  Promise.all(imagePromises)
+    .then((base64Images) => {
+      imageArray.push(...base64Images);
+      setImages([...images, ...imageArray]);
+    })
+    .catch((error) => {
+      console.error('Hata:', error);
+    });
 };
 
 
@@ -74,7 +100,7 @@ const handleImageChange = (e) => {
     switch (selectedCategory) {
       case "Telefon":
         return (
-          <select  value="" onChange={handleInputChange} className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
+          <select  onChange={handleInputChange} className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
             {options[0].models.map(item => {
               return <option>{item}</option>
             })}
@@ -153,7 +179,7 @@ const write=()=>{
         <label htmlFor='fileInput' className='w-[80%] h-[35px] gap-[10px] bg-white flex items-center justify-center text-blue-600 font-bold'>
           <InsertPhotoIcon/>
           <h1>Şəkil seç</h1>
-        <input type='file'  id="fileInput" multiple className='hidden'  accept="image/*" onChange={handleImageChange} ></input>
+        <input type='file'  id="fileInput" multiple className='hidden' name='image' value={formData.image}  accept="image/*" onChange={handleImageChange} ></input>
         </label>
   
         <div className='w-[80%] flex gap-[20px]'>
