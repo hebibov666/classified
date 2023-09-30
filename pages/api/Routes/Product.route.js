@@ -13,7 +13,8 @@ router.post('/',(req,res,next)=>{
     const product=new Product({
         name:req.body.title,
         price:req.body.price,
-        description:req.body.description
+        description:req.body.description,
+        image:req.body.image
     })
     console.log(req.body);
     product.save()
