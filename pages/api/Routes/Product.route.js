@@ -14,7 +14,8 @@ router.post('/',(req,res,next)=>{
         name:req.body.title,
         price:req.body.price,
         description:req.body.description,
-        image:req.body.image
+        image:req.body.image,
+        category:req.body.category
     })
     console.log(req.body);
     product.save()

@@ -19,6 +19,9 @@ const ProductScheam=new Schema({
     date:{
         type:Date,
         default:Date.now()
+    },
+    category:{
+        type:String
     }
 })
 const Product=mongoose.model('product',ProductScheam);

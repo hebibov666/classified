@@ -25,7 +25,7 @@ function Books(){
  <div className="grid p-2 max-[480px]:gap-[5px] basis-[100%] grid-cols-3 max-[480px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
  {data.map(product=>{
   return <Link href={`/detail/${product.id}`}>
-      <Card title={product.title} image={product.images[0]} price={product.price}/>
+      <Card title={product.name} image={product.image}  price={product.price}/>
   </Link>
  })
  }

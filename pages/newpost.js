@@ -16,7 +16,7 @@ const dispatch=useDispatch()
 
  
 const [formData, setFormData] = useState({
-
+category:selectedCategory
 });
 const handleInputChange = (e) => {
   const { name, value } = e.target; 

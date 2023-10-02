@@ -23,7 +23,7 @@ function Detail({urunler}){
     <div className="flex flex-col gap-[10px]">
     <h1 className="text-2xl ">{product?.title}</h1>
     <p className="text-blue-400">Model: Samsung</p>
-    <p>{product.description}</p>
+    <p>{product?.description}</p>
     </div>
    <div className="flex justify-center items-end w-full gap-[10px] top-[95%]">
    <a href="" className="flex w-[110px] rounded-[7px] bg-red-600 text-white p-2 items-center justify-center">Zəng et</a>
