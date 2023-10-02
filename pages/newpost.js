@@ -8,15 +8,14 @@ import { writeData } from '@/redux/slices/categorySlices';
 function NewPost() {
   const [category, setCategory] = useState(0)
   const options = useSelector(state => state.book.list)
+  const colors=useSelector(state=>state.book.colors)
   const screens = useSelector(state => state.book.screenSize)
   const [selectedCategory, setSelectedCategory] = useState()
 const [images,setImages]=useState([])
 const dispatch=useDispatch()
-
-
- 
 const [formData, setFormData] = useState({
-category:selectedCategory
+category:selectedCategory,
+images:[]
 });
 const handleInputChange = (e) => {
   const { name, value } = e.target; 
@@ -60,38 +59,19 @@ const handleImageChange = (e) => {
     [name]: value,
   }));
 
-  const imageArray = [];
-  const imagePromises = []; // Resimleri Base64'e dönüştürmek için kullanılacak bir dizi promise
-
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
+    const reader = new FileReader();
 
-    const promise = new Promise((resolve, reject) => {
-      const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64Image = reader.result.toString(); // Resmi Base64 olarak döndür
 
-      reader.onload = (e) => {
-        resolve(e.target.result); // Resmi Base64 olarak döndür
-      };
+      // images state'ine resmi ekleyin
+      setImages((prevImages) => [...prevImages, base64Image]);
+    };
 
-      reader.onerror = (error) => {
-        reject(error);
-      };
-
-      reader.readAsDataURL(file); // Resmi Base64'e dönüştür
-    });
-
-    imagePromises.push(promise);
+    reader.readAsDataURL(file); // Resmi Base64'e dönüştür
   }
-
-  // Tüm resimleri Base64'e dönüştürdükten sonra işleme devam et
-  Promise.all(imagePromises)
-    .then((base64Images) => {
-      imageArray.push(...base64Images);
-      setImages([...images, ...imageArray]);
-    })
-    .catch((error) => {
-      console.error('Hata:', error);
-    });
 };
 
 
@@ -100,7 +80,7 @@ const handleImageChange = (e) => {
     switch (selectedCategory) {
       case "Telefon":
         return (
-          <select  onChange={handleInputChange} className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
+          <select name='model' value={formData.value} onChange={handleInputChange} className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
             {options[0].models.map(item => {
               return <option>{item}</option>
             })}
@@ -108,7 +88,7 @@ const handleImageChange = (e) => {
         );
       case "Komputer":
         return (
-          <select value="" onChange={handleInputChange} className='w-[80%]  h-[30px] outline-none border-0 pl-2 text-[#a9a9a9]'>
+          <select name='model'  value={formData.value} onChange={handleInputChange} className='w-[80%]  h-[30px] outline-none border-0 pl-2 text-[#a9a9a9]'>
             {options[1].models.map(item => {
               return <option>{item}</option>
             })}
@@ -117,7 +97,7 @@ const handleImageChange = (e) => {
       case "Televizor":
         return (
          <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
-           <select onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+           <select name='model' value={formData.value} onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
             {options[2].models.map(item => {
               return <option>{item}</option>
             })}
@@ -127,7 +107,7 @@ const handleImageChange = (e) => {
         case "Akksesuar":
         return (
          <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
-           <select  onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+           <select name='model' value={formData.value}  onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
             {options[3].models.map(item => {
               return <option>{item}</option>
             })}
@@ -164,6 +144,11 @@ const write=()=>{
           })}
         </select>
         {renderFormBasedOnCategory()}
+        <select name='color' value={formData.color || ""}  onChange={handleInputChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+          {colors.map(color => {
+            return <option  value={category.name}>{color}</option>
+          })}
+        </select>
         <input type='text'   name="title"
         value={formData.title || ''}
       

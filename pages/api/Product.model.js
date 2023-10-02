@@ -14,13 +14,19 @@ const ProductScheam=new Schema({
         required:false,
     },
     image:{
-        type:String
+        type:[String]
     },
     date:{
         type:Date,
         default:Date.now()
     },
     category:{
+        type:String
+    },
+    model:{
+        type:String
+    },
+    color:{
         type:String
     }
 })
