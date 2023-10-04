@@ -18,20 +18,20 @@ category:selectedCategory,
 images:[]
 });
 const handleInputChange = (e) => {
-  const { name, value } = e.target; 
+  const { name, value} = e.target; 
   setFormData((prevData) => ({
     ...prevData,
-    [name]: value,
+    [name]: value
   }));
 };
 const submit =async () => {
-  try {
+try {
     const response = await fetch('https://project1-3q4c.onrender.com/products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body:JSON.stringify(formData),
     });
 
     if (!response.ok) {
@@ -53,24 +53,27 @@ console.log(formData)
 
 const handleImageChange = (e) => {
   const files = e.target.files;
-  const { name, value } = e.target;
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
+  const {name}=e.target
+  const newImages = [...images]; // Mevcut resimleri yeni bir diziye kopyala
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     const reader = new FileReader();
-
     reader.onload = (e) => {
       const base64Image = reader.result.toString(); // Resmi Base64 olarak döndür
+      newImages.push(base64Image);
 
-      // images state'ine resmi ekleyin
-      setImages((prevImages) => [...prevImages, base64Image]);
+      // Resmi images dizisine ekleyin
+      setImages(newImages);
+
+      // FormData'ya resmi ekleyin
+      setFormData((prevData) => ({
+        ...prevData,
+      images:newImages // images alanını güncel resimlerin dizisi olarak ayarlayın
+      }));
     };
 
-    reader.readAsDataURL(file); // Resmi Base64'e dönüştür
+    reader.readAsDataURL(file);
   }
 };
 
@@ -164,7 +167,7 @@ const write=()=>{
         <label htmlFor='fileInput' className='w-[80%] h-[35px] gap-[10px] bg-white flex items-center justify-center text-blue-600 font-bold'>
           <InsertPhotoIcon/>
           <h1>Şəkil seç</h1>
-        <input type='file'  id="fileInput" multiple className='hidden' name='image' value={formData.image}  accept="image/*" onChange={handleImageChange} ></input>
+        <input type='file'  id="fileInput" multiple className='hidden' name='image'  accept="image/*" onChange={handleImageChange} ></input>
         </label>
   
         <div className='w-[80%] flex gap-[20px]'>

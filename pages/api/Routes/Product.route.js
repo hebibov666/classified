@@ -1,38 +1,31 @@
 const express=require("express");
 const router=express.Router();
 const Product=require("../Product.model.js")
-const cloudinary=require("cloudinary")
-cloudinary.config({ 
-    cloud_name: 'dohj3wr2c', 
-    api_key: '195868556154949', 
-    api_secret: '***************************' 
-  });
+const upload=require("../multer.config.js")
 router.get('/',async (req,res,next)=>{
     try {
-        const products = await Product.find(); // Tüm ürünleri al
-        res.status(200).json(products); // Ürünleri JSON formatında yanıtla
+        const products = await Product.find();
+        res.status(200).json(products); 
       } catch (error) {
-        next(error); // Hata oluşursa hatayı sonraki middleware'e ilet
+        next(error);
       }
 })
-router.post('/',(req,res,next)=>{
+router.post('/',upload.array("images", 3),(req,res,next)=>{
+    const imagesArray = req.files.map((file) => file.path);
     const product=new Product({
         name:req.body.title,
         price:req.body.price,
         description:req.body.description,
-        image:req.body.image,
+        image:req.body.images,
         category:req.body.category,
         model:req.body.model,
         color:req.body.color
     })
-    console.log(req.body);
-    cloudinary.v2.uploader.upload(req.body.image,
-    { public_id: "olympic_flag" }, 
-    function(error, result) {console.log(result); });
     product.save()
+    console.log(req.body)
     .then(result=>{
-        console.log(result);
         res.send(result)
+        console.log(req.body);
     })
     .catch(err=>{
         console.log(err.message);
