@@ -58,22 +58,22 @@ console.log(formData)
 const handleImageChange = (e) => {
   const files = e.target.files;
   const {name}=e.target
-  const newImages = [...images]; // Mevcut resimleri yeni bir diziye kopyala
+  const newImages = [...images]; 
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     const reader = new FileReader();
   
     reader.onload = (e) => {
-      const base64Image = reader.result.toString(); // Resmi Base64 olarak döndür
+      const base64Image = reader.result.toString(); 
 newImages.push(base64Image);
-      // Resmi images dizisine ekleyin
+    
       setImages(newImages);
 
-      // FormData'ya resmi ekleyin
+     
       setFormData((prevData) => ({
         ...prevData,
-      images:newImages // images alanını güncel resimlerin dizisi olarak ayarlayın
+      images:newImages 
       }));
     };
 
