@@ -15,30 +15,34 @@ const [images,setImages]=useState([])
 const dispatch=useDispatch()
 const [formData, setFormData] = useState({
 category:selectedCategory,
+title:'',
+price:'',
+description:'',
 images:[]
 });
 const handleInputChange = (e) => {
   const { name, value} = e.target; 
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]: value
+  setFormData(() => ({
+    ...formData,
+    [name]: value,
   }));
 };
-const submit =async () => {
-try {
-    const response = await fetch('https://project1-3q4c.onrender.com/products', {
+const submit =async (e) => {
+  e.preventDefault()
+  const data=new FormData()
+  data.append('title',formData.title)
+  data.append('price',formData.price)
+  data.append('category',formData.category)
+  data.append('description',formData.description)
+  try {
+    const response = await fetch('http://localhost:3001/products', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body:JSON.stringify(formData),
+      body:data,
     });
 
     if (!response.ok) {
       throw new Error('HTTP Hatası: ' + response.status);
     }
-
-    const responseData = await response.json();
 
   
 console.log(formData)
@@ -59,10 +63,10 @@ const handleImageChange = (e) => {
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     const reader = new FileReader();
+  
     reader.onload = (e) => {
       const base64Image = reader.result.toString(); // Resmi Base64 olarak döndür
-      newImages.push(base64Image);
-
+newImages.push(base64Image);
       // Resmi images dizisine ekleyin
       setImages(newImages);
 
@@ -125,9 +129,6 @@ const deleteImage=(ind)=>{
   const filterimg=images.filter((image,index)=>index!=ind)
   setImages(filterimg)
 }
-const write=()=>{
-  console.log(formData);
-}
 
   return (
     <div className='flex newpost flex-col items-center bg-[#F8F9FD]  pb-[60px] '>
@@ -141,28 +142,29 @@ const write=()=>{
         </div>
       </div>
       <div className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
-        <select name='category' value={formData.category || ''}  onChange={(e) => { setSelectedCategory(e.currentTarget.value),handleInputChange(e)}} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+      <form encType='multipart/form-data' className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
+      <select name='category' value={formData.category}  onChange={(e) => { setSelectedCategory(e.currentTarget.value),handleInputChange(e)}} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
           {options.map(category => {
             return <option  value={category.name}>{category.name}</option>
           })}
         </select>
         {renderFormBasedOnCategory()}
-        <select name='color' value={formData.color || ""}  onChange={handleInputChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+        <select name='color' value={formData.color}  onChange={handleInputChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
           {colors.map(color => {
             return <option  value={category.name}>{color}</option>
           })}
         </select>
         <input type='text'   name="title"
-        value={formData.title || ''}
+        value={formData.title}
       
         onChange={handleInputChange} placeholder='Elan basligi' className='w-[80%] outline-none border-0  h-[30px] pl-2'></input>
         <input type='text'  
            name="price"
-           value={formData.price || ''}
+           value={formData.price}
         onChange={handleInputChange} placeholder='Qiymet' className='w-[80%] outline-none border-0  h-[30px] pl-2'></input>
         <textarea name="description" 
         
-           value={formData.description || ''}
+           value={formData.description}
         onChange={handleInputChange} placeholder='description' className='w-[80%] outline-none border-0 textarea pl-2'></textarea>
         <label htmlFor='fileInput' className='w-[80%] h-[35px] gap-[10px] bg-white flex items-center justify-center text-blue-600 font-bold'>
           <InsertPhotoIcon/>
@@ -179,6 +181,7 @@ const write=()=>{
           })}
         </div>
         <button onClick={submit} className='w-[80%] bg-red-600 h-[40px] text-white'>Paylas</button>
+      </form>
       </div>
     </div>
   );

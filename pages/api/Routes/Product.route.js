@@ -2,6 +2,8 @@ const express=require("express");
 const router=express.Router();
 const Product=require("../Product.model.js")
 const upload=require("../multer.config.js")
+const multer=require('multer')
+
 router.get('/',async (req,res,next)=>{
     try {
         const products = await Product.find();
@@ -11,7 +13,7 @@ router.get('/',async (req,res,next)=>{
       }
 })
 router.post('/',upload.array("images", 3),(req,res,next)=>{
-    const imagesArray = req.files.map((file) => file.path);
+    console.log(req.body);
     const product=new Product({
         name:req.body.title,
         price:req.body.price,
@@ -22,7 +24,6 @@ router.post('/',upload.array("images", 3),(req,res,next)=>{
         color:req.body.color
     })
     product.save()
-    console.log(req.body)
     .then(result=>{
         res.send(result)
         console.log(req.body);

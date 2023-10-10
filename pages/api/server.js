@@ -5,7 +5,7 @@ const bodyParser=require("body-parser");
 const app=express();
 const DataUrl='mongodb+srv://asuslap503:<password>@cluster0.vnro9yz.mongodb.net/'
 app.use(cors())
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 mongoose.connect(DataUrl,{
     dbName:'Classifieds',
     user:'asuslap503',

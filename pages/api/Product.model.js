@@ -15,7 +15,7 @@ const ProductScheam=new Schema({
         required:false,
     },
     image:{
-        type:String
+        type:[String]
     },
     date:{
         type:Date,
