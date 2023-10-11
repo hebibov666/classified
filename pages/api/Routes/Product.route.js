@@ -14,23 +14,6 @@ router.get('/',async (req,res,next)=>{
 })
 router.post('/',upload.array("images", 3),(req,res,next)=>{
     console.log(req.body);
-    const product=new Product({
-        name:req.body.title,
-        price:req.body.price,
-        description:req.body.description,
-        image:req.body.images,
-        category:req.body.category,
-        model:req.body.model,
-        color:req.body.color
-    })
-    product.save()
-    .then(result=>{
-        res.send(result)
-        console.log(req.body);
-    })
-    .catch(err=>{
-        console.log(err.message);
-    })
 })
 
 router.get('/:id',(req,res,next)=>{
