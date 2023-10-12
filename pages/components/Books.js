@@ -11,11 +11,11 @@ function Books(){
     const loading=useSelector(state=>state.products.loading)
     useEffect(()=>{
         dispatch(products())
-        console.log(data);
     },[dispatch])
     useEffect(()=>{
         console.log(data);
     },[data])
+
     return(
 <div className={`mx-auto h-full w-full basis-[100%]  max-[1015px]:border-[#E8E8E8]  `}>
 

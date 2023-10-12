@@ -4,6 +4,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import ClearIcon from '@mui/icons-material/Clear';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import axios from 'axios'
+import { data } from 'autoprefixer';
 function NewPost() {
   const [category, setCategory] = useState(0)
   const options = useSelector(state => state.book.list)
@@ -16,18 +18,18 @@ function NewPost() {
 
   const submit = async (e) => {
     e.preventDefault()
-    const formdata = new FormData(e.currentTarget)
-    const data = Object.fromEntries(formdata)
-    console.log(data);
+    const formdata = new FormData()
+    formdata.append('title',e.target.title.value)
+    formdata.append('price',e.target.price.value)
+    const files = form.current.files;
+    for (let i = 0; i < files.length; i++) {
+      formdata.append(`files`, files[i]);
+    }
+
+    console.log(Object.fromEntries(formdata));
 
     try {
-      const response = await fetch('http://localhost:3001/products', {
-        method: 'POST',
-        headers:{
-          'Content-type':"multipart/form-data"
-        },
-        body:data,
-      });
+      const response = await axios.post('http://localhost:3001/products',formdata)
   
       if (!response.ok) {
         throw new Error('HTTP Hatası: ' + response.status);
@@ -121,7 +123,7 @@ function NewPost() {
         </div>
       </div>
       <div className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
-        <form ref={form} onSubmit={submit} encType='multipart/form-data' className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
+        <form onSubmit={submit} encType='multipart/form-data' className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
           <select name='category' onChange={(e) => { setSelectedCategory(e.currentTarget.value) }} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
             {options.map(category => {
               return <option value={category.name}>{category.name}</option>
@@ -143,7 +145,7 @@ function NewPost() {
           <label htmlFor='fileInput' className='w-[80%] h-[35px] gap-[10px] bg-white flex items-center justify-center text-blue-600 font-bold'>
             <InsertPhotoIcon />
             <h1>Şəkil seç</h1>
-            <input type='file' id="fileInput" multiple className='hidden' name='image' accept="image/*" onChange={handleImageChange} ></input>
+            <input type='file' ref={form} id="fileInput" multiple className='hidden'  accept="image/*" onChange={handleImageChange} ></input>
           </label>
           <div className='w-[80%] flex gap-[20px]'>
             {images.map((image, index) => {

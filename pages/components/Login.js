@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-function Login() {
+function Login({myData}) {
   
   return (
    <div className='flex w-full flex-col items-center gap-[20px]'>
@@ -31,3 +31,15 @@ function Login() {
 }
 
 export default Login;
+
+export async function getServerSideProps(context) {
+ 
+  const data = await fetch("https://project1-3q4c.onrender.com/users");
+
+
+  return {
+    props: {
+      myData: data,
+    },
+  };
+}

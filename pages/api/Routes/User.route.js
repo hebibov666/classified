@@ -2,8 +2,15 @@ const express=require("express");
 const router=express.Router();
 const User=require("../User.model.js")
 router.get('/',(req,res,next)=>{
-    next(new Error("Cannot get a products list"))
-    res.send("Userler...")
+    router.get('/',async (req,res,next)=>{
+        try {
+            const users = await User.find();
+        
+            res.status(200).json(users); 
+          } catch (error) {
+            next(error);
+          }
+    })
 })
 router.post('/',(req,res,next)=>{
     const user=new User({
