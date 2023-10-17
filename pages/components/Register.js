@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import { useRouter } from 'next/router';
 function Register() {
   const [User, setUser] = useState({});
+  const router=useRouter()
   const CreateUser = (e) => {
     const { name, value } = e.target; 
     setUser((prevData) => ({
@@ -19,16 +21,13 @@ function Register() {
       });
   
       if (!response.ok) {
-        throw new Error('HTTP Hatası: ' + response.status);
+        throw new Error('HTTP Xətası: ' + response.status);
       }
   
       const responseData = await response.json();
-  
-      console.log('API Response:', responseData);
-  
-      
-    } catch (error) {
-      console.error('Hata:', error);
+      localStorage.setItem('user',JSON.stringify(responseData.token))
+     } catch (error) {
+      console.error('Xəta:', error);
   
   
     }

@@ -1,29 +1,56 @@
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-
-function Login({myData}) {
-  
+import axios from "axios"
+import { useSelector,useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { userLogin } from '@/redux/slices/userSlice';
+import { useEffect } from 'react';
+function Login() {
+  const [email, setEmail] = useState('');
+  const router=useRouter()
+  const Login=useSelector(state=>state.user.isLogin)
+ const [error,setError]=useState("")
+  const [password, setPassword] = useState('');
+  const dispatch=useDispatch()
+  const handleLogin = async () => {
+    const userData={
+      email,
+      password
+    }
+ dispatch(userLogin(userData)).then((result)=>{
+  if(typeof window!=="undefined" && window.localStorage){
+   if(localStorage.getItem("user")){
+    router.push("/")
+   }else{
+    setError(result.payload)
+   }
+   
+}
+ })
+  }
   return (
    <div className='flex w-full flex-col items-center gap-[20px]'>
   <TextField
           id="outlined-password-input"
-          label="Ad və ya email"
+          label="Email ünvanınız"
           type="text"
           autoComplete="current-password"
         size='small'
         fullWidth
-    
+        onChange={(e) => setEmail(e.target.value)}
       
         />
         <TextField
           id="outlined-password-input"
-          label="Şifrə"
+          label="Şifrəniz"
           type="password"
           autoComplete="current-password"
         size='small'
     fullWidth
+    onChange={(e) => setPassword(e.target.value)}
         />
-        <button className='outline-none bg-[#FF6617] rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'>
+        {error != "" ? <p className='text-red-400 text-start w-full pl-[2px]'>{error}</p> : null}
+        <button   onClick={handleLogin} className='outline-none bg-[#FF6617] rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'>
             Giriş et
         </button>
    </div>
@@ -31,15 +58,3 @@ function Login({myData}) {
 }
 
 export default Login;
-
-export async function getServerSideProps(context) {
- 
-  const data = await fetch("https://project1-3q4c.onrender.com/users");
-
-
-  return {
-    props: {
-      myData: data,
-    },
-  };
-}

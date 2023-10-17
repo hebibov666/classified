@@ -1,19 +1,40 @@
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import MenuIcon from '@mui/icons-material/Menu';
+import LoginIcon from '@mui/icons-material/Login';
 import Link from 'next/link';
 import { openCategory} from '@/redux/slices/categorySlices';
 import { useDispatch,useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { addPost } from '@/redux/slices/userSlice';
 function Header({openLogin}){
     const dispatch=useDispatch()
-    const darkMode=useSelector(state=>state.book.darkMode)
-
+    const router=useRouter()
+const [login,setLogin]=useState("")
+useEffect(()=>{
+    if(typeof window!=="undefined" && window.localStorage){
+        let user=localStorage.getItem("user")
+       if(user){
+        setLogin(user)
+       }else{
+        setLogin("")
+       }
+    }
+},[])
+const addPost=()=>{
+    if(login===""){
+     router.push("/NoLogin")
+    }else{
+        router.push("/newpost")
+    }
+}
     return(
     <div className='w-full top-0 left-0 z-[1]  h-[70px] bg-red-600 flex justify-between pl-4 pr-2 items-center'>
 <div className='flex items-center justify-center gap-[10px]'>
     <h1 className="text-2xl text-white font-bold">Axtar.az</h1>
 </div>
+<div className='max-[490px]:hidden'>
 <div className='flex items-center justify-between gap-[15px] pr-[10px]'>
 <div onClick={()=>{dispatch(openCategory())}} className='w-[30px] h-[30px] rounded-[10px] bg-white  flex items-center justify-center'>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ">
@@ -21,13 +42,12 @@ function Header({openLogin}){
 </svg>
 </div>
    <div className='w-[30px] h-[30px] rounded-[10px] bg-white flex items-center justify-center'>
-   <Link href="/newpost">
-   <AddIcon fontSize='medium' className='text-black font-bold'/>
-   </Link>
+   <AddIcon fontSize='medium' onClick={addPost} className='text-black font-bold '/>
    </div>
    <div className='w-[30px] h-[30px] rounded-[10px] bg-white flex items-center justify-center'>
-   <PersonIcon fontSize='medium' className='text-black font-bold' onClick={()=>{openLogin(true)}}/>
+  {login != "" ?  <Link href="/ProfilePage"><PersonIcon fontSize='medium'  className='text-black font-bold'/></Link> : <Link href="/LoginBox"><LoginIcon fontSize='medium' className='text-black font-bold'/></Link>}
    </div>
+</div>
 </div>
 </div>
     )

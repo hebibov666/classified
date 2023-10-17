@@ -1,43 +1,39 @@
-const express=require("express");
-const router=express.Router();
-const User=require("../User.model.js")
-router.get('/',(req,res,next)=>{
-    router.get('/',async (req,res,next)=>{
-        try {
-            const users = await User.find();
-        
-            res.status(200).json(users); 
-          } catch (error) {
-            next(error);
-          }
-    })
-})
-router.post('/',(req,res,next)=>{
-    const user=new User({
-        name:req.body.name,
-email:req.body.email,
-        password:req.body.password
-    })
-    console.log(req.body);
-    user.save()
-    .then(result=>{
-        console.log(result);
-        res.send(result)
-    })
+require("dotenv").config()
+const express = require('express');
+const router = express.Router();
+const User = require("../User.model.js");
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 
-    .catch(err=>{
-        console.log(err.message);
-    })
-})
+const jwtSecret = process.env.JWT_SECRET;
 
-router.get('/:id',(req,res,next)=>{
-res.send("gett a single product")
-})
+router.post('/', async (req, res) => {
+  const { name, email, password } = req.body;
 
-router.delete('/:id',(req,res,next)=>{
-res.send("Delete a product")
-})
-router.patch('/:id',(req,res,next)=>{
-res.send("Update a product")
-})
-module.exports=router
+  try {
+  
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+   
+    const user = new User({
+      name: name,
+      email: email,
+      password: hashedPassword
+    });
+    const savedUser = await user.save();
+
+  
+    const userPayload = {
+      name: savedUser.name,
+      email: savedUser.email,
+      id: savedUser._id
+    };
+    const token = jwt.sign(userPayload, jwtSecret);
+
+    res.status(201).json({ token: token });
+  } catch (error) {
+    res.status(500).json({ message: 'İstifadəçi tapılmadı' });
+  }
+});
+
+module.exports = router;
