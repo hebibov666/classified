@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 export const userLogin=createAsyncThunk('user/userLogin',async(userData)=>{
-  const request=await axios.post("https://project1-3q4c.onrender.com/login",userData)
+  const request=await axios.post("https://finalproject-etqp.onrender.com/login",userData)
   const response=request.data
 if(response.token){
   localStorage.setItem('user',JSON.stringify(response.token))
@@ -14,7 +14,7 @@ export const getUser=createAsyncThunk('user/getUser',async()=>{
  if(typeof window!=="undefined" && window.localStorage){
   var token=localStorage.getItem("user")
     }
-  const request=await axios.get('https://project1-3q4c.onrender.com/login', {
+  const request=await axios.get('https://finalproject-etqp.onrender.com/login', {
     headers: {
       Authorization: `Bearer ${token}`,
     }

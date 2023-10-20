@@ -23,7 +23,7 @@ const router=useRouter()
         router.push("/")
     }
     const deleteUser=()=>{
-      axios.delete(`https://project1-3q4c.onrender.com/login/${user?._id}`) 
+      axios.delete(`https://finalproject-etqp.onrender.com/login/${user?._id}`) 
       .then((response) => {
         localStorage.removeItem("user")
         router.push("/")

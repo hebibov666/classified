@@ -30,7 +30,7 @@ function NewPost() {
     console.log(Object.fromEntries(formdata));
 
     try {
-      const response = await axios.post('http://localhost:3001/products',formdata)
+      const response = await axios.post('https://finalproject-etqp.onrender.com/products',formdata)
   
       if (!response.ok) {
         throw new Error('HTTP Hatası: ' + response.status);
