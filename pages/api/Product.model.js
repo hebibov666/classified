@@ -1,7 +1,9 @@
 const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
 const ProductScheam=new Schema({
-    user_id: { type: mongoose.Types.ObjectId, ref: "User" },
+    userId: { 
+        type:String
+     },
     name:{
         type:String,
         required:true

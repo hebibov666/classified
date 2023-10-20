@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const session = require('express-session');
 const User = require("../User.model.js"); 
+const Product=require("../Product.model.js")
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const jwt=require("jsonwebtoken")
@@ -68,5 +69,32 @@ router.post('/', async (req, res) => {
         }
       });
   });
+  router.delete('/:id', async (req, res) => {
+    const kullaniciId = req.params.id;
+  
+    try {
+    
+      const ilanlar = await Product.find({ userId: kullaniciId });
+  
+     
+      for (const ilan of ilanlar) {
+        await Product.findByIdAndDelete(ilan._id);
+      }
+  
+     
+      await User.findByIdAndDelete(kullaniciId);
+  
+    
+      res.json({ message: 'Kullanıcı ve ilanları başarıyla silindi' });
+      console.log("Kullanıcı ve ilanları silindi");
+    } catch (error) {
+      console.error('Kullanıcı ve ilanları silme hatası: ', error);
+      res.status(500).json({ message: 'Kullanıcı ve ilanları silme işlemi başarısız oldu' });
+    }
+  });
+  
+  
+  
+  
 
 module.exports = router;

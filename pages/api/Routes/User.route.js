@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require('express');
 const router = express.Router();
 const User = require("../User.model.js");
+const Product=require("../Product.model.js")
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
@@ -35,5 +36,6 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'İstifadəçi tapılmadı' });
   }
 });
+
 
 module.exports = router;

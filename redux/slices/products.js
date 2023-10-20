@@ -14,7 +14,6 @@ export  const productsData = createSlice({
    error:""
   },
   reducers: {
-
   },
   extraReducers: (builder) => {
     builder.addCase(products.pending, (state) => {
@@ -34,6 +33,6 @@ export  const productsData = createSlice({
 
 });
 
-export const { } = productsData.actions;
+export const {} = productsData.actions;
 
 export default productsData.reducer;

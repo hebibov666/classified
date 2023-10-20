@@ -21,30 +21,93 @@ router.get('/',async (req,res,next)=>{
         next(error);
       }
 })
-router.post('/',uploads.array("files"),(req,res,next)=>{
+router.post('/', uploads.array("files"), (req, res, next) => {
   const images = req.files.map((file) => file.path);
-  cloudinary.uploader.upload(images[0],
-  { public_id: "olympic_flag" }, 
-  function(error, result) {console.log(result); });
-  console.log(images)
-console.log(req.files);
-   const product=new Product({
-  name:req.body.title,
-  price:req.body.price,
-  description:req.body.description,
-  category:req.body.category,
-  image:images
-   })
-   product.save()
-})
 
-router.get('/:id',(req,res,next)=>{
-res.send("gett a single product")
-})
+  // Tüm resimleri Cloudinary'ye yükle
+  const uploadedImageIds = [];
+  const promises = [];
 
-router.delete('/:id',(req,res,next)=>{
-res.send("Delete a product")
-})
+  images.forEach((imagePath, index) => {
+    promises.push(new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(imagePath, { public_id: `urun_resim_${Date.now()}_${index}` }, (error, result) => {
+        if (error) {
+          console.error('Resim yükleme hatası: ', error);
+          reject(error);
+        } else {
+          const publicId = result.public_id;
+          uploadedImageIds.push(publicId);
+          resolve(publicId);
+        }
+      });
+    }));
+  });
+
+  Promise.all(promises)
+    .then(() => {
+      // Tüm resimler yüklendi, ürünü kaydet
+      const product = new Product({
+        name: req.body.title,
+        price: req.body.price,
+        description: req.body.description,
+        category: req.body.category,
+        userId: req.body.userid,
+        image: uploadedImageIds, // Resimlerin public ID'lerini kaydedin
+      });
+
+      product.save()
+        .then(savedProduct => {
+          res.json(savedProduct);
+        })
+        .catch(err => {
+          console.error('Ürün kaydetme hatası: ', err);
+          res.status(500).json({ message: 'Ürün kaydedilemedi' });
+        });
+    })
+    .catch(error => {
+      res.status(500).json({ message: 'Resimler yüklenemedi' });
+    });
+});
+
+
+router.get('/:userId', async (req, res) => {
+  const userId = req.params.userId; 
+
+  try {
+ 
+    const products = await Product.find({userId: userId });
+
+    if (products) {
+      res.json(products);
+    } else {
+      res.status(404).json({ message: 'Kullanıcının ilanı bulunamadı' });
+    }
+  } catch (error) {
+    console.error('Ilanlar getirilemedi: ', error);
+    res.status(500).json({ message: 'Ilanlar getirilemedi' });
+  }
+});
+
+router.delete('/:id', async (req, res, next) => {
+  const productId = req.params.id; 
+
+  try {
+   
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: 'İlan bulunamadı' });
+    }
+
+    await Product.findByIdAndRemove(productId);
+
+    res.json({ message: 'İlan başarıyla silindi' });
+  } catch (error) {
+    console.error('İlan silme hatası: ', error);
+    res.status(500).json({ message: 'İlan silme işlemi başarısız oldu' });
+  }
+});
+
 router.patch('/:id',(req,res,next)=>{
 res.send("Update a product")
 })

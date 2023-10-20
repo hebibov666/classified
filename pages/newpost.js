@@ -15,12 +15,13 @@ function NewPost() {
   const [images, setImages] = useState([])
   const dispatch = useDispatch()
   const form = useRef()
-
+  const user=useSelector(state=>state.user.user)
   const submit = async (e) => {
     e.preventDefault()
     const formdata = new FormData()
     formdata.append('title',e.target.title.value)
     formdata.append('price',e.target.price.value)
+    formdata.append('userid',user?._id)
     const files = form.current.files;
     for (let i = 0; i < files.length; i++) {
       formdata.append(`files`, files[i]);

@@ -9,15 +9,30 @@ if(response.token){
 }
   return response
 })
+
+export const getUser=createAsyncThunk('user/getUser',async(userData)=>{
+ if(typeof window!=="undefined" && window.localStorage){
+  var token=localStorage.getItem("user")
+    }
+  const request=await axios.get('http://localhost:3001/login', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  })
+ return request.data
+
+})
 export  const User = createSlice({
   name: 'user',
   initialState:{
    isLogin:false,
    loading:false,
    error:"",
+   userId:null,
+   user:null,
 },
   reducers: {
-  
+ 
    },
   extraReducers:(builder)=>{
     builder.addCase(userLogin.pending,(state,action)=>{
@@ -28,12 +43,15 @@ export  const User = createSlice({
      if(!action.payload.token){
    state.error=action.payload
      }else{
-state.isLogin=action.payload.token
+state.isLogin=action.payload.token;
      }
+  })
+  builder.addCase(getUser.fulfilled,(state,action)=>{
+   state.user=action.payload
   })
   }
 });
 
-export const {login} = User.actions;
+export const {login,deleteUser} = User.actions;
 
 export default User.reducer;
