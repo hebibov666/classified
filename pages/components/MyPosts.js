@@ -11,7 +11,7 @@ function MyPosts(){
     const userId=useSelector(state=>state.user.user)
     const router=useRouter()
     useEffect(()=>{
-        axios.get(`http://localhost:3001/products/${userId?._id}`) 
+        axios.get(`https://project1-3q4c.onrender.com/products/${userId?._id}`) 
         .then((response) => {
           setPosts(response.data)
         })
@@ -25,7 +25,7 @@ const showModal=()=>{
     setModal(true)
 }
     const removePost=(id)=>{
-        axios.delete(`http://localhost:3001/products/${id}`) 
+        axios.delete(`https://project1-3q4c.onrender.com/products/${id}`) 
         .then((response) => {
         setEmpty(true)
         })
