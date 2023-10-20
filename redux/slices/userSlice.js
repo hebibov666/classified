@@ -10,7 +10,7 @@ if(response.token){
   return response
 })
 
-export const getUser=createAsyncThunk('user/getUser',async(userData)=>{
+export const getUser=createAsyncThunk('user/getUser',async()=>{
  if(typeof window!=="undefined" && window.localStorage){
   var token=localStorage.getItem("user")
     }
