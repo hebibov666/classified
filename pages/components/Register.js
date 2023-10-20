@@ -12,7 +12,7 @@ function Register() {
     }))};
   const Usercreate =async () => {
     try {
-      const response = await fetch('http://localhost:3001/users', {
+      const response = await fetch('https://project1-3q4c.onrender.com/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
