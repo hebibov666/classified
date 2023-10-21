@@ -100,3 +100,6 @@ select,input{
     border-top-right-radius: 7px;
    
 }
+.noscroll::-webkit-scrollbar{
+  display: none;
+}

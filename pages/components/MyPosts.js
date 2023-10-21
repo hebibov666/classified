@@ -4,6 +4,7 @@ import { useSelector,useDispatch} from 'react-redux';
 import { useRouter } from 'next/router';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios"
+import Link from 'next/link';
 function MyPosts(){
     const [posts,setPosts]=useState([])
     const [empty,setEmpty]=useState(false)
@@ -11,7 +12,8 @@ function MyPosts(){
     const userId=useSelector(state=>state.user.user)
     const router=useRouter()
     useEffect(()=>{
-        axios.get(`https://finalproject-etqp.onrender.com/products/${userId?._id}`) 
+       if(userId?._id){
+        axios.get(`https://finalproject-etqp.onrender.com/products/${userId._id}`) 
         .then((response) => {
           setPosts(response.data)
         })
@@ -19,6 +21,7 @@ function MyPosts(){
           console.error('Ilanlar getirilemedi: ', error);
         });
         setEmpty(false)
+       }
     },[empty])
 
 const showModal=()=>{
@@ -28,11 +31,13 @@ const showModal=()=>{
         axios.delete(`https://finalproject-etqp.onrender.com/products/${id}`) 
         .then((response) => {
         setEmpty(true)
+        showModal(false)
         })
         .catch((error) => {
-          console.error('Ilanlar getirilemedi: ', error);
+          console.error('Xeta: ', error);
         });
     }
+   
     return(
         <div className='pb-[50px]'>
 {posts.length !=0 ? posts.map(post=>{
@@ -60,9 +65,11 @@ const showModal=()=>{
         </div>
 }) : <div className='w-full h-full flex flex-col gap-[20px]  pt-[30px] items-center justify-center'>
     <h1 className='text-center'>Heçbir elan əlavə etməmisiniz!</h1>
-    <button onClick={()=>{router.push("/newpost")}} className='bg-red-600 rounded-[10px] w-[200px] text-white font-bold flex items-center justify-center p-[5px]'>
+   <Link href="/newpost">
+   <button  className='bg-red-600 rounded-[10px] w-[200px] text-white font-bold flex items-center justify-center p-[5px]'>
         Əlavə et
     </button>
+   </Link>
     </div>}
    
 </div>

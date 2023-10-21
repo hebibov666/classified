@@ -11,6 +11,7 @@ import { addPost } from '@/redux/slices/userSlice';
 function Header({openLogin}){
     const dispatch=useDispatch()
     const router=useRouter()
+    const user=useSelector(state=>state.user.user)
 const [login,setLogin]=useState("")
 useEffect(()=>{
     if(typeof window!=="undefined" && window.localStorage){

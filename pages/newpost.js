@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ClearIcon from '@mui/icons-material/Clear';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import axios from 'axios'
+import { useRouter } from 'next/router';
 import { data } from 'autoprefixer';
 function NewPost() {
   const [category, setCategory] = useState(0)
@@ -13,8 +14,10 @@ function NewPost() {
   const screens = useSelector(state => state.book.screenSize)
   const [selectedCategory, setSelectedCategory] = useState()
   const [images, setImages] = useState([])
+  const router=useRouter()
   const dispatch = useDispatch()
   const form = useRef()
+  const [success,setSuccess]=useState(false)
   const user=useSelector(state=>state.user.user)
   const submit = async (e) => {
     e.preventDefault()
@@ -29,20 +32,25 @@ function NewPost() {
 
     console.log(Object.fromEntries(formdata));
 
-    try {
-      const response = await axios.post('https://finalproject-etqp.onrender.com/products',formdata)
-  
-      if (!response.ok) {
-        throw new Error('HTTP Hatası: ' + response.status);
-      }
-  
+    if(user?._id!=undefined || user?._id!=null){
+      setSuccess(true)
+      try {
+        const response = await axios.post('https://finalproject-etqp.onrender.com/products',formdata)
     
-  console.log(formData)
+        if (!response.ok) {
+          throw new Error('HTTP Hatası: ' + response.status);
+        }
+        setSuccess(false)
       
-    } catch (error) {
-      console.error('Hata:', error);
-  
-  
+    console.log(formData)
+        
+      } catch (error) {
+        console.error('Hata:', error);
+    
+    
+      }finally{
+        setSuccess(false)
+      }
     }
   };
 
@@ -116,10 +124,8 @@ function NewPost() {
   return (
     <div className='flex newpost flex-col items-center bg-[#F8F9FD]  pb-[60px] '>
       <div className='flex w-full items-center gap-[20px] justify-start'>
-        <div className='flex relative h-[40px] w-full justify-center bg-[transform] items-center'>
-          <Link href="/">
-            <ArrowBackIcon className='absolute top-2 left-2' fontSize='medium' />
-          </Link>
+        <div className='flex relative h-[40px] w-full justify-center bg-red-600 text-white font-bold items-center'>
+            <ArrowBackIcon onClick={()=>{router.back()}} className='absolute top-2 left-2' fontSize='medium' />
           <h1 className='text-xl'>Yeni elan əlavə et</h1>
         </div>
       </div>
@@ -156,7 +162,9 @@ function NewPost() {
               </div>
             })}
           </div>
-          <button type='submit' className='w-[80%] bg-red-600 h-[40px] text-white'>Paylas</button>
+          <button type='submit' className='w-[80%] bg-red-600 h-[40px] text-white'>
+            {success===true ? "Paylasilir..." : "Paylas"}
+          </button>
         </form>
       </div>
     </div>

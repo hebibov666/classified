@@ -5,10 +5,12 @@ import { useSelector,useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { userLogin } from '@/redux/slices/userSlice';
 import { useEffect } from 'react';
+import { Loading } from 'react-loading-dot'
 function Login() {
   const [email, setEmail] = useState('');
   const router=useRouter()
   const Login=useSelector(state=>state.user.isLogin)
+  const loading=useSelector(state=>state.user.loading)
  const [error,setError]=useState("")
   const [password, setPassword] = useState('');
   const dispatch=useDispatch()
@@ -50,8 +52,8 @@ function Login() {
     onChange={(e) => setPassword(e.target.value)}
         />
         {error != "" ? <p className='text-red-400 text-start w-full pl-[2px]'>{error}</p> : null}
-        <button   onClick={handleLogin} className='outline-none bg-[#FF6617] rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'>
-            Giriş et
+        <button   onClick={handleLogin} className='outline-none bg-blue-500 rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'>
+           {loading===true ? "Giriş edilir..." : " Giriş et"}
         </button>
    </div>
   );

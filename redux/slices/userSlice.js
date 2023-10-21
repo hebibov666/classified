@@ -22,6 +22,7 @@ export const getUser=createAsyncThunk('user/getUser',async()=>{
  return request.data
 
 })
+
 export  const User = createSlice({
   name: 'user',
   initialState:{
@@ -30,12 +31,14 @@ export  const User = createSlice({
    error:"",
    userId:null,
    user:null,
+   loading:false
 },
   reducers: {
  
    },
   extraReducers:(builder)=>{
     builder.addCase(userLogin.pending,(state,action)=>{
+    state.loading=true,
     state.loading=true
     }),
     builder.addCase(userLogin.fulfilled,(state,action)=>{
@@ -44,8 +47,12 @@ export  const User = createSlice({
    state.error=action.payload
      }else{
 state.isLogin=action.payload.token;
+state.loading=false
      }
   })
+  builder.addCase(getUser.pending,(state,action)=>{
+    state.user=null
+   })
   builder.addCase(getUser.fulfilled,(state,action)=>{
    state.user=action.payload
   })
