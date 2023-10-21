@@ -32,7 +32,7 @@ function NewPost() {
 
     console.log(Object.fromEntries(formdata));
 
-    if(user?._id!=undefined || user?._id!=null){
+    if(user){
       setSuccess(true)
       try {
         const response = await axios.post('https://finalproject-etqp.onrender.com/products',formdata)
