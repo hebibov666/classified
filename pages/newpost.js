@@ -4,75 +4,84 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import ClearIcon from '@mui/icons-material/Clear';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import axios from 'axios'
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import { data } from 'autoprefixer';
+import * as Yup from 'yup'; 
+import { useFormik } from 'formik'; 
+
 function NewPost() {
-  const [category, setCategory] = useState(0)
-  const options = useSelector(state => state.book.list)
-  const colors = useSelector(state => state.book.colors)
-  const screens = useSelector(state => state.book.screenSize)
-  const [selectedCategory, setSelectedCategory] = useState()
-  const [images, setImages] = useState([])
-  const router=useRouter()
-  const dispatch = useDispatch()
-  const form = useRef()
-  const [success,setSuccess]=useState(false)
-  const user=useSelector(state=>state.user.user)
-  const submit = async (e) => {
-    e.preventDefault()
-    const formdata = new FormData()
-    formdata.append('title',e.target.title.value)
-    formdata.append('price',e.target.price.value)
-    formdata.append('userid',user?._id)
-    const files = form.current.files;
-    for (let i = 0; i < files.length; i++) {
-      formdata.append(`files`, files[i]);
-    }
+  const [category, setCategory] = useState(0);
+  const options = useSelector(state => state.book.list);
+  const colors = useSelector(state => state.book.colors);
+  const screens = useSelector(state => state.book.screenSize);
+  const [selectedCategory, setSelectedCategory] = useState();
+  const [images, setImages] = useState([]);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const form = useRef();
+  const [success, setSuccess] = useState(false);
+  const user = useSelector(state => state.user.user);
 
-    console.log(Object.fromEntries(formdata));
+  
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required('Elan adı daxil edin'),
+    price: Yup.number().required('Qiymət daxil edin'),
+    description: Yup.string().required('Məhsul açığlaması yazın'),
+  });
 
-    if(user){
-      setSuccess(true)
-      try {
-        const response = await axios.post('https://finalproject-etqp.onrender.com/products',formdata)
-    
-        if (!response.ok) {
-          throw new Error('HTTP Hatası: ' + response.status);
-        }
-        setSuccess(false)
-      
-    console.log(formData)
-        
-      } catch (error) {
-        console.error('Hata:', error);
-    
-    
-      }finally{
-        setSuccess(false)
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      price: '',
+      description: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      const formdata = new FormData();
+      formdata.append('title', values.title);
+      formdata.append('price', values.price);
+      formdata.append('description', values.description);
+      formdata.append('userid', user?._id);
+
+      const files = form.current.files;
+      for (let i = 0; i < files.length; i++) {
+        formdata.append(`files`, files[i]);
       }
-    }
-  };
 
+      if (user) {
+        setSuccess(true);
+        try {
+          const response = await axios.post('https://finalproject-etqp.onrender.com/products', formdata);
+
+          if (!response.ok) {
+            throw new Error('HTTP Xətası: ' + response.status);
+          }
+          setSuccess(false);
+        } catch (error) {
+          console.error('Xəta:', error);
+        } finally {
+          setSuccess(false);
+        }
+      }
+    },
+  });
 
   const handleImageChange = (e) => {
     const files = e.target.files;
-    const { name } = e.target
+    const { name } = e.target;
     const newImages = [...images];
- for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const reader = new FileReader();
 
       reader.onload = (e) => {
         const base64Image = reader.result.toString();
         newImages.push(base64Image);
- setImages(newImages);
-};
- reader.readAsDataURL(file);
+        setImages(newImages);
+      };
+      reader.readAsDataURL(file);
     }
   };
-
-
 
   const renderFormBasedOnCategory = () => {
     switch (selectedCategory) {
@@ -116,22 +125,23 @@ function NewPost() {
         return null;
     }
   };
+
   const deleteImage = (ind) => {
-    const filterimg = images.filter((image, index) => index != ind)
-    setImages(filterimg)
-  }
+    const filterimg = images.filter((image, index) => index !== ind);
+    setImages(filterimg);
+  };
 
   return (
     <div className='flex newpost flex-col items-center bg-[#F8F9FD]  pb-[60px] '>
       <div className='flex w-full items-center gap-[20px] justify-start'>
-        <div className='flex relative h-[40px] w-full justify-center bg-red-600 text-white font-bold items-center'>
-            <ArrowBackIcon onClick={()=>{router.back()}} className='absolute top-2 left-2' fontSize='medium' />
+        <div className='flex relative h-[40px] w-full justify-center bg-blue-600 text-white font-bold items-center'>
+          <ArrowBackIcon onClick={() => router.back()} className='absolute top-2 left-2' fontSize='medium' />
           <h1 className='text-xl'>Yeni elan əlavə et</h1>
         </div>
       </div>
       <div className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
-        <form onSubmit={submit} encType='multipart/form-data' className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
-          <select name='category' onChange={(e) => { setSelectedCategory(e.currentTarget.value) }} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+        <form onSubmit={formik.handleSubmit} encType='multipart/form-data' className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
+          <select name='category' onChange={(e) => setSelectedCategory(e.currentTarget.value)} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
             {options.map(category => {
               return <option value={category.name}>{category.name}</option>
             })}
@@ -139,36 +149,65 @@ function NewPost() {
           {renderFormBasedOnCategory()}
           <select name='color' className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
             {colors.map(color => {
-              return <option value={category.name}>{color}</option>
+              return <option value={color.name}>{color}</option>
             })}
           </select>
-          <input type='text' name="title"
-            placeholder='Elan basligi' className='w-[80%] outline-none border-0  h-[30px] pl-2'></input>
-          <input type='text'
+          <input
+            type='text'
+            name="title"
+            placeholder='Elan basligi'
+            className='w-[80%] outline-none border-0  h-[30px] pl-2'
+            value={formik.values.title}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.title && formik.errors.title && <p className='text-red-600  text-start w-[80%] pl-[2px] mt-[-15px]'>{formik.errors.title}</p>}
+          <input
+            type='text'
             name="price"
-            placeholder='Qiymet' className='w-[80%] outline-none border-0  h-[30px] pl-2'></input>
-          <textarea name="description"
-            placeholder='description' className='w-[80%] outline-none border-0 textarea pl-2'></textarea>
+            placeholder='Qiymet'
+            className='w-[80%] outline-none border-0  h-[30px] pl-2 mt-[-10px]'
+            value={formik.values.price}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.price && formik.errors.price && <p className='text-red-600  text-start w-[80%] pl-[2px] mt-[-15px]'>{formik.errors.price}</p>}
+          <textarea
+            name="description"
+            placeholder='description'
+            className='w-[80%] outline-none border-0 textarea pl-2 mt-[-10px]'
+            value={formik.values.description}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.description && formik.errors.description && <p className='text-red-600 text-start w-[80%] mt-[-15px] pl-[2px]'>{formik.errors.description}</p>}
           <label htmlFor='fileInput' className='w-[80%] h-[35px] gap-[10px] bg-white flex items-center justify-center text-blue-600 font-bold'>
             <InsertPhotoIcon />
             <h1>Şəkil seç</h1>
-            <input type='file' ref={form} id="fileInput" multiple className='hidden'  accept="image/*" onChange={handleImageChange} ></input>
+            <input
+              type='file'
+              ref={form}
+              id="fileInput"
+              multiple
+              className='hidden'
+              accept="image/*"
+              onChange={handleImageChange}
+            />
           </label>
           <div className='w-[80%] flex gap-[20px]'>
             {images.map((image, index) => {
-              return <div className='photo'>
-                <img src={image} className='photosrc'></img>
-                <ClearIcon onClick={() => { deleteImage(index) }} className='icon' />
-              </div>
+              return (
+                <div className='photo' key={index}>
+                  <img src={image} className='photosrc' alt={`Image-${index}`} />
+                  <ClearIcon onClick={() => deleteImage(index)} className='icon' />
+                </div>
+              );
             })}
           </div>
-          <button type='submit' className='w-[80%] bg-red-600 h-[40px] text-white'>
-            {success===true ? "Paylasilir..." : "Paylas"}
+          <button type='submit' className='w-[80%] bg-blue-600 h-[40px] text-white'>
+            {success === true ? 'Paylasilir...' : 'Paylas'}
           </button>
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default NewPost;

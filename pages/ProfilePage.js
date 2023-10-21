@@ -53,7 +53,7 @@ const router=useRouter()
       </div>
      
      
-      <div className="flex justify-start w-full gap-[10px] pb-[5px]">
+      <div className="flex pt-[10px] justify-start w-full gap-[10px] pb-[5px]">
        <ul className="w-full pl-[10px] noscroll flex gap-[10px] overflow-x-scroll overflow-y-hidden shrink-0">
        <li
           onClick={() => handleTabClick('tab1')}
