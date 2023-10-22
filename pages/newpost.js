@@ -46,7 +46,8 @@ function NewPost() {
       formdata.append('description', values.description);
       formdata.append('userid', user?._id);
 formdata.append('category',selectedCategory)
-formdata.append('color',formik.values.color)
+formdata.append('color',values.color)
+formdata.append("model",values.model)
 console.log(values);
       const files = form.current.files;
       for (let i = 0; i < files.length; i++) {
