@@ -51,6 +51,8 @@ router.post('/', uploads.array("files"), (req, res, next) => {
         price: req.body.price,
         description: req.body.description,
         category: req.body.category,
+        model:req.body.model,
+        color:req.body.color,
         userId: req.body.userid,
         image: uploadedImageIds, // Resimlerin public ID'lerini kaydedin
       });

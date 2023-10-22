@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import * as Yup from 'yup'; 
 import { useFormik } from 'formik'; 
 
+
 function NewPost() {
   const [category, setCategory] = useState(0);
   const options = useSelector(state => state.book.list);
@@ -34,6 +35,8 @@ function NewPost() {
       title: '',
       price: '',
       description: '',
+      color:'',
+      model:'',
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -42,12 +45,14 @@ function NewPost() {
       formdata.append('price', values.price);
       formdata.append('description', values.description);
       formdata.append('userid', user?._id);
-
+formdata.append('category',selectedCategory)
+formdata.append('color',formik.values.color)
+console.log(values);
       const files = form.current.files;
       for (let i = 0; i < files.length; i++) {
         formdata.append(`files`, files[i]);
       }
-
+console.log(Object.fromEntries(formdata));
       if (user) {
         setSuccess(true);
         try {
@@ -87,7 +92,8 @@ function NewPost() {
     switch (selectedCategory) {
       case "Telefon":
         return (
-          <select name='model' className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
+          <select name='model' value={formik.values.model}
+          onChange={formik.handleChange} className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
             {options[0].models.map(item => {
               return <option>{item}</option>
             })}
@@ -95,7 +101,8 @@ function NewPost() {
         );
       case "Komputer":
         return (
-          <select name='model' className='w-[80%]  h-[30px] outline-none border-0 pl-2 text-[#a9a9a9]'>
+          <select name='model' value={formik.values.model}
+          onChange={formik.handleChange} className='w-[80%]  h-[30px] outline-none border-0 pl-2 text-[#a9a9a9]'>
             {options[1].models.map(item => {
               return <option>{item}</option>
             })}
@@ -104,7 +111,8 @@ function NewPost() {
       case "Televizor":
         return (
           <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
-            <select name='model' className='w-full h-[30px] pl-2 outline-none border-0'>
+            <select name='model' value={formik.values.model}
+            onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
               {options[2].models.map(item => {
                 return <option>{item}</option>
               })}
@@ -147,7 +155,8 @@ function NewPost() {
             })}
           </select>
           {renderFormBasedOnCategory()}
-          <select name='color' className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+          <select name='color'  value={formik.values.color}
+            onChange={formik.handleChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
             {colors.map(color => {
               return <option value={color.name}>{color}</option>
             })}
