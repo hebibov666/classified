@@ -16,20 +16,28 @@ router.use(session({
     saveUninitialized: true,
     cookie: { secure: false } 
   }));
-  router.get('/', async (req, res) => {
+  router.get('/get', async (req, res) => {
     const authorizationHeader = req.headers['authorization'];
+  
     if (authorizationHeader) {
       const tokenWithQuotes = authorizationHeader.split(' ')[1];
       const token = tokenWithQuotes.replace(/"/g, '');
-      console.log(token);
   
       try {
         const decoded = await jwt.verify(token, jwtSecret);
         const userId = decoded.id;
+  
         const user = await User.findById(userId).select('-password');
   
         if (user) {
-          res.status(200).json(user);
+          // Kullanıcının ilanlarını getir
+          const ilanlar = await Product.find({ userId });
+  
+          if (ilanlar.length > 0) {
+            res.status(200).json({ user, ilanlar });
+          } else {
+            res.status(404).json({ message: 'Kullanıcının ilanı bulunamadı' });
+          }
         } else {
           res.status(404).json({ message: 'İstifadəçi tapılmadı' });
         }
@@ -40,6 +48,7 @@ router.use(session({
       res.status(401).json({ message: 'Token yoxdur' });
     }
   });
+  
   
   
   

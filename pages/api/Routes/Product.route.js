@@ -61,8 +61,8 @@ router.post('/', uploads.array("files"), (req, res, next) => {
           res.json(savedProduct);
         })
         .catch(err => {
-          console.error('Ürün kaydetme hatası: ', err);
-          res.status(500).json({ message: 'Ürün kaydedilemedi' });
+
+          res.status(500).json({ message: 'Meshul qeyd edilmədi' });
         });
     })
     .catch(error => {
@@ -81,11 +81,10 @@ router.get('/:userId', async (req, res) => {
     if (products) {
       res.json(products);
     } else {
-      res.status(404).json({ message: 'Kullanıcının ilanı bulunamadı' });
+      res.status(404).json({ message: 'İstifadəçi tapılmadı' });
     }
   } catch (error) {
-    console.error('Ilanlar getirilemedi: ', error);
-    res.status(500).json({ message: 'Ilanlar getirilemedi' });
+    res.status(500).json({ message: 'Elanlar gətirləmədi' });
   }
 });
 
@@ -104,8 +103,7 @@ router.delete('/:id', async (req, res, next) => {
 
     res.json({ message: 'İlan başarıyla silindi' });
   } catch (error) {
-    console.error('İlan silme hatası: ', error);
-    res.status(500).json({ message: 'İlan silme işlemi başarısız oldu' });
+    res.status(500).json({ message: 'Elan silinməsi zamanı xəta' });
   }
 });
 
