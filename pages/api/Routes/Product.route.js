@@ -45,7 +45,6 @@ router.post('/', uploads.array("files"), (req, res, next) => {
 
   Promise.all(promises)
     .then(() => {
-      // Tüm resimler yüklendi, ürünü kaydet
       const product = new Product({
         name: req.body.title,
         price: req.body.price,
@@ -54,7 +53,7 @@ router.post('/', uploads.array("files"), (req, res, next) => {
         model:req.body.model,
         color:req.body.color,
         userId: req.body.userid,
-        image: uploadedImageIds, // Resimlerin public ID'lerini kaydedin
+        image: uploadedImageIds, 
       });
 
       product.save()
