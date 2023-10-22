@@ -29,11 +29,10 @@ router.use(session({
         const user = await User.findById(userId).select('-password');
         const products = await Product.find({userId: userId });
         if (user) {
-          res.status(200).json(user);
           if(products){
-            res.json(products)
+            res.json({user,products})
           }else{
-            res.json("Product yoxdur")
+            res.json(user)
           }
         } else {
           res.status(404).json({ message: 'İstifadəçi tapılmadı' });

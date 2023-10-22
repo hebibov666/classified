@@ -31,7 +31,8 @@ export  const User = createSlice({
    error:"",
    userId:null,
    user:null,
-   loading:false
+   loading:false,
+   posts:[],
 },
   reducers: {
  
@@ -54,7 +55,8 @@ state.loading=false
     state.user=null
    })
   builder.addCase(getUser.fulfilled,(state,action)=>{
-   state.user=action.payload
+   state.user=action.payload,
+   console.log(action.payload);
   })
   }
 });
