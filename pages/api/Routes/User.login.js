@@ -32,7 +32,7 @@ router.use(session({
         if (user) {
           // Kullanıcının ilanlarını getir
           const ilanlar = await Product.find({ userId });
-  
+  res.send(user)
           if (ilanlar.length > 0) {
             res.status(200).json({ user, ilanlar });
           } else {
