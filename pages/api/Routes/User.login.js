@@ -27,9 +27,14 @@ router.use(session({
         const decoded = await jwt.verify(token, jwtSecret);
         const userId = decoded.id;
         const user = await User.findById(userId).select('-password');
-  
+        const products = await Product.find({userId: userId });
         if (user) {
           res.status(200).json(user);
+          if(products){
+            res.json(products)
+          }else{
+            res.json("Product yoxdur")
+          }
         } else {
           res.status(404).json({ message: 'İstifadəçi tapılmadı' });
         }
