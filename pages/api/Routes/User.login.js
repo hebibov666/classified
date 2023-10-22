@@ -16,28 +16,20 @@ router.use(session({
     saveUninitialized: true,
     cookie: { secure: false } 
   }));
-  router.get('/get', async (req, res) => {
+  router.get('/', async (req, res) => {
     const authorizationHeader = req.headers['authorization'];
-  
     if (authorizationHeader) {
       const tokenWithQuotes = authorizationHeader.split(' ')[1];
       const token = tokenWithQuotes.replace(/"/g, '');
+      console.log(token);
   
       try {
         const decoded = await jwt.verify(token, jwtSecret);
         const userId = decoded.id;
-  
         const user = await User.findById(userId).select('-password');
   
         if (user) {
-          // Kullanıcının ilanlarını getir
-          const ilanlar = await Product.find({ userId });
-  res.status(200).json(user)
-          if (ilanlar.length > 0) {
-            res.status(200).json({ user, ilanlar });
-          } else {
-            res.status(404).json({ message: 'Kullanıcının ilanı bulunamadı' });
-          }
+          res.status(200).json(user);
         } else {
           res.status(404).json({ message: 'İstifadəçi tapılmadı' });
         }
