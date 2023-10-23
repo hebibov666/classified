@@ -92,20 +92,39 @@ router.delete('/:id', async (req, res, next) => {
   const productId = req.params.id; 
 
   try {
-   
     const product = await Product.findById(productId);
 
     if (!product) {
       return res.status(404).json({ message: 'İlan bulunamadı' });
     }
 
+    // İlanın resimlerini Cloudinary'den silme
+    const imageIds = product.image;
+    const deletePromises = imageIds.map((imageId) => {
+      return new Promise((resolve, reject) => {
+        cloudinary.uploader.destroy(imageId, (error, result) => {
+          if (error) {
+            console.error('Resim silme hatası: ', error);
+            reject(error);
+          } else {
+            resolve();
+          }
+        });
+      });
+    });
+
+    // Tüm resimlerin silinmesini bekleyin
+    await Promise.all(deletePromises);
+
+    // İlanı veritabanından sil
     await Product.findByIdAndRemove(productId);
 
     res.json({ message: 'İlan başarıyla silindi' });
   } catch (error) {
-    res.status(500).json({ message: 'Elan silinməsi zamanı xəta' });
+    res.status(500).json({ message: 'İlan silinme işlemi başarısız oldu' });
   }
 });
+
 
 router.patch('/:id',(req,res,next)=>{
 res.send("Update a product")

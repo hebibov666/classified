@@ -2,22 +2,26 @@ import { useRouter } from "next/router"
 import { useSelector } from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Link from "next/link";
-function Detail(product){
+import axios from "axios"
+function Detail(item){
+    const product=item.product
+    console.log(product);
     return (
         <div className="flex flex-col w-full h-full">
-            <div className="flex relative w-full items-center justify-center text-white h-[40px] bg-red-600">
+            <div className="flex relative w-full items-center justify-center text-white h-[40px] bg-blue-600">
                 <h1>Məhsul haqqında</h1>
                <Link href="/">
                <ArrowBackIosNewIcon className="absolute top-2 left-2"></ArrowBackIosNewIcon>
                </Link>
             </div>
-           <div className="flex m-2 gap-[50px] max-[1000px]:flex-col h-[500px] mt-[20px] p-3">
+           <div className="flex m-2 gap-[50px] max-[1000px]:flex-col w-[700px] h-[500px] mt-[20px] p-3">
 
     <img className="w-[100%] h-auto object-cover" src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${product?.image}`}></img>
 
 <div className="basis-[50%]  p-2 flex flex-col gap-[20px] justify-between  relative">
     <div className="flex flex-col gap-[10px]">
-    <h1 className="text-2xl ">{product?.title}</h1>
+    <h1 className="text-2xl ">{product?.name}</h1>
+    <p className="text-blue-400">{product?.price}</p>
     <p className="text-blue-400">{product?.category}</p>
     <p className="text-blue-400">{product?.model}</p>
     <p className="text-blue-400">{product?.color}</p>
@@ -37,10 +41,10 @@ export default Detail
 export async function getServerSideProps(context){
     const {id}=context.query
     const response = await axios.get(`https://finalproject-etqp.onrender.com/products/${id}`)
-    const product = await response.json();
+    const item = await response.data[0];
     return {
         props: {
-            product,
+            item,
           },
     }
 }
