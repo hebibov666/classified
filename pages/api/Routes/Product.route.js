@@ -71,17 +71,17 @@ router.post('/', uploads.array("files"), (req, res, next) => {
 });
 
 
-router.get('/:userId', async (req, res) => {
-  const userId = req.params.userId; 
+router.get('/:id', async (req, res) => {
+  const id = req.params.id; 
 
   try {
  
-    const products = await Product.find({userId: userId });
+    const product = await Product.find({_id:id });
 
-    if (products) {
-      res.json(products);
+    if (product) {
+      res.json(product);
     } else {
-      res.status(404).json({ message: 'İstifadəçi tapılmadı' });
+      res.status(404).json({ message: 'Məhsul tapılmadı' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Elanlar gətirləmədi' });

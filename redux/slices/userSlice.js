@@ -23,6 +23,13 @@ export const getUser=createAsyncThunk('user/getUser',async()=>{
 
 })
 
+export const RemovePost=createAsyncThunk('user/RemovePost',async(id)=>{
+  const request=await axios.delete(`https://finalproject-etqp.onrender.com/products/${id}`) 
+  const response=request.data
+console.log(response);
+  return response
+})
+
 export  const User = createSlice({
   name: 'user',
   initialState:{
@@ -55,8 +62,8 @@ state.loading=false
     state.user=null
    })
   builder.addCase(getUser.fulfilled,(state,action)=>{
-   state.user=action.payload,
-   console.log(action.payload);
+   state.user=action.payload.user,
+   state.posts=action.payload.products
   })
   }
 });

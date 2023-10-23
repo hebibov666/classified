@@ -2,11 +2,7 @@ import { useRouter } from "next/router"
 import { useSelector } from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Link from "next/link";
-function Detail({urunler}){
-    const router=useRouter()
-    const {id}=router.query
-    const product=urunler.find(item=>item.id==id)
-    console.log(urunler);
+function Detail(product){
     return (
         <div className="flex flex-col w-full h-full">
             <div className="flex relative w-full items-center justify-center text-white h-[40px] bg-red-600">
@@ -40,11 +36,11 @@ export default Detail
 
 export async function getServerSideProps(context){
     const {id}=context.query
-    const response = await fetch('https://api.escuelajs.co/api/v1/products');
-    const urunler = await response.json();
+    const response = await axios.get(`https://finalproject-etqp.onrender.com/products/${id}`)
+    const product = await response.json();
     return {
         props: {
-            urunler,
+            product,
           },
     }
 }

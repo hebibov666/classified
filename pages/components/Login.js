@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import axios from "axios"
 import { useSelector,useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { userLogin } from '@/redux/slices/userSlice';
+import {  userLogin } from '@/redux/slices/userSlice';
 import { useEffect } from 'react';
 import { Loading } from 'react-loading-dot'
 function Login() {

@@ -37,7 +37,7 @@ const router=useRouter()
 
     return(
 <div className="w-full h-full  flex flex-col">
-<div className="w-full h-[50px] bg-red-600 flex items-center gap-[20px] justify-start pl-[10px] box-border">
+<div className="w-full h-[50px] bg-blue-600 flex items-center gap-[20px] justify-start pl-[10px] box-border">
     <ArrowBackIcon onClick={()=>{router.push("/")}} className="font-bold text-white"></ArrowBackIcon>
     <h1 className="text-white text-[20px] font-bold">Profil</h1>
 </div>
