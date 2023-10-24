@@ -44,7 +44,7 @@ console.log(image);
     };
     const token = jwt.sign(userPayload, jwtSecret);
 
-    res.status(201).json({ token: token });
+    res.status(200).json({ token: token });
   } catch (error) {
     console.error('Hata Detayı:', error);
 
