@@ -2,13 +2,14 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/router';
-
+import axios from "axios"
 function Register() {
   const [User, setUser] = useState({});
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
   const router = useRouter();
+  const [image,setImage]=useState()
 
   const CreateUser = (e) => {
     const { name, value } = e.target;
@@ -31,13 +32,13 @@ function Register() {
     try {
       await validationSchema.validate(User, { abortEarly: false });
 
-      const response = await fetch('https://project1-3q4c.onrender.com/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(User),
-      });
+      const formData = new FormData();
+      formData.append('name', User.name);
+      formData.append('email', User.email);
+      formData.append('password', User.password);
+      formData.append('file', image); // selectedFile, seçilen resim dosyasıdır
+      console.log(Object.fromEntries(formData));
+      const response = await axios.post('http://localhost:3001/users', formData);;
 
       if (!response.ok) {
         throw new Error('HTTP Xətası: ' + response.status);
@@ -62,9 +63,16 @@ function Register() {
       setPending(false);
     }
   };
-
+const selectImage=(e)=>{
+  setImage(e.target.files[0]);
+  console.log(e.target.files[0]);
+}
   return (
     <div className='flex flex-col items-center gap-[10px] w-full'>
+      <label htmlFor='file'  className='w-[70px]  h-[70px] rounded-full border-2 border-grey-600'>
+        <img src='../nouser.png'></img>
+      </label>
+      <input type='file' id='file' onChange={(e)=>{selectImage(e)}}  className='hidden'></input>
       <TextField
         id="outlined-password-input"
         label="Ad"

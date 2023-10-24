@@ -5,20 +5,32 @@ const User = require("../User.model.js");
 const Product=require("../Product.model.js")
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
-
+const multer=require('multer')
+const cloudinary=require("../cloudinary.js")
 const jwtSecret = process.env.JWT_SECRET;
-
-router.post('/', async (req, res) => {
+const storage=multer.diskStorage({
+  destination:function(req,file,callback){
+callback(null,__dirname + "/profilephotos");
+  },
+  filename:function(req,file,callback){
+    callback(null,file.originalname)
+  }
+})
+const uploads=multer({storage:storage});
+router.post('/',uploads.single("file"), async (req, res) => {
   const { name, email, password } = req.body;
+const image=req.file
 
+console.log(image);
   try {
-  
+    const result = await cloudinary.uploader.upload(image.path);
     const hashedPassword = await bcrypt.hash(password, 10);
 
    
     const user = new User({
       name: name,
       email: email,
+      avatar:result.public_id,
       password: hashedPassword
     });
     const savedUser = await user.save();
@@ -27,12 +39,15 @@ router.post('/', async (req, res) => {
     const userPayload = {
       name: savedUser.name,
       email: savedUser.email,
-      id: savedUser._id
+      id: savedUser._id,
+      avatar:savedUser.avatar
     };
     const token = jwt.sign(userPayload, jwtSecret);
 
     res.status(201).json({ token: token });
   } catch (error) {
+    console.error('Hata Detayı:', error);
+
     res.status(500).json({ message: 'İstifadəçi tapılmadı' });
   }
 });

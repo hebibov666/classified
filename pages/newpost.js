@@ -8,8 +8,6 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup'; 
 import { useFormik } from 'formik'; 
-
-
 function NewPost() {
   const [category, setCategory] = useState(0);
   const options = useSelector(state => state.book.list);
@@ -17,6 +15,7 @@ function NewPost() {
   const screens = useSelector(state => state.book.screenSize);
   const [selectedCategory, setSelectedCategory] = useState();
   const [images, setImages] = useState([]);
+  const [photos,setPhotos]=useState([])
   const router = useRouter();
   const dispatch = useDispatch();
   const form = useRef();
@@ -50,8 +49,8 @@ formdata.append('color',values.color)
 formdata.append("model",values.model)
 console.log(values);
       const files = form.current.files;
-      for (let i = 0; i < files.length; i++) {
-        formdata.append(`files`, files[i]);
+      for (let i = 0; i < photos.length; i++) {
+        formdata.append(`files`, photos[i]);
       }
 console.log(Object.fromEntries(formdata));
       if (user) {
@@ -78,12 +77,13 @@ console.log(Object.fromEntries(formdata));
     const newImages = [...images];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+      setPhotos([...photos,files[i]])
       const reader = new FileReader();
-
       reader.onload = (e) => {
         const base64Image = reader.result.toString();
         newImages.push(base64Image);
         setImages(newImages);
+      
       };
       reader.readAsDataURL(file);
     }

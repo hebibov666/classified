@@ -23,7 +23,6 @@ router.get('/',async (req,res,next)=>{
 })
 router.post('/', uploads.array("files"), (req, res, next) => {
   const images = req.files.map((file) => file.path);
-
   // Tüm resimleri Cloudinary'ye yükle
   const uploadedImageIds = [];
   const promises = [];
