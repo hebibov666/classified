@@ -38,7 +38,7 @@ function Register() {
       formData.append('password', User.password);
       formData.append('file', image); // selectedFile, seçilen resim dosyasıdır
       console.log(Object.fromEntries(formData));
-      const response = await axios.post('http://localhost:3001/users', formData);;
+      const response = await axios.post('https://finalproject-etqp.onrender.com/users', formData);;
 
       if (!response.ok) {
         throw new Error('HTTP Xətası: ' + response.status);
