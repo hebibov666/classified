@@ -57,6 +57,7 @@ function Register() {
         setValidationErrors(yupErrors);
       } else {
         console.error('Xəta:', err);
+        console.log(response)
         setError('Qeydiyyat zamanı xəta baş verdi', err);
       }
     } finally {
