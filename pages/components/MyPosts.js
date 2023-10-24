@@ -38,11 +38,6 @@ function MyPosts() {
                         </Link>
                     </div> }) : <div className='w-full h-full flex flex-col gap-[20px]  pt-[30px] items-center justify-center'>
                 <h1 className='text-center'>Heçbir elan əlavə etməmisiniz!</h1>
-                <Link href="/newpost">
-                    <button className='bg-red-600 rounded-[10px] w-[200px] text-white font-bold flex items-center justify-center p-[5px]'>
-                        Əlavə et
-                    </button>
-                </Link>
             </div>}
             {modal === true ? <div className='fixed z-[1000000] w-full h-full top-0 left-0 bg-[#00000071] flex items-center justify-center'>
                         <div class="w-[250px] flex flex-col rounded-[5px] justify-between h-[140px] bg-white shadow-lg  p-4">

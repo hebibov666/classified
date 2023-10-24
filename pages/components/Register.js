@@ -22,29 +22,30 @@ function Register() {
   const Usercreate = async () => {
     setPending(true);
     setError(null);
-
+  
     const validationSchema = Yup.object().shape({
       name: Yup.string().required('Adınızı daxil edin'),
       email: Yup.string().email('Düzgün epoçt ünvanı daxil edin').required('Zəhmət olmasa epoçt ünvanı daxil edin'),
       password: Yup.string().min(8, 'Şifrə ən az 8 simvol olmalıdır').required('Şifrə daxil edin'),
     });
-
+  
     try {
       await validationSchema.validate(User, { abortEarly: false });
-
+  
       const formData = new FormData();
       formData.append('name', User.name);
       formData.append('email', User.email);
       formData.append('password', User.password);
-      formData.append('file', image); // selectedFile, seçilen resim dosyasıdır
+      formData.append('file', image);
+  
       console.log(Object.fromEntries(formData));
-      const response = await axios.post('https://finalproject-etqp.onrender.com/users', formData);;
-
-      if (!response.ok) {
+      const response = await axios.post('https://finalproject-etqp.onrender.com/users', formData);
+  
+      if (response.status !== 200) {
         throw new Error('HTTP Xətası: ' + response.status);
       }
-
-      const responseData = await response.json();
+  
+      const responseData = await response.data;
       localStorage.setItem('user', JSON.stringify(responseData.token));
       setPending(false);
       router.push('/');
@@ -57,13 +58,13 @@ function Register() {
         setValidationErrors(yupErrors);
       } else {
         console.error('Xəta:', err);
-        console.log(response)
         setError('Qeydiyyat zamanı xəta baş verdi', err);
       }
     } finally {
       setPending(false);
     }
   };
+  
 const selectImage=(e)=>{
   setImage(e.target.files[0]);
   console.log(e.target.files[0]);

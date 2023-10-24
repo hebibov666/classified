@@ -45,7 +45,7 @@ const router=useRouter()
     <div className="w-full bg-white  rounded-[10px] h-full flex flex-col items-center pt-[20px]">
 
       <div>
-        <img src="./nouser.png" className="w-[100px] h-[100px] rounded-full"></img>
+        <img src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${user?.avatar}`} className="w-[100px] h-[100px] rounded-full"></img>
       </div>
       <div className="flex flex-col gap-[10px]">
         <h1 className="text-center font-bold">{user?.name}</h1>
