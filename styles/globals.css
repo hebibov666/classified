@@ -103,3 +103,10 @@ select,input{
 .card:hover{
   box-shadow: 0 17px 34px 0 rgb(44 39 56 / 4%), 0 8px 17px 0 rgb(44 39 56 / 2%);
 }
+.slick-track{
+  box-sizing: border-box;
+  margin: 0px !important;
+}
+.swiper{
+  height: 400px !important;
+}

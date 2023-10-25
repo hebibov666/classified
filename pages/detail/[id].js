@@ -3,9 +3,12 @@ import { useSelector } from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Link from "next/link";
 import axios from "axios"
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 function Detail(item){
     const product=item.item
     console.log(product);
+  
     return (
         <div className="flex flex-col w-full h-full">
             <div className="flex relative w-full items-center justify-center text-white h-[40px] bg-blue-600">
@@ -14,9 +17,22 @@ function Detail(item){
                <ArrowBackIosNewIcon className="absolute top-2 left-2"></ArrowBackIosNewIcon>
                </Link>
             </div>
-           <div className="flex  gap-[50px] max-[1000px]:flex-col w-full mt-[20px] p-3">
+           <div className="flex  gap-[50px] max-[822px]:flex-col w-full mt-[20px] ">
+<div className="w-[50%] max-[822px]:w-full">
+<Swiper
+      spaceBetween={50}
+      slidesPerView={1}
+      
+    >
+{product.image.map(image=>{
+    return  <SwiperSlide className="w-full h-auto flex items-center justify-center">
+        <img className="w-full h-full object-cover" src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${image}`}></img>
+    </SwiperSlide>
+  
+   })}
+   </Swiper>
+</div>
 
-    <img className="w-[100%] h-auto object-cover" src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${product?.image}`}></img>
 
 <div className="basis-[50%]  p-2 flex flex-col gap-[20px] justify-between  relative">
     <div className="flex flex-col gap-[10px]">
