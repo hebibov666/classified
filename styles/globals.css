@@ -109,4 +109,62 @@ select,input{
 }
 .swiper{
   height: 400px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.slider{
+  width: 100% !important;
+  height:400px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+@media screen and (max-width:406px){
+  .swiper{
+    height: 200px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .slider{
+    width: 100% !important;
+    height:200px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+}
+@media screen and (min-width:406px) and (max-width:534px){
+  .swiper{
+    height: 300px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .slider{
+    width: 100% !important;
+    height:300px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+}
+@media screen and (min-width:534px) and (max-width:822px){
+  .swiper{
+    height: 400px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .slider{
+    width: 100% !important;
+    height:400px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
 }

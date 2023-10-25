@@ -10,7 +10,7 @@ function Detail(item){
     console.log(product);
   
     return (
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full h-full bg-white">
             <div className="flex relative w-full items-center justify-center text-white h-[40px] bg-blue-600">
                 <h1>Məhsul haqqında</h1>
                <Link href="/">
@@ -22,11 +22,11 @@ function Detail(item){
 <Swiper
       spaceBetween={50}
       slidesPerView={1}
-      
+      className="bg-black"
     >
 {product.image.map(image=>{
-    return  <SwiperSlide className="w-full h-auto flex items-center justify-center">
-        <img className="w-full h-full object-cover" src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${image}`}></img>
+    return  <SwiperSlide className="w-[90%]  slider p-[20px] h-[90%] h-auto flex items-center justify-center">
+        <img className="w-[90%] img  h-auto  min-[822px]:w-[90%]" src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${image}`}></img>
     </SwiperSlide>
   
    })}
@@ -34,7 +34,7 @@ function Detail(item){
 </div>
 
 
-<div className="basis-[50%]  p-2 flex flex-col gap-[20px] justify-between  relative">
+<div className="basis-[50%] max-[822px]:mt-[-30px] p-2 flex flex-col gap-[20px] justify-between  relative">
     <div className="flex flex-col gap-[10px]">
     <h1 className="text-2xl ">{product?.name}</h1>
     <p className="text-blue-400">{product?.price}</p>
