@@ -4,7 +4,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Link from "next/link";
 import axios from "axios"
 function Detail(item){
-    const product=item.product
+    const product=item.item
     console.log(product);
     return (
         <div className="flex flex-col w-full h-full">
@@ -14,7 +14,7 @@ function Detail(item){
                <ArrowBackIosNewIcon className="absolute top-2 left-2"></ArrowBackIosNewIcon>
                </Link>
             </div>
-           <div className="flex m-2 gap-[50px] max-[1000px]:flex-col w-[700px] h-[500px] mt-[20px] p-3">
+           <div className="flex  gap-[50px] max-[1000px]:flex-col w-full mt-[20px] p-3">
 
     <img className="w-[100%] h-auto object-cover" src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${product?.image}`}></img>
 
@@ -22,8 +22,9 @@ function Detail(item){
     <div className="flex flex-col gap-[10px]">
     <h1 className="text-2xl ">{product?.name}</h1>
     <p className="text-blue-400">{product?.price}</p>
-    <p className="text-blue-400">{product?.category}</p>
-    <p className="text-blue-400">{product?.model}</p>
+    <p className="text-blue-400">Kateqoriya: {product?.category}</p>
+    <p className="text-blue-400">Model: {product?.model}</p>
+    <p className="text-blue-400">Rəng: {product?.color}</p>
     <p className="text-blue-400">{product?.color}</p>
     <p>{product?.description}</p>
     </div>
@@ -42,6 +43,7 @@ export async function getServerSideProps(context){
     const {id}=context.query
     const response = await axios.get(`https://finalproject-etqp.onrender.com/products/${id}`)
     const item = await response.data[0];
+    console.log(item)
     return {
         props: {
             item,

@@ -78,7 +78,7 @@ router.get('/:id', async (req, res) => {
     const product = await Product.find({_id:id });
 
     if (product) {
-      res.json(product);
+      res.status(200).json(product);
     } else {
       res.status(404).json({ message: 'Məhsul tapılmadı' });
     }

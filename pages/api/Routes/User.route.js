@@ -31,7 +31,7 @@ router.post('/', uploads.single("file"), async (req, res) => {
     }
   } else {
     // Generate a random image URL (for example, using a UUID)
-    avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL0lG-jQCi88YRgPCHCELtOOfvhC894BttWA&usqp=CAU";
+    avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwTGD1DFMdHwC6PdU3Br-wI5d9Ckhp8nsNkw&usqp=CAU";
   }
 
   try {
