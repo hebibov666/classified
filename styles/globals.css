@@ -120,51 +120,35 @@ select,input{
   align-items: center !important;
   justify-content: center !important;
 }
-@media screen and (max-width:406px){
-  .swiper{
-    height: 200px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  .slider{
-    width: 100% !important;
-    height:200px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
+.bigimage{
+  width:auto;
+  height: auto;
+  transform:scale(1)
 }
-@media screen and (min-width:406px) and (max-width:534px){
-  .swiper{
-    height: 300px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  .slider{
-    width: 100% !important;
-    height:300px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
+.swiper-wrapper2{
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  top:0;
+  left: 0;
+  background: black;
+  display: flex !important;
+  align-items: center !important;
+  justify-content:center;
+  padding: 0;
+  transition-property: none;
+  box-sizing: border-box !important;
 }
-@media screen and (min-width:534px) and (max-width:822px){
-  .swiper{
-    height: 400px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+.full{
+  height: 100% !important;
+}
+@media screen and (max-width:400px){
+  .small-swiper{
+    height:250px !important
   }
-  .slider{
-    width: 100% !important;
-    height:400px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+}
+@media screen and (min-width:600px)and (max-width:793px){
+  .small-swiper{
+    height:550px !important
   }
-  
 }
