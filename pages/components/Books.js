@@ -7,6 +7,7 @@ import CircularUnderLoad from "./Progress"
 function Books(){
     const dispatch=useDispatch()
     const data=useSelector(state=>state.products.data)
+    const error=useSelector(state=>state.products.error)
     const loading=useSelector(state=>state.products.loading)
     useEffect(()=>{
         dispatch(products())
@@ -31,6 +32,7 @@ function Books(){
  }
 </div>
  }
+ {error!=null ? <p className="w-full h-full flex items-center text-center justify-center">Xəta!<br></br> Yenidən yoxlayın</p> : null}
 </div>
     )
 }

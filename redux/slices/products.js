@@ -11,7 +11,7 @@ export  const productsData = createSlice({
   initialState:{
    data:[],
    loading:true,
-   error:""
+   error:null
   },
   reducers: {
   },

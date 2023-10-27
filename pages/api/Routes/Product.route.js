@@ -83,7 +83,7 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ message: 'Məhsul tapılmadı' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Elanlar gətirləmədi' });
+    res.status(500).json({ message: 'Elanlar gətiriləmədi' });
   }
 });
 
