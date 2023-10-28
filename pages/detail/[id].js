@@ -28,7 +28,7 @@ function Detail(item){
 <Swiper
       spaceBetween={50}
       slidesPerView={1}
-      className={`${show===true ? "swiper-wrapper2 swiper2 h-full" : "small-swiper rounded-[20px] swiper-wrapper h-full bg-black"}`}
+      className={`${show===true ? "swiper-wrapper2 swiper2 h-full" : "small-swiper rounded-[10px] swiper-wrapper h-full bg-black"}`}
     >
          <CancelIcon onClick={()=>{setShow(false)}} className={`${show===false ? "hidden" : "flex"} text-white fixed top-2 z-[1000000] right-2 w-[30px] h-[30px]`}/>
 {product.image.map(image=>{
@@ -41,7 +41,7 @@ function Detail(item){
 </div>
 
 
-<div className="basis-[50%]  bg-white rounded-[10px] max-[822px]:mt-[-30px] p-2 flex flex-col gap-[20px] justify-between  relative">
+<div className="basis-[50%]  rounded-[10px] max-[822px]:mt-[-30px] p-2 flex flex-col gap-[20px] justify-between  relative">
     <div className="flex flex-col gap-[10px]">
     <h1 className="text-2xl ">{product?.name}</h1>
     <p className="text-blue-400">{product?.price}</p>

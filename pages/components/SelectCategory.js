@@ -8,10 +8,10 @@ function SelectCategory() {
   const dispatch = useDispatch();
   const border = useSelector((state) => state.book.border);
   return (
-<div className='flex  overflow-scroll bg-[#F7F9FB]   p-2 gap-[20px] noscroll items-center'>
+<div className='flex  overflow-scroll bg-[#F7F9FB] category-box  p-2 gap-[20px] noscroll items-center'>
     {categories.map(item=>{
-        return <div onClick={()=>{dispatch(setBorder({id:item.key}))}} className=" h-[100px] hover:text-red-600 flex flex-col items-center justify-center">
-       <div className={`h-[60px] w-[60px] bg-[#F1F3F7] max-[490px]:bg-white p-3 rounded-[10px] ${border===item.key ? "active" : null} `}>
+        return <div onClick={()=>{dispatch(setBorder({id:item.key}))}} className=" h-[100px] mobile-div hover:text-red-600 flex flex-col items-center justify-center">
+       <div className={`h-[60px] w-[60px] bg-[#F1F3F7] hideimg max-[490px]:bg-white p-3 rounded-[10px] ${border===item.key ? "active" : null} `}>
        <img className='w-full h-full' src={item.icon}></img>
        </div>
             <h1 className={`text-[14px] text-black text-center w-[70px] truncate`}>{item.name}</h1>
