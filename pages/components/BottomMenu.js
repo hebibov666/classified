@@ -24,7 +24,7 @@ useEffect(()=>{
     return(
        
             
-<div class="fixed z-50 w-full h-16   bg-white border border-gray-200 min-[490px]:hidden bottom-0  dark:bg-gray-700 dark:border-gray-600">
+<div class="fixed z-[10000] w-full h-16   bg-white border border-gray-200 min-[490px]:hidden bottom-0">
     <div class="grid h-full max-w-lg grid-cols-5 mx-auto">
 
      <button data-tooltip-target="tooltip-home" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
@@ -34,7 +34,7 @@ useEffect(()=>{
             <span class="sr-only">Home</span>
         </button>
     
-     <button data-tooltip-target="tooltip-home" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
+     <button data-tooltip-target="tooltip-home" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-l-full text-gray-500 hover:bg-gray-50  group">
           <FavoriteIcon/>
             <span class="sr-only">Home</span>
         </button>
@@ -54,8 +54,8 @@ useEffect(()=>{
             <span class="sr-only">Settings</span>
         </button>
        
-        <button data-tooltip-target="tooltip-profile" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-r-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
-        {login != "" ?  <Link href="/ProfilePage"><PersonIcon fontSize='medium'  className='text-black font-bold'/></Link> : <Link href="/LoginBox"><LoginIcon fontSize='medium' className='text-black font-bold'/></Link>}
+        <button data-tooltip-target="tooltip-profile" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-r-full hover:bg-gray-50 text-gray-500 group">
+        {login != "" ?  <Link href="/ProfilePage"><PersonIcon fontSize='medium'  className='font-bold'/></Link> : <Link href="/LoginBox"><LoginIcon fontSize='medium' className='font-bold'/></Link>}
         </button>
        
     </div>

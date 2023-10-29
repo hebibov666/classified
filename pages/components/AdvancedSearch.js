@@ -12,7 +12,7 @@ function AdvancedSearch(){
     const show=useSelector(state=>state.book.openCategory)
     const dispatch=useDispatch()
     return(
-        <div className={`flex overflow-scroll noscroll flex-col justify-start   fixed ${show ? 'left-0' : 'left-[-300%]'}  z-[999] anime top-0 left-0  bg-[#00000063] min-h-full h-[100vh]   w-[100%] max-[900px]:w-full  gap-[10px]`}>
+        <div className={`flex overflow-scroll noscroll flex-col justify-start z-[100000]  fixed ${show ? 'left-0' : 'left-[-300%]'}  z-[999] anime top-0 left-0  bg-[#00000063] min-h-full h-[100vh]   w-[100%] max-[900px]:w-full  gap-[10px]`}>
         <div className={`flex overflow-scroll noscroll flex-col justify-start   fixed ${show ? 'left-0' : 'left-[-300%]'}  z-[999] anime top-0 left-0  bg-[#F1F3F7] min-h-full h-[100vh]   w-[30%] max-[900px]:w-full  gap-[10px]`}>
 <div className="flex shrink-0 w-full h-[40px] bg-white justify-center  items-center justify-end pr-2 ">
     <h1>Axtarış</h1>
