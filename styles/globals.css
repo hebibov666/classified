@@ -149,6 +149,7 @@ select,input{
 }
 @media screen and (min-width:600px)and (max-width:793px){
   .small-swiper{
-    height:550px !important
+    height:550px !important;
+  
   }
 }
