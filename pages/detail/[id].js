@@ -23,12 +23,12 @@ function Detail(item){
                <ArrowBackIosNewIcon className="absolute top-2 left-2"></ArrowBackIosNewIcon>
                </Link>
             </div>
-           <div className="flex min-[822px]:p-[30px] p-[10px] gap-[50px] max-[822px]:flex-col w-full mt-[20px] ">
+           <div className="flex min-[822px]:p-[30px]  gap-[50px] max-[822px]:flex-col w-full mt-[20px] ">
 <div className="w-[50%] max-[822px]:w-full">
 <Swiper
       spaceBetween={50}
       slidesPerView={1}
-      className={`${show===true ? "swiper-wrapper2 swiper2 h-full" : "small-swiper rounded-[10px] swiper-wrapper h-full bg-black"}`}
+      className={`${show===true ? "swiper-wrapper2 swiper2 h-full" : "small-swiper swiper-wrapper h-full bg-black"}`}
     >
          <CancelIcon onClick={()=>{setShow(false)}} className={`${show===false ? "hidden" : "flex"} text-white fixed top-2 z-[1000000] right-2 w-[30px] h-[30px]`}/>
 {product.image.map(image=>{
@@ -49,7 +49,7 @@ function Detail(item){
     <p className="text-blue-400">Model: {product?.model}</p>
     <p className="text-blue-400">Rəng: {product?.color}</p>
     <p className="text-blue-400">{product?.color}</p>
-    <p>{product?.description}</p>
+    <p className="price text-[14px]">{product?.description}</p>
     </div>
    <div className="flex justify-center items-end w-full gap-[10px] top-[95%]">
    <a href="" className="flex w-[110px] rounded-[7px] bg-red-600 text-white p-2 items-center justify-center">Zəng et</a>

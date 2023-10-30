@@ -144,15 +144,19 @@ select,input{
 }
 @media screen and (max-width:400px){
   .small-swiper{
-    height:250px !important
+    height:200px !important
   }
 }
 @media screen and (min-width:600px)and (max-width:793px){
   .small-swiper{
-    height:550px !important;
+    height:350px !important;
   
   }
 }
 .price{
   font-family:'Helvetica Neue', sans-serif;
+}
+.text{
+  line-height: 19px;
+  padding-top: 5px;
 }

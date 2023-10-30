@@ -32,8 +32,8 @@ const addPost=()=>{
 }
     return(
     <div className='w-full top-0 left-0 z-[1]  h-[70px] bg-[#8A2BE2] max-[490px]:bg-white  max-[490px]:h-[50px]  flex justify-between pl-4 pr-2 items-center'>
-<div className='flex items-center justify-center gap-[10px]'>
-    <h1 className="text-2xl text-blue-700  font-bold">Axtar.az</h1>
+<div className='flex items-center max-[490px]:w-full justify-center gap-[10px]'>
+    <h1 className="text-2xl text-blue-700 max-[490px]:text-center  font-bold">Axtar.az</h1>
 </div>
 <div className='max-[490px]:hidden'>
 <div className='flex items-center justify-between gap-[15px] pr-[10px]'>
