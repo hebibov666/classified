@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -18,13 +18,13 @@
 
 body {
 
-    background: #F5F5F5 !important;
+    background: #F1F3F7 !important;
     touch-action: manipulation;
    
 
 }
 *{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+  font-family:Arial, Helvetica, sans-serif
 }
 .photo{
   width:100px;
@@ -152,4 +152,7 @@ select,input{
     height:550px !important;
   
   }
+}
+.price{
+  font-family:'Helvetica Neue', sans-serif;
 }
