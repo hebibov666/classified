@@ -8,13 +8,13 @@ function SelectCategory() {
   const dispatch = useDispatch();
   const border = useSelector((state) => state.book.border);
   return (
-<div className='flex border-b-2 border-white p-2 pl-0 pb-0  overflow-scroll bg-[#F0F0F0] category-box  gap-[20px] noscroll items-center'>
+<div className='flex p-2  overflow-scroll bg-[#483D8B] category-box  gap-[20px] noscroll items-center'>
    {categories.map(item=>{
-        return <div onClick={()=>{dispatch(setBorder({id:item.key}))}} className={`h-[40px] gap-[10px] relative  p-2 ${border===item.key ? "bg-white div rounded-t-[7px]" : "bg-[#F0F0F0] rounded-b-[7px]"}  cart-box  flex items-center justify-center`}>
+        return <div onClick={()=>{dispatch(setBorder({id:item.key}))}} className={`h-[40px] gap-[10px] relative  p-2 ${border===item.key ? "bg-[#483D8B] border-2 border-white div rounded-[7px]" : "bg-white rounded-[7px]"}  cart-box  flex items-center justify-center`}>
        <div className={`h-[20px] w-[20px]  hideimg rounded-[10px]`}>
        <img className='w-full h-full' src={item.icon}></img>
        </div>
-            <h1 className={`text-[15px] text-black text-center truncate`}>{item.name}</h1>
+            <h1 className={`text-[15px] ${border===item.key ? "text-white" : "text-[#0F0F0F]"} text-center truncate`}>{item.name}</h1>
         </div>
     })}
 </div>
