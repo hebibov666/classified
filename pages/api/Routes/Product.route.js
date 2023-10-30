@@ -51,6 +51,8 @@ router.post('/', uploads.array("files"), (req, res, next) => {
         category: req.body.category,
         model:req.body.model,
         color:req.body.color,
+        city:req.body.city,
+number:req.body.number,
         userId: req.body.userid,
         image: uploadedImageIds, 
       });

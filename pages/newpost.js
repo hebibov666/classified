@@ -11,6 +11,7 @@ import { useFormik } from 'formik';
 function NewPost() {
   const [category, setCategory] = useState(0);
   const options = useSelector(state => state.book.list);
+  const cities = useSelector(state => state.book.city);
   const colors = useSelector(state => state.book.colors);
   const screens = useSelector(state => state.book.screenSize);
   const [selectedCategory, setSelectedCategory] = useState();
@@ -27,6 +28,8 @@ function NewPost() {
     title: Yup.string().required('Elan adı daxil edin'),
     price: Yup.number().required('Qiymət daxil edin'),
     description: Yup.string().required('Məhsul açığlaması yazın'),
+    color: Yup.string().required('Rəng seçin'),
+    number:Yup.string().required('Telefon nömrəsi daxil edin'),
   });
 
   const formik = useFormik({
@@ -36,6 +39,9 @@ function NewPost() {
       description: '',
       color:'',
       model:'',
+      city:'',
+      number:'',
+      whatsappNumber:'',
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -47,6 +53,8 @@ function NewPost() {
 formdata.append('category',selectedCategory)
 formdata.append('color',values.color)
 formdata.append("model",values.model)
+formdata.append("number",values.number)
+formdata.append("whatsappNumber",values.whatsappNumber)
 console.log(values);
       const files = form.current.files;
       for (let i = 0; i < photos.length; i++) {
@@ -150,7 +158,7 @@ console.log(Object.fromEntries(formdata));
       </div>
       <div className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
         <form onSubmit={formik.handleSubmit} encType='multipart/form-data' className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
-          <select name='category' onChange={(e) => setSelectedCategory(e.currentTarget.value)} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+          <select name='category' value={formik.values.category} onChange={(e) =>setSelectedCategory(e.currentTarget.value)} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
             {options.map(category => {
               return <option value={category.name}>{category.name}</option>
             })}
@@ -160,6 +168,12 @@ console.log(Object.fromEntries(formdata));
             onChange={formik.handleChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
             {colors.map(color => {
               return <option value={color.name}>{color}</option>
+            })}
+          </select>
+          <select name='color'  value={formik.values.city}
+            onChange={formik.handleChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            {cities.map(city => {
+              return <option value={city}>{city}</option>
             })}
           </select>
           <input
@@ -185,6 +199,22 @@ console.log(Object.fromEntries(formdata));
             placeholder='description'
             className='w-[80%] outline-none border-0 textarea pl-2 mt-[-10px]'
             value={formik.values.description}
+            onChange={formik.handleChange}
+          />
+           <input
+            type='text'
+            name="number"
+            placeholder='Telefon nömrəsi'
+            className='w-[80%] outline-none border-0  h-[30px] pl-2'
+            value={formik.values.number}
+            onChange={formik.handleChange}
+          />
+           <input
+            type='text'
+            name="whatsappNumber"
+            placeholder='Whatsapp nömrəsi'
+            className='w-[80%] outline-none border-0  h-[30px] pl-2'
+            value={formik.values.whatsappNumber}
             onChange={formik.handleChange}
           />
           {formik.touched.description && formik.errors.description && <p className='text-red-600 text-start w-[80%] mt-[-15px] pl-[2px]'>{formik.errors.description}</p>}

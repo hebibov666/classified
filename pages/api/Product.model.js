@@ -31,6 +31,15 @@ const ProductScheam=new Schema({
     },
     color:{
         type:String
+    },
+    number:{
+        type:String
+    },
+    city:{
+        type:String
+    },
+    whatsappNumber:{
+        type:String
     }
 })
 const Product=mongoose.model('product',ProductScheam);
