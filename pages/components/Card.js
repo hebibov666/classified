@@ -5,7 +5,7 @@ import Link from "next/link"
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 function Card({title,image,price,id}){
 return(
-    <div className="w-full card flex gap-[10px] shadow-sm shadow-grey-500 flex-col items-center relative min-[644px]:h-[300px] min-[644px]:gap-[35px] bg-white h-[250px] lg:pb-[10px] pb-[5px] min-[640px]:h-[270px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
+    <div className="w-full card flex gap-[10px] bg-[#F5F5F5] shadow-sm shadow-grey-500 flex-col items-center relative min-[644px]:h-[300px] min-[644px]:gap-[35px] h-[250px] lg:pb-[10px] pb-[5px] min-[640px]:h-[270px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
 <BookmarkBorderIcon fontSize="large" className="absolute p-[5px] z-[10000] bg-white rounded-bl-[50%] top-0 w-[40px] h-[40px] text-black right-0"></BookmarkBorderIcon>
 <Link href={`/detail/${id}`} className="w-full flex gap-[10px]  flex-col items-center relative min-[644px]:h-[300px] min-[644px]:gap-[35px] bg-white h-[250px] lg:pb-[10px] pb-[5px] min-[640px]:h-[270px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
 <div className="flex w-full justify-center w-full h-[170px]">
