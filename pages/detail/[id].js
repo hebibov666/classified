@@ -30,7 +30,7 @@ function Detail(item){
       slidesPerView={1}
       className={`${show===true ? "swiper-wrapper2 swiper2 h-full" : "small-swiper swiper-wrapper h-full bg-black"}`}
     >
-         <CancelIcon onClick={()=>{setShow(false)}} className={`${show===false ? "hidden" : "flex"} text-white fixed top-2 z-[1000000] right-2 w-[30px] h-[30px]`}/>
+         <CancelIcon onClick={()=>{setShow(false)}} className={`${show===false ? "hidden" : "flex z-[10000000]"} text-white fixed top-2 z-[1000000] right-2 w-[30px] h-[30px]`}/>
 {product.image.map(image=>{
     return  <SwiperSlide  onClick={()=>{setShow(true)}} className="w-[100%]  full relative slider p-[20px] h-[90%] h-auto flex items-center justify-center">
         <img className={`${show===true ? "w-full h-full object-contain" : "w-auto img object-contain h-auto  min-[822px]:w-[90%]"}`} src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${image}`}></img>
@@ -42,18 +42,28 @@ function Detail(item){
 
 
 <div className="basis-[50%]  rounded-[10px] max-[822px]:mt-[-30px] p-2 flex flex-col gap-[20px] justify-between  relative">
-    <div className="flex flex-col gap-[10px]">
-    <h1 className="text-2xl ">{product?.name}</h1>
-    <p className="text-blue-400">{product?.price}</p>
-    <p className="text-blue-400">Kateqoriya: {product?.category}</p>
-    <p className="text-blue-400">Model: {product?.model}</p>
-    <p className="text-blue-400">Rəng: {product?.color}</p>
+   <div className="flex flex-col">
+   <p className="text-black text-[25px] font-bold">{product?.price} Azn</p>
+   <h1 className="text-2xl ">{product?.name}</h1>
+   </div>
+   <div className="flex justify-between">
+   <div className="flex flex-col gap-[10px]">
+    <p className="text-grey-500">Kateqoriya:</p>
+    <p className="text-grey-500">Model:</p>
+    <p className="text-grey-500">Rəng:</p>
+    </div>
+   <div className="flex flex-col gap-[10px] pr-2">
+    <p className="text-blue-400">{product?.category}</p>
+    <p className="text-blue-400">{product?.model}</p>
     <p className="text-blue-400">{product?.color}</p>
+    </div>
+    </div>
+    <div>
     <p className="price text-[14px]">{product?.description}</p>
     </div>
-   <div className="flex justify-center items-end w-full gap-[10px] top-[95%]">
-   <a href="" className="flex w-[110px] rounded-[7px] bg-red-600 text-white p-2 items-center justify-center">Zəng et</a>
-   <a href="" className="flex w-[110px] rounded-[7px] bg-green-600 text-white p-2 items-center justify-center">Whatsapp</a>
+   <div className="flex justify-center  items-end w-full gap-[10px] top-[95%]">
+   <a href="" className="flex w-[110px] rounded-[5px] bg-red-500 text-white p-2 items-center justify-center">Zəng et</a>
+   <a href="" className="flex w-[110px] rounded-[5px] bg-green-500 text-white p-2 items-center justify-center">Whatsapp</a>
    </div>
 </div>
            </div>

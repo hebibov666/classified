@@ -142,7 +142,7 @@ select,input{
 .full{
   height: 100% !important;
 }
-@media screen and (max-width:400px){
+@media screen and (max-width:500px){
   .small-swiper{
     height:200px !important
   }
