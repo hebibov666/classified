@@ -10,13 +10,14 @@ import BottomMenu from './components/BottomMenu'
 const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [login,setLogin]=useState(false)
+  const [category,setCategory]=useState("bütünElanlar")
   return (
     <main>
      <Header openLogin={setLogin}/>
-     <SelectCategory/>
+     <SelectCategory setCategory={setCategory}/>
      <AdvancedSearch/>
      <div className='flex w-full  max-[1015px]:flex-col'>
-      <Books/>
+      <Books category={category}/>
      </div>
      <BottomMenu/>
     </main>

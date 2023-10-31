@@ -12,15 +12,16 @@ callback(null,__dirname + "/uploads");
   }
 })
 const uploads=multer({storage:storage});
-router.get('/',async (req,res,next)=>{
-    try {
-        const products = await Product.find();
-    
-        res.status(200).json(products); 
-      } catch (error) {
-        next(error);
-      }
-})
+app.get('/products/:category', async (req, res) => {
+  const { category } = req.params;
+const products=await Product.find()
+  if (category === 'bütünElanlar') {
+    res.json(products);
+  } else {
+    const filteredProducts = products.filter((product) => product.category === category);
+    res.json(filteredProducts);
+  }
+});
 router.post('/', uploads.array("files"), (req, res, next) => {
   const images = req.files.map((file) => file.path);
   // Tüm resimleri Cloudinary'ye yükle

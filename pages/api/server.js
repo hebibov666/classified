@@ -19,9 +19,11 @@ mongoose.connect(DataUrl,{
 const ProductRoute=require("./Routes/Product.route");
 const UserRoute=require("./Routes/User.route")
 const LoginRoute=require("./Routes/User.login")
+const CategoryFilter=require("./Routes/CategoryFilter")
 app.use("/products",ProductRoute)
 app.use("/users",UserRoute)
 app.use("/login",LoginRoute)
+app.use("/categoryfilter",CategoryFilter)
 app.use((req,res,next)=>{
    const err=new Error("Not found");
    err.status=404

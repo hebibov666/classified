@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setBorder } from '@/redux/slices/categorySlices';
 
 
-function SelectCategory() {
+function SelectCategory({setCategory}) {
   const categories = useSelector((state) => state.book.list);
   const dispatch = useDispatch();
   const border = useSelector((state) => state.book.border);
   return (
 <div className='flex border-b-2 border-white p-2  overflow-scroll bg-white category-box  gap-[20px] noscroll items-center'>
    {categories.map(item=>{
-        return <div onClick={()=>{dispatch(setBorder({id:item.key}))}} className={`h-[35px] gap-[10px] relative  p-2 ${border===item.key ? "bg-white border-[2px] border-[#F7F7F8] div rounded-[7px]" : "bg-[#F7F7F8]  rounded-[7px]"}  cart-box  flex items-center justify-center`}>
+        return <div onClick={()=>{dispatch(setBorder({id:item.key})),setCategory(item.name)}} className={`h-[35px] gap-[10px] relative  p-2 ${border===item.key ? "bg-white border-[2px] border-[#F7F7F8] div rounded-[7px]" : "bg-[#F7F7F8]  rounded-[7px]"}  cart-box  flex items-center justify-center`}>
        <div className={`h-[20px] w-[20px]  hideimg rounded-[10px]`}>
        <img className='w-full h-full' src={item.icon}></img>
        </div>

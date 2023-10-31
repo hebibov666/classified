@@ -4,13 +4,14 @@ import { useSelector,useDispatch } from "react-redux"
 import { products } from "@/redux/slices/products"
 import { useEffect } from "react"
 import CircularUnderLoad from "./Progress"
-function Books(){
+function Books({category}){
     const dispatch=useDispatch()
     const data=useSelector(state=>state.products.data)
     const error=useSelector(state=>state.products.error)
     const loading=useSelector(state=>state.products.loading)
+    console.log(category)
     useEffect(()=>{
-        dispatch(products())
+        dispatch(products(category))
     },[dispatch])
     useEffect(()=>{
         console.log(data);

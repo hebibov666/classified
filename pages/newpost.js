@@ -129,16 +129,6 @@ console.log(Object.fromEntries(formdata));
             </select>
           </div>
         );
-      case "Akksesuar":
-        return (
-          <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
-            <select name='model' className='w-full h-[30px] pl-2 outline-none border-0'>
-              {options[3].models.map(item => {
-                return <option>{item}</option>
-              })}
-            </select>
-          </div>
-        );
       default:
         return null;
     }
