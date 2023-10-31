@@ -10,7 +10,7 @@ import BottomMenu from './components/BottomMenu'
 const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [login,setLogin]=useState(false)
-  const [category,setCategory]=useState("bütünElanlar")
+  const [category,setCategory]=useState("Bütün elanlar")
   return (
     <main>
      <Header openLogin={setLogin}/>

@@ -2,28 +2,33 @@ import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const categories=[
-  
+  {
+    key:0,
+    name:"Bütün elanlar",
+icon:"../application.png"
+
+},
     {
-        key:0,
+        key:1,
         name:"Telefon",
         models:["Iphone","Samsung","Huawei","Honor","Xiaomi","Alcatel","Realme","Nokia","Hisense","Fly","Tecno","Htc","ZTE","Casper","BlackBerry","Sony","Philips","Oppo","Hoffman","Infinix","Lg"],
     icon:"../phone.png"
   
     },
     {
-        key:1,
+        key:2,
         name:"Komputer",
         models:["Toshiba","Fijutsi","Macbook","Hp","Asus","Acer","Dell","Lg","Nexus","Samsung","Casper","Honor","Lenevo","Sony"],
         icon:"../laptop-screen.png"
     },
     {
-        key:2,
+        key:3,
         name:"Televizor",
         models:["Toshiba","Arcelik","Shiwaki","Vestel","Zimmer","Acer","Thomson","Lg","Supra","Samsung","Supermax","Vestel","Westburg","Sony","Crystal","Corfug","Elenberg","Discovery","Daewo","Braun","Benq","Artel","Akai","Akira","Awai"],
 icon:"../tv.png",
     },
     {
-        key:3,
+        key:4,
         name:"Aksessuar",
         models:["Qulaqciq","Mouse","Klavyiatura","Antiudar","Batareya","Usb","Flaskart","Adapter","Printer","Web kamera","Modem","Router","Kabro","Ekran"],
   icon:"../headphone.png"

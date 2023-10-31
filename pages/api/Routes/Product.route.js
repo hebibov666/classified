@@ -15,7 +15,7 @@ const uploads=multer({storage:storage});
 router.get('/products/:category', async (req, res) => {
   const { category } = req.params;
 const products=await Product.find()
-  if (category === 'bütünElanlar') {
+  if (category === 'Bütün elanlar') {
     res.json(products);
   } else {
     const filteredProducts = products.filter((product) => product.category === category);

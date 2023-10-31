@@ -12,14 +12,12 @@ function Books({category}){
     console.log(category)
     useEffect(()=>{
         dispatch(products(category))
-    },[dispatch])
-    useEffect(()=>{
-        console.log(data);
-    },[data])
+    },[category])
+
     return(
 <div className={`mx-auto h-full w-full basis-[100%]  max-[1015px]:border-[#E8E8E8]  `}>
 
- <h1 className="mt-2 pl-2 text-xl max-[450px]:text-[17px] text-blue-600">Bütün elanlar</h1>
+ <h1 className="mt-2 pl-2 text-xl max-[450px]:text-[17px] text-blue-600">{category}</h1>
  {loading===true ? <div className="w-full pt-[100px] h-full gap-[15px] flex-col flex items-center justify-center">
  <CircularUnderLoad/>
  <h1>Elanlar yüklənir...</h1>
