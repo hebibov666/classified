@@ -12,7 +12,7 @@ callback(null,__dirname + "/uploads");
   }
 })
 const uploads=multer({storage:storage});
-app.get('/products/:category', async (req, res) => {
+router.get('/products/:category', async (req, res) => {
   const { category } = req.params;
 const products=await Product.find()
   if (category === 'bütünElanlar') {
