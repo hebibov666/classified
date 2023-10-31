@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup'; 
 import { useFormik } from 'formik'; 
+import { getUser } from '@/redux/slices/userSlice';
 function NewPost() {
   const [category, setCategory] = useState(0);
   const options = useSelector(state => state.book.list);
@@ -22,13 +23,14 @@ function NewPost() {
   const form = useRef();
   const [success, setSuccess] = useState(false);
   const user = useSelector(state => state.user.user);
-
+  useEffect(()=>{
+    dispatch(getUser())
+},[])
   
   const validationSchema = Yup.object().shape({
     title: Yup.string().required('Elan adı daxil edin'),
     price: Yup.number().required('Qiymət daxil edin'),
     description: Yup.string().required('Məhsul açığlaması yazın'),
-    color: Yup.string().required('Rəng seçin'),
     number:Yup.string().required('Telefon nömrəsi daxil edin'),
   });
 
@@ -37,7 +39,6 @@ function NewPost() {
       title: '',
       price: '',
       description: '',
-      color:'',
       model:'',
       city:'',
       number:'',
@@ -51,9 +52,9 @@ function NewPost() {
       formdata.append('description', values.description);
       formdata.append('userid', user?._id);
 formdata.append('category',selectedCategory)
-formdata.append('color',values.color)
 formdata.append("model",values.model)
 formdata.append("number",values.number)
+fomrdata.append("city",values.city)
 formdata.append("whatsappNumber",values.whatsappNumber)
 console.log(values);
       const files = form.current.files;
@@ -64,7 +65,7 @@ console.log(Object.fromEntries(formdata));
       if (user) {
         setSuccess(true);
         try {
-          const response = await axios.post('https://finalproject-etqp.onrender.com/products', formdata);
+          const response = await axios.post('https://classified-c78k.onrender.com/products', formdata);
 
           if (!response.ok) {
             throw new Error('HTTP Xətası: ' + response.status);
@@ -164,13 +165,7 @@ console.log(Object.fromEntries(formdata));
             })}
           </select>
           {renderFormBasedOnCategory()}
-          <select name='color'  value={formik.values.color}
-            onChange={formik.handleChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
-            {colors.map(color => {
-              return <option value={color.name}>{color}</option>
-            })}
-          </select>
-          <select name='color'  value={formik.values.city}
+          <select name='city'  value={formik.values.city}
             onChange={formik.handleChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
             {cities.map(city => {
               return <option value={city}>{city}</option>

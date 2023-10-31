@@ -29,9 +29,6 @@ const ProductScheam=new Schema({
     model:{
         type:String
     },
-    color:{
-        type:String
-    },
     number:{
         type:String
     },

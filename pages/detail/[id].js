@@ -8,6 +8,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/bundle'
 import CancelIcon from '@mui/icons-material/Cancel';
+import PhoneIcon from '@mui/icons-material/Phone';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 function Detail(item){
     const product=item.item
     const [bigImage,setBigImage]=useState()
@@ -50,20 +52,20 @@ function Detail(item){
    <div className="flex flex-col gap-[10px]">
     <p className="text-grey-500">Kateqoriya:</p>
     <p className="text-grey-500">Model:</p>
-    <p className="text-grey-500">Rəng:</p>
+    <p className="text-grey-500">Şəhər:</p>
     </div>
    <div className="flex flex-col gap-[10px] pr-2">
     <p className="text-blue-400">{product?.category}</p>
     <p className="text-blue-400">{product?.model}</p>
-    <p className="text-blue-400">{product?.color}</p>
+    <p className="text-blue-400">{product?.city}</p>
     </div>
     </div>
     <div>
     <p className="price text-[14px]">{product?.description}</p>
     </div>
-   <div className="flex justify-center  items-end w-full gap-[10px] top-[95%]">
-   <a href="" className="flex w-[110px] rounded-[5px] bg-red-500 text-white p-2 items-center justify-center">Zəng et</a>
-   <a href="" className="flex w-[110px] rounded-[5px] bg-green-500 text-white p-2 items-center justify-center">Whatsapp</a>
+   <div className="w-full flex gap-[5px]  items-center flex-col justify-center  h-[80px] rounded-[5px]">
+    <a href={`tel://${product?.number}`} className="text-white bg-[#4586ff] w-full h-[40px] justify-center rounded-[7px] flex gap-[20px] items-center"><PhoneIcon/> Zəng et</a>
+    <a href={`tel://${product?.number}`} className="text-white bg-[#239d60] w-full h-[40px] rounded-[7px] justify-center flex gap-[20px] items-center"><WhatsAppIcon/> Whatsapp-da yaz</a>
    </div>
 </div>
            </div>

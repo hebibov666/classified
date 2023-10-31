@@ -18,7 +18,7 @@ function Books(){
     return(
 <div className={`mx-auto h-full w-full basis-[100%]  max-[1015px]:border-[#E8E8E8]  `}>
 
- <h1 className="mt-2 pl-2 text-xl max-[450px]:text-[16px] text-[#212C3A]">Bütün elanlar</h1>
+ <h1 className="mt-2 pl-2 text-xl max-[450px]:text-[17px] text-blue-600">Bütün elanlar</h1>
  {loading===true ? <div className="w-full pt-[100px] h-full gap-[15px] flex-col flex items-center justify-center">
  <CircularUnderLoad/>
  <h1>Elanlar yüklənir...</h1>
