@@ -54,7 +54,7 @@ function NewPost() {
 formdata.append('category',selectedCategory)
 formdata.append("model",values.model)
 formdata.append("number",values.number)
-fomrdata.append("city",values.city)
+formdata.append("city",values.city)
 formdata.append("whatsappNumber",values.whatsappNumber)
 console.log(values);
       const files = form.current.files;
@@ -65,7 +65,7 @@ console.log(Object.fromEntries(formdata));
       if (user) {
         setSuccess(true);
         try {
-          const response = await axios.post('https://classified-c78k.onrender.com/products', formdata);
+          const response = await axios.post('https://listingwebsite.onrender.com/products', formdata);
 
           if (!response.ok) {
             throw new Error('HTTP Xətası: ' + response.status);

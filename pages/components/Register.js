@@ -39,7 +39,7 @@ function Register() {
       formData.append('file', image);
   
       console.log(Object.fromEntries(formData));
-      const response = await axios.post('https://classified-c78k.onrender.com/users', formData);
+      const response = await axios.post('https://listingwebsite.onrender.com/users', formData);
   
       if (response.status !== 200) {
         throw new Error('HTTP Xətası: ' + response.status);
