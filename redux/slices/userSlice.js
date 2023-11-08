@@ -40,6 +40,7 @@ export  const User = createSlice({
    user:null,
    loading:false,
    posts:[],
+   favorites:[]
 },
   reducers: {
  
@@ -55,7 +56,7 @@ export  const User = createSlice({
    state.error=action.payload
      }else{
 state.isLogin=action.payload.token;
-state.loading=false
+state.loading=false;
      }
   })
   builder.addCase(getUser.pending,(state,action)=>{
@@ -64,6 +65,9 @@ state.loading=false
   builder.addCase(getUser.fulfilled,(state,action)=>{
    state.user=action.payload.user,
    state.posts=action.payload.products
+   localStorage.setItem("login",JSON.stringify(action.payload.user._id))
+  state.favorites=action.payload.user.wishlist
+   console.log(action.payload.user);
   })
   }
 });

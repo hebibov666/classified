@@ -1,6 +1,7 @@
 const express=require("express");
 const router=express.Router();
 const Product=require("../Product.model.js")
+const Favori=require("../Favori.model.js")
 const multer=require('multer')
 const cloudinary=require("../cloudinary.js")
 const storage=multer.diskStorage({

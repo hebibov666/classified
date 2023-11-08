@@ -22,9 +22,13 @@ function NewPost() {
   const dispatch = useDispatch();
   const form = useRef();
   const [success, setSuccess] = useState(false);
-  const user = useSelector(state => state.user.user);
+  const [user,setUser]=useState(null)
   useEffect(()=>{
-    dispatch(getUser())
+  if(window.localStorage.getItem("login")){
+    setUser(localStorage.getItem("login"))
+  }else{
+    setUser(null)
+  }
 },[])
   
   const validationSchema = Yup.object().shape({
@@ -50,7 +54,7 @@ function NewPost() {
       formdata.append('title', values.title);
       formdata.append('price', values.price);
       formdata.append('description', values.description);
-      formdata.append('userid', user?._id);
+      formdata.append('userid', user);
 formdata.append('category',selectedCategory)
 formdata.append("model",values.model)
 formdata.append("number",values.number)
@@ -62,7 +66,7 @@ console.log(values);
         formdata.append(`files`, photos[i]);
       }
 console.log(Object.fromEntries(formdata));
-      if (user) {
+      if (user!=null) {
         setSuccess(true);
         try {
           const response = await axios.post('https://listingwebsite.onrender.com/products', formdata);
@@ -75,8 +79,11 @@ console.log(Object.fromEntries(formdata));
           console.error('Xəta:', error);
         } finally {
           setSuccess(false);
+
         }
+        console.log(user);
       }
+      console.log(user);
     },
   });
 
@@ -104,7 +111,7 @@ console.log(Object.fromEntries(formdata));
         return (
           <select name='model' value={formik.values.model}
           onChange={formik.handleChange} className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
-            {options[0].models.map(item => {
+            {options[1].models.map(item => {
               return <option>{item}</option>
             })}
           </select>
@@ -113,7 +120,7 @@ console.log(Object.fromEntries(formdata));
         return (
           <select name='model' value={formik.values.model}
           onChange={formik.handleChange} className='w-[80%]  h-[30px] outline-none border-0 pl-2 text-[#a9a9a9]'>
-            {options[1].models.map(item => {
+            {options[2].models.map(item => {
               return <option>{item}</option>
             })}
           </select>
@@ -123,7 +130,7 @@ console.log(Object.fromEntries(formdata));
           <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
             <select name='model' value={formik.values.model}
             onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
-              {options[2].models.map(item => {
+              {options[3].models.map(item => {
                 return <option>{item}</option>
               })}
             </select>

@@ -22,8 +22,10 @@ function MyPosts() {
     }
 
     return (
-        <div className='pb-[50px] grid p-2 max-[480px]:gap-[5px] basis-[100%] grid-cols-3 max-[480px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-            {posts.length != 0 ? posts.map(post => {
+        <div className='w-full'>
+            {posts.length != 0 ? 
+            <div className='pb-[50px] grid p-2 max-[480px]:gap-[5px] basis-[100%] grid-cols-3 max-[480px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+            {posts.map(post => {
                 return <div  className="w-full card flex gap-[10px]  flex-col items-center relative min-[644px]:h-[300px] min-[644px]:gap-[35px] bg-white h-[250px] lg:pb-[10px] pb-[5px] min-[640px]:h-[270px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
                         <DeleteIcon onClick={showModal} fontSize="large" className="absolute p-[20px] z-[10000] rounded-[50%] top-[-15px] w-[70px] h-[70px] text-grey-600 right-[-18px]"></DeleteIcon>
                         <Link href={`/detail/${post._id}`} className="w-full flex gap-[10px]  flex-col items-center relative min-[644px]:h-[300px] min-[644px]:gap-[35px] bg-white h-[250px] lg:pb-[10px] pb-[5px] min-[640px]:h-[270px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
@@ -36,7 +38,7 @@ function MyPosts() {
                             <p className="text-[12px] text-[grey] ">{post.date}</p>
                         </div>
                         </Link>
-                    </div> }) : <div className='w-full h-full flex flex-col gap-[20px]  pt-[30px] items-center justify-center'>
+                    </div> })}</div> : <div className='w-full h-[100px] flex flex-col gap-[20px]  pt-[30px] items-center justify-center'>
                 <h1 className='text-center'>Heçbir elan əlavə etməmisiniz!</h1>
             </div>}
             {modal === true ? <div className='fixed z-[1000000] w-full h-full top-0 left-0 bg-[#00000071] flex items-center justify-center'>

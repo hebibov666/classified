@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import {  userLogin } from '@/redux/slices/userSlice';
 import { useEffect } from 'react';
 import { Loading } from 'react-loading-dot'
+import { getUser } from '@/redux/slices/userSlice';
 function Login() {
   const [email, setEmail] = useState('');
   const router=useRouter()
@@ -22,6 +23,7 @@ function Login() {
  dispatch(userLogin(userData)).then((result)=>{
   if(typeof window!=="undefined" && window.localStorage){
    if(localStorage.getItem("user")){
+   dispatch(getUser())
     router.push("/")
    }else{
     setError(result.payload)

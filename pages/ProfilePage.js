@@ -22,6 +22,7 @@ const router=useRouter()
  
     const Logout=()=>{
         localStorage.removeItem("user")
+        localStorage.removeItem("login")
         router.push("/")
     }
     const deleteUser=()=>{

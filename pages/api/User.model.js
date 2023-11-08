@@ -15,6 +15,9 @@ type:String,
     password:{
         type:String,
         required:false,
+    },
+    wishlist:{
+        type:[String]
     }
 })
 const User=mongoose.model('user',UserScheam);

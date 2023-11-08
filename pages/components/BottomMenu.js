@@ -12,7 +12,7 @@ function BottomMenu(){
     const router=useRouter()
 useEffect(()=>{
     if(typeof window!=="undefined" && window.localStorage){
-        let user=localStorage.getItem("user")
+        let user=localStorage.getItem("login")
        if(user){
         setLogin(user)
        }else{
@@ -21,6 +21,13 @@ useEffect(()=>{
     }
 },[])
 
+const goFavorites=()=>{
+    if(login===""){
+        router.push('./LoginBox')
+    }else{
+        router.push(`./FavoriteProducts/${login}`)
+    }
+}
     return(
        
             
@@ -34,7 +41,7 @@ useEffect(()=>{
             <span class="sr-only">Home</span>
         </button>
     
-     <button data-tooltip-target="tooltip-home" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-l-full text-gray-500 hover:bg-gray-50  group">
+     <button onClick={()=>{goFavorites()}} data-tooltip-target="tooltip-home" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-l-full text-gray-500 hover:bg-gray-50  group">
           <FavoriteIcon/>
             <span class="sr-only">Home</span>
         </button>

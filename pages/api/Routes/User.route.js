@@ -41,7 +41,8 @@ router.post('/', uploads.single("file"), async (req, res) => {
       name: name,
       email: email,
       avatar: avatar, // Use the uploaded image or the random image URL
-      password: hashedPassword
+      password: hashedPassword,
+      wishlist:[]
     });
     
     const savedUser = await user.save();
