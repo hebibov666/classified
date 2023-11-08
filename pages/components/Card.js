@@ -23,7 +23,7 @@ function Card({title,image,price,id,setOpen,setMessage,setStatus}){
         setOpen(true)
       if(user && user!=null){
         try {
-          const response = await axios.post(`http://localhost:3001/favori`,data);
+          const response = await axios.post(`https://listingwebsite.onrender.com/favori`,data);
           if (response.status !== 200) { // HTTP başarı durumunu kontrol et
             throw new Error('HTTP Xətası: ' + response.status,setMessage(response.status + "Xətası"));
           }
