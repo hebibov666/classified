@@ -20,10 +20,14 @@ const ProductRoute=require("./Routes/Product.route");
 const UserRoute=require("./Routes/User.route")
 const LoginRoute=require("./Routes/User.login")
 const FavoriteProducts=require("./Routes/FavoriteProducts")
+const SearchProduct=require("./Routes/SearchProduct")
+const AdvancedSearch=require("./Routes/AdvancedSearch")
 app.use("/products",ProductRoute)
 app.use("/users",UserRoute)
 app.use("/login",LoginRoute)
 app.use("/favori",FavoriteProducts)
+app.use("/search",SearchProduct)
+app.use("/advancedsearch",AdvancedSearch)
 app.use((req,res,next)=>{
    const err=new Error("Not found");
    err.status=404

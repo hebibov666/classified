@@ -23,6 +23,7 @@ export const getUser=createAsyncThunk('user/getUser',async()=>{
 
 })
 
+
 export const RemovePost=createAsyncThunk('user/RemovePost',async(id)=>{
   const request=await axios.delete(`https://listingwebsite.onrender.com/products/${id}`) 
   const response=request.data

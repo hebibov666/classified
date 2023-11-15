@@ -7,12 +7,29 @@ export const products = createAsyncThunk("products", async (category) => {
   return response.data
 })
 
+export const SearchProduct=createAsyncThunk('user/SearchProduct',async(text)=>{
+  const request=await axios.get(`https://listingwebsite.onrender.com/search/${text}`)
+   
+ return request.data
+
+})
+
+export const AdvancedSearchs=createAsyncThunk('user/SearchProduct',async(parameter)=>{
+  const request=await axios.post(`https://listingwebsite.onrender.com/advancedsearch`,parameter)
+   console.log(request.data)
+ return request.data
+
+})
+
 export  const productsData = createSlice({
   name: 'models',
   initialState:{
    data:[],
    loading:true,
-   error:null
+   error:null,
+   searchProducts:[],
+   searchLoading:false,
+   searchError:false
   },
   reducers: {
   },
@@ -30,6 +47,18 @@ export  const productsData = createSlice({
         state.loading = false;
         state.error = action.error.message;
       });
+      builder.addCase(SearchProduct.pending,(state,action)=>{
+       state.searchLoading=true
+       state.searchError=false
+      });
+      builder.addCase(SearchProduct.fulfilled,(state,action)=>{
+        state.searchLoading=false
+        state.searchProducts=action.payload
+      });
+      builder.addCase(SearchProduct.rejected,(state,action)=>{
+        state.searchLoading=false;
+        state.searchError=true
+      })
   },
 
 });

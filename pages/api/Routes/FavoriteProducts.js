@@ -8,19 +8,18 @@ const { ObjectId } = require("mongodb");
 
 router.get('/:userid', async (req, res) => {
   try {
-    const userId = req.params.userid.replace(/"/g, ''); // Kullanıcıdan gelen userId'deki tırnak işaretlerini kaldır
+    const userId = req.params.userid.replace(/"/g, ''); 
 
-    // Kullanıcıyı bul
+ 
     const user = await User.findOne({ _id: userId });
     
     if (!user) {
       return res.status(404).json({ message: 'Kullanıcı bulunamadı.' });
     }
 
-    // Kullanıcının wishlist'indeki ürünleri al
+   
     const wishlistProductIds = user.wishlist;
 
-    // Wishlist'teki ürünleri Product modelindeki ürünlerle eşleştir
     const wishlistProducts = await Product.find({ _id: { $in: wishlistProductIds } });
 
     return res.status(200).json(wishlistProducts);
@@ -38,14 +37,14 @@ router.get('/:userid', async (req, res) => {
     }
     
     try {
-      // Kullanıcıyı userId ile bulun
+    
       const user = await User.findOne({ _id:withId});
       
       if (!user) {
         return res.status(404).json({ message: 'İstifadəçi tapılmadı.' });
       }
       
-      // Eğer productId, wishlist'te bulunuyorsa, çıkarın; aksi takdirde ekleyin
+  
       if (user.wishlist.includes(productId)) {
         user.wishlist = user.wishlist.filter(item => item !== productId);
         await user.save();
@@ -56,7 +55,7 @@ router.get('/:userid', async (req, res) => {
         return res.status(200).json({ message: 'Elan seçilmişlərə əlavə edildi.' });
       }
       
-      // Kullanıcıyı güncellemek için kaydedin
+  
     
     
     } catch (error) {

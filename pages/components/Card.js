@@ -6,13 +6,14 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from "axios"
 import { getUser } from "@/redux/slices/userSlice";
-function Card({title,image,price,id,setOpen,setMessage,setStatus}){
+function Card({title,image,price,id}){
     const [user,setUser]=useState(null)
     const [add,setAdd]=useState(false)
     const favorites=useSelector(state=>state.user.favorites)
     const dispatch=useDispatch()
     useEffect(()=>{
       const user=localStorage.getItem("login")
+      dispatch(getUser())
       setUser(user)
     })
     const sendFavori = async (productId) => {
@@ -20,7 +21,6 @@ function Card({title,image,price,id,setOpen,setMessage,setStatus}){
             userId:user,
             productId:productId
         }
-        setOpen(true)
       if(user && user!=null){
         try {
           const response = await axios.post(`https://listingwebsite.onrender.com/favori`,data);
@@ -28,17 +28,11 @@ function Card({title,image,price,id,setOpen,setMessage,setStatus}){
             throw new Error('HTTP Xətası: ' + response.status,setMessage(response.status + "Xətası"));
           }
           console.log(response.data);
-          setMessage(response.data.message)
-          setStatus(response.status)
+         
         } catch (error) {
           console.error('Xəta:', error);
-          setMessage(error)
-          setStatus(500)
+     
         }
-      dispatch(getUser())
-      }else{
-        setMessage("Favoritlərə məhsul əlavə etmək üçün sayta giriş etməlisiniz!")
-        setStatus(500)
       }
       };
       

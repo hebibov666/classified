@@ -64,12 +64,6 @@ state.menuShow=true
             state.darkMode=false
           }
         },
-        openCategory:(state)=>{
-           state.openCategory= true
-        },
-        closeCategory:(state)=>{
-            state.openCategory=false
-        },
         setBorder:(state,action)=>{
 state.border=action.payload.id
         },
@@ -84,6 +78,6 @@ state.border=action.payload.id
   },
 });
 
-export const {openMenu,closeMenu,goDarkMode,openCategory,closeCategory,setBorder,changeForm} = booksData.actions;
+export const {openMenu,closeMenu,goDarkMode,setBorder,changeForm} = booksData.actions;
 
 export default booksData.reducer;
