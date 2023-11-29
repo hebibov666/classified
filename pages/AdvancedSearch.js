@@ -19,9 +19,8 @@ function AdvancedSearch(){
     const show=useSelector(state=>state.book.openCategory)
     const products=useSelector(state=>state.products.searchProducts)
     const [openFilter,setOpenFilter]=useState(false)
-    const [parametr,setParametr]=useState({
-     
-})
+    const favorites=useSelector(state=>state.user.favorites)
+    const [parametr,setParametr]=useState({})
 const SendParams=()=>{
   dispatch(AdvancedSearchs(parametr))
 }
@@ -61,7 +60,7 @@ setParametr((prevParams) => ({
         case "Televizor":
           return (
             <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
-              <select name='model' value={formik.values.model}
+              <select name='model' 
              onChange={handleInputChange}  className='w-full h-[30px] pl-2 outline-none border-0'>
                 {options[3].models.map(item => {
                   return <option>{item}</option>
@@ -69,25 +68,62 @@ setParametr((prevParams) => ({
               </select>
             </div>
           );
+          case "Nəqliyyat":
+            return (
+              <div className='w-full flex flex-col gap-[20px]  text-[#a9a9a9]'>
+              <select name='model' 
+              onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+                 <option hidden>Marka</option>
+                {options[2].models.map(item => {
+                  return <option>{item}</option>
+                })}
+              </select>
+              <select name='fuelType' 
+              onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+               <option hidden>Yanacaq növü</option>
+              <option>Benzin</option>
+              <option>Dizel</option>
+              <option>Qaz</option>
+              <option>Elektrik</option>
+              </select>
+              <input type='text'  onChange={handleInputChange} className='w-full outline-none border-0  h-[30px] pl-2' name='engine'  placeholder='Mühərrik həcmi'></input>
+              <select name='gearbox' 
+              onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+               <option hidden>Sürətlər qutusu</option>
+              <option>Mexaniki</option>
+              <option>Avtomat</option>
+              <option>Variator</option>
+              <option>Robotlaşdırılmış</option>
+              </select>
+            </div>
+            );
+            case "Aksessuar":
+              return(
+                <div className='w-full flex flex-col gap-[20px]  text-[#a9a9a9]'>
+                <select name='model'
+                onChange={handleInputChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+                    <option hidden>Məhsul tipi</option>
+                  {options[5].models.map(item => {
+                    return <option>{item}</option>
+                  })}
+                </select>
+              </div>
+              );
         default:
           return null;
       }
     };
     return(
-        <div className={`flex overflow-scroll noscroll flex-col justify-start  anime top-0 left-0  bg-[#F1F3F7] min-h-full h-[100vh]   w-full max-[900px]:w-full  gap-[10px]`}>
-<div className="flex shrink-0 w-full h-[40px] bg-white justify-center  items-center justify-end pr-2 ">
-    <h1>Axtarış</h1>
-<ArrowBackIosIcon className="left-2 top-2 absolute"  onClick={()=>{router.push("/")}}/>
-</div>
+        <div className={`flex overflow-scroll noscroll flex-col justify-start  anime top-0 left-0   min-h-full   w-full max-[900px]:w-full  gap-[10px]`}>
 <div className="p-2 flex flex-col gap-[20px]">
-<div className="flex searchinput shadow-sm shadow-[#f1f3f7] w-full bg-white justify-between p-[2px] items-center  rounded-[10px]">
+<div className="flex searchinput  w-full bg-white justify-between p-[2px] items-center  rounded-[10px]">
 <div onClick={()=>{setOpenFilter(openFilter?  false : true)}} className='w-[30px] h-[30px] rounded-[10px] bg-white  flex items-center justify-center'>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ">
   <path strokeLinecap="round" strokeLinejoin="round"  d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
 </svg>
 </div>
     <input type="text" onChange={(e)=>{setText(e.currentTarget.value)}} placeholder="Elan axtar" className="search-input w-[90%] pl-2 box-border outline-0 border-none bg-[#F8F9FD]"></input>
-    <span onClick={search} className=" bg-blue-600  flex items-center justify-center w-[80px] p-[5px] rounded-[10px] text-white font-bold">Axtar</span>
+    <span onClick={search} className=" bg-[#007FFF]  flex items-center justify-center w-[80px] p-[5px] rounded-[10px] text-white font-bold">Axtar</span>
 </div>
 <div className={`flex ${openFilter=== true ? "flex" : "hidden"} shadow-sm shadow-[#F1F3F7] p-2 flex-col bg-white rounded-[7px] w-full pt-[10px] gap-[10px]`}>
     <h1 className="pl-2">Ətraflı axtarış</h1>
@@ -95,7 +131,7 @@ setParametr((prevParams) => ({
                 <select name="category" onChange={handleInputChange}  className='w-full text-[#a9a9a9] rounded-[7px] h-[40px] p-[5px] outline-none shadow-[15px] shadow-[grey]'>
                   <option hidden>Kateqoriya</option>
                   {options.map(item=>{
-                    return <option value={item.name} >{item.name}</option>
+                    return <option value={item.name} className={item.name==="Bütün elanlar" ? "hidden" : null} >{item.name}</option>
                   })}
                 </select>
                 {renderFormBasedOnCategory()}
@@ -115,27 +151,11 @@ setParametr((prevParams) => ({
         
     
                  
-                <button onClick={SendParams} className="bg-blue-600 outline-none border-0 w-full p-2 rounded-[10px] text-white mt-[20px]">Axtar</button>
+                <button onClick={SendParams} className="bg-[#007FFF] outline-none border-0 w-full p-2 rounded-[10px] text-white mt-[20px]">Axtar</button>
             </div>
 </div>
 </div>
-{loading===true ? <div className="w-full pt-[100px] h-full gap-[15px] flex-col flex items-center justify-center">
- <img src="./search.gif"></img>
-    </div>
-     : 
- products.length<=0 && error===false ? <p className="w-full flex items-center justify-center  h-full">Axtarışa uyğun nəticə tapılmadı!
- </p> : <div className="grid p-2 max-[480px]:gap-[5px] pb-[100px] basis-[100%] grid-cols-3 max-[480px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
- {products.map(product=>{
-  return <Card title={product.name} image={product.image[0]} id={product._id}  price={product.price}/>
- })
- }
-</div>
- }
-  {error===true ? 
-  <div className="w-full flex items-center justify-center pt-[100px]">
-  <p>Xəta!</p> 
-  </div>
-  : null}
+
 </div>
     )
 }

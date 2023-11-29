@@ -5,33 +5,44 @@ const categories=[
   {
     key:0,
     name:"Bütün elanlar",
-icon:"../application.png"
-
+icon:"../application.png",
+color:"#FFFFFF",
 },
     {
         key:1,
         name:"Telefon",
         models:["Iphone","Samsung","Huawei","Honor","Xiaomi","Alcatel","Realme","Nokia","Hisense","Fly","Tecno","Htc","ZTE","Casper","BlackBerry","Sony","Philips","Oppo","Hoffman","Infinix","Lg"],
-    icon:"../phone.png"
+    icon:"../phone.png",
+    color:"#9966ff",
   
     },
     {
-        key:2,
-        name:"Komputer",
-        models:["Toshiba","Fijutsi","Macbook","Hp","Asus","Acer","Dell","Lg","Nexus","Samsung","Casper","Honor","Lenevo","Sony"],
-        icon:"../laptop-screen.png"
+      key:2,
+      name:"Nəqliyyat",
+      models:["Aston Martin","Audi","Acura","Apollo","Bentley","BMW","Buddy","Bugatti","Brilliance","Cadillac","Callaway","Changan","CUPRA","Chevrolet","Chamonix","Changhe","Dodge","DeLorean","Ford","Forthing"],
+      icon:"../car.png",
+      color:"#ff9933",
     },
     {
         key:3,
-        name:"Televizor",
-        models:["Toshiba","Arcelik","Shiwaki","Vestel","Zimmer","Acer","Thomson","Lg","Supra","Samsung","Supermax","Vestel","Westburg","Sony","Crystal","Corfug","Elenberg","Discovery","Daewo","Braun","Benq","Artel","Akai","Akira","Awai"],
-icon:"../tv.png",
+        name:"Komputer",
+        models:["Toshiba","Fijutsi","Macbook","Hp","Asus","Acer","Dell","Lg","Nexus","Samsung","Casper","Honor","Lenevo","Sony"],
+        icon:"../laptop-screen.png",
+        color:"#33ccff",
     },
     {
         key:4,
+        name:"Televizor",
+        models:["Toshiba","Arcelik","Shiwaki","Vestel","Zimmer","Acer","Thomson","Lg","Supra","Samsung","Supermax","Vestel","Westburg","Sony","Crystal","Corfug","Elenberg","Discovery","Daewo","Braun","Benq","Artel","Akai","Akira","Awai"],
+icon:"../tv.png",
+color:"#ff6600",
+    },
+    {
+        key:5,
         name:"Aksessuar",
         models:["Qulaqciq","Mouse","Klavyiatura","Antiudar","Batareya","Usb","Flaskart","Adapter","Printer","Web kamera","Modem","Router","Kabro","Ekran"],
-  icon:"../headphone.png"
+  icon:"../headphone.png",
+  color:"#00cc66",
     }
 ]
 const city=["Ağcabədi","Ağdam","Ağdaş","Ağstafa","Ağsu","Astara","Ağdərə","Bakı","Balakən","Beyləqan","Bərdə","Biləsuvar","Cəbrayıl","Cəlilabad","Culfa","Daşkəsən","Füzuli","Gədəbəy","Gəncə","Goranboy","Göyçay","Göygöl","Hacıqabul","Imişli","Saatlı","Kürdəmir","Kəlbəcər","Laçın","Lerik","Lənkəran","Masallı","Mingəçevir","Naftalan","Neftçala","Oğuz","Ordubad","Qax","Qazax","Qəbələ","Qobustan","Quba","Qubadlı","Qusar","Sabirabad","Səlyan","Samux","Şamaxı","Şəki","Şəmkir","Şərur","Şirvan","Siyəzən","Sumqayıt","Şuşa","Tərtər","Tovuz","Ucar","Xaçmaz","Xankəndi","Xocalı","Xocavənd","Xudat","Yardımlı","Yevlax","Zaqatala","Zəngilan","Zərdab"]

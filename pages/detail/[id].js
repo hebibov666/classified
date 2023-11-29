@@ -19,7 +19,7 @@ function Detail(item){
  
     return (
         <div className="flex flex-col w-full h-full">
-            <div className="flex relative w-full items-center justify-center text-white h-[40px] bg-blue-600">
+            <div className="flex relative w-full items-center justify-center text-white h-[40px] bg-[#007FFF]">
                 <h1>Məhsul haqqında</h1>
                <Link href="/">
                <ArrowBackIosNewIcon className="absolute top-2 left-2"></ArrowBackIosNewIcon>
@@ -43,29 +43,29 @@ function Detail(item){
 </div>
 
 
-<div className="basis-[50%]  rounded-[10px] max-[822px]:mt-[-30px] p-2 flex flex-col gap-[20px] justify-between  relative">
+<div className="basis-[50%] rounded-[10px] max-[822px]:mt-[-30px] p-2 flex flex-col gap-[20px] justify-between  relative">
    <div className="flex flex-col">
    <p className="text-black text-[25px] font-bold">{product?.price} Azn</p>
    <h1 className="text-2xl ">{product?.name}</h1>
    </div>
    <div className="flex justify-between">
    <div className="flex flex-col gap-[10px]">
-    <p className="text-grey-500">Kateqoriya:</p>
-    <p className="text-grey-500">Model:</p>
-    <p className="text-grey-500">Şəhər:</p>
-    </div>
-   <div className="flex flex-col gap-[10px] pr-2">
-    <p className="text-blue-400">{product?.category}</p>
-    <p className="text-blue-400">{product?.model}</p>
-    <p className="text-blue-400">{product?.city}</p>
+    <p className="text-grey-500">Kateqoriya: {product.category}</p>
+    {product.model &&  <p className="text-grey-500">Model: {product.model}</p>}
+    {product.city &&  <p className="text-grey-500">Seher: {product.city}</p>}
+    {product.color &&  <p className="text-grey-500">Reng: {product.color}</p>}
+    {product.engine &&  <p className="text-grey-500">Reng: {product.engine}</p>}
+    {product.fuelType &&  <p className="text-grey-500">Reng: {product.fuelType}</p>}
     </div>
     </div>
     <div>
-    <p className="price text-[14px]">{product?.description}</p>
+<div className="flex flex-col">
+    <h1>Mehsul haqqinda</h1>
+<p className="price text-[14px]">{product?.description}</p>
+</div>
     </div>
-   <div className="w-full flex gap-[5px]  items-center flex-col justify-center  h-[80px] rounded-[5px]">
+   <div className="w-full  p-[5px]  max-[480px]:w-full flex gap-[5px]  items-center flex-col justify-center">
     <a href={`tel://${product?.number}`} className="text-white bg-[#4586ff] w-full h-[40px] justify-center rounded-[7px] flex gap-[20px] items-center"><PhoneIcon/> Zəng et</a>
-    <a href={`tel://${product?.number}`} className="text-white bg-[#239d60] w-full h-[40px] rounded-[7px] justify-center flex gap-[20px] items-center"><WhatsAppIcon/> Whatsapp-da yaz</a>
    </div>
 </div>
            </div>
@@ -76,7 +76,7 @@ export default Detail
 
 export async function getServerSideProps(context){
     const {id}=context.query
-    const response = await axios.get(`https://finalproject-etqp.onrender.com/products/${id}`)
+    const response = await axios.get(`http://localhost:3001/products/${id}`)
     const item = await response.data[0];
     console.log(item)
     return {

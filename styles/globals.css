@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caprasimo&family=Oswald:wght@300;500;700&family=Poppins&family=Roboto:wght@300;400&display=swap');
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -18,12 +19,12 @@
 
 body {
 
-    background: #F1F3F7 !important;
+    background: white !important;
     touch-action: manipulation;
    
 
 }
-*{
+.helvetica{
   font-family:Arial, Helvetica, sans-serif
 }
 .photo{
@@ -103,6 +104,10 @@ select,input{
 .card:hover{
   box-shadow: 0 17px 34px 0 rgb(44 39 56 / 4%), 0 8px 17px 0 rgb(44 39 56 / 2%);
 }
+
+.books{
+  min-height: 100vh !important;
+}
 .slick-track{
   box-sizing: border-box;
   margin: 0px !important;
@@ -159,4 +164,8 @@ select,input{
 .text{
   line-height: 19px;
   padding-top: 5px;
+}
+.roboto{
+  font-family: 'Oswald', sans-serif !important;
+  font-weight: 500;
 }

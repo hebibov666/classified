@@ -1,8 +1,8 @@
 
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-export const products = createAsyncThunk("products", async (category) => {
-  const response = await axios.get(`https://listingwebsite.onrender.com/products/products/${category}`)
+export const products = createAsyncThunk("products", async ({category,page}) => {
+  const response = await axios.get(`http://localhost:3001/products/products/${category}?page=${page}`)
   console.log(response);
   return response.data
 })
@@ -35,12 +35,12 @@ export  const productsData = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(products.pending, (state) => {
-        state.loading = true;
+      state.loading=true
         state.error = null;
       })
       builder.addCase(products.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.data = action.meta.arg.page === 1 ? action.payload : [...state.data, ...action.payload];
         console.log(action.payload);
       })
       builder.addCase(products.rejected, (state, action) => {

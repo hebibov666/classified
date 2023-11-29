@@ -5,12 +5,16 @@ const mongoose=require("mongoose");
 
 
 router.post('/', async (req, res) => {
-    const {category,model,city,minPrice,maxPrice}=req.body
+    const {category,model,city,minPrice,maxPrice,fuelType,gearbox,engine,isNew}=req.body
     try {
         const filter = {
             category: category,
             model: model,
             city: city,
+            fuelType:fuelType,
+            gearbox:gearbox,
+            engine:engine,
+            isNew:isNew,
             price: { $gte: minPrice, $lte: maxPrice }
         };
         console.log(filter)

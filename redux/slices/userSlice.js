@@ -5,7 +5,6 @@ export const userLogin=createAsyncThunk('user/userLogin',async(userData)=>{
   const response=request.data
 if(response.token){
   localStorage.setItem('user',JSON.stringify(response.token))
-  console.log(response.token);
 }
   return response
 })
@@ -66,9 +65,9 @@ state.loading=false;
   builder.addCase(getUser.fulfilled,(state,action)=>{
    state.user=action.payload.user,
    state.posts=action.payload.products
+   state.userId=action.payload.user._id
    localStorage.setItem("login",JSON.stringify(action.payload.user._id))
   state.favorites=action.payload.user.wishlist
-   console.log(action.payload.user);
   })
   }
 });

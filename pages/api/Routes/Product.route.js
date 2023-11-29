@@ -1,26 +1,36 @@
-const express=require("express");
-const router=express.Router();
-const Product=require("../Product.model.js")
-const Favori=require("../Favori.model.js")
-const multer=require('multer')
-const cloudinary=require("../cloudinary.js")
-const storage=multer.diskStorage({
-  destination:function(req,file,callback){
-callback(null,__dirname + "/uploads");
+const express = require("express");
+const router = express.Router();
+const Product = require("../Product.model.js")
+const Favori = require("../Favori.model.js")
+const multer = require('multer')
+const cloudinary = require("../cloudinary.js")
+const storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, __dirname + "/uploads");
   },
-  filename:function(req,file,callback){
-    callback(null,file.originalname)
+  filename: function (req, file, callback) {
+    callback(null, file.originalname)
   }
 })
-const uploads=multer({storage:storage});
+const uploads = multer({ storage: storage });
 router.get('/products/:category', async (req, res) => {
   const { category } = req.params;
-const products=await Product.find()
-  if (category === 'Bütün elanlar') {
+  const { page = 1 } = req.query;  // varsayılan olarak sayfa numarasını 1 olarak ayarlar
+
+  try {
+    let products;
+    const perPage = 10; // Sayfa başına kaç ürün çekileceği
+    const skip = (page - 1) * perPage;
+
+    // Filtreleme, "Bütün elanlar" kategorisi için veya belirli bir kategori için uygulanır
+    const filter = category === 'Bütün elanlar' ? {} : { category: category };
+    // Hem kategoriye hem de sayfa numarasına göre ürünleri çekmek
+    products = await Product.find(filter).skip(skip).limit(perPage);
+
     res.json(products);
-  } else {
-    const filteredProducts = products.filter((product) => product.category === category);
-    res.json(filteredProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 router.post('/', uploads.array("files"), (req, res, next) => {
@@ -51,11 +61,15 @@ router.post('/', uploads.array("files"), (req, res, next) => {
         price: req.body.price,
         description: req.body.description,
         category: req.body.category,
-        model:req.body.model,
-        city:req.body.city,
-number:req.body.number,
+        model: req.body.model,
+        city: req.body.city,
+        number: req.body.number,
+        fuelType: req.body.fuelType,
+        engine: req.body.engine,
+        gearbox: req.body.gearbox,
+        isNew: req.body.isNew,
         userId: req.body.userid,
-        image: uploadedImageIds, 
+        image: uploadedImageIds,
       });
 
       product.save()
@@ -74,14 +88,14 @@ number:req.body.number,
 
 
 router.get('/:id', async (req, res) => {
-  const id = req.params.id; 
+  const id = req.params.id;
 
   try {
- 
-    const product = await Product.find({_id:id });
+
+    const product = await Product.find({ _id: id });
 
     if (product) {
-      res.status(200).json(product);
+      res.status(200).json(product)
     } else {
       res.status(404).json({ message: 'Məhsul tapılmadı' });
     }
@@ -91,7 +105,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res, next) => {
-  const productId = req.params.id; 
+  const productId = req.params.id;
 
   try {
     const product = await Product.findById(productId);
@@ -128,7 +142,7 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 
-router.patch('/:id',(req,res,next)=>{
-res.send("Update a product")
+router.patch('/:id', (req, res, next) => {
+  res.send("Update a product")
 })
-module.exports=router
+module.exports = router
