@@ -38,7 +38,7 @@ function Card({title,image,price,id,favorites}){
 return(
   <div>
     <div className="w-full card flex gap-[15px] bg-[#F5F5F5] shadow-sm shadow-grey-500  flex-col items-center relative min-[644px]:h-[300px] min-[644px]:gap-[35px] h-[250px] lg:pb-[10px] pb-[5px] min-[640px]:h-[270px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
-<FavoriteIcon onClick={()=>{sendFavori(id)}} fontSize="large" className={`absolute p-[5px] z-[2] ${favorites.includes(id) ? "text-red-500" : "text-[#5c5757]"} bg-white   rounded-bl-[50%] top-0 w-[30px] h-[30px] right-0`}></FavoriteIcon>
+<FavoriteIcon onClick={()=>{sendFavori(id)}} fontSize="large" className={`absolute p-[5px] z-[2] ${favorites && favorites.includes(id) ? "text-red-500" : "text-[#5c5757]"} bg-white   rounded-bl-[50%] top-0 w-[30px] h-[30px] right-0`}></FavoriteIcon>
 <Link href={`/detail/${id}`} className="w-full flex gap-[10px]  flex-col items-center relative min-[644px]:h-[300px] min-[644px]:gap-[35px] bg-white h-[250px] lg:pb-[10px] pb-[5px] min-[640px]:h-[270px] max-[632px]:w-1/1 sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 rounded-[7px]">
 <div className="flex w-full justify-center w-full h-[170px]">
 <img className="rounded-t-[7px] w-full h-[150px]  min-[644px]:h-[200px] lg:h-[180px]  object-cover" src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${image}`}></img>
