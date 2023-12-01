@@ -15,16 +15,14 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage: storage });
 router.get('/products/:category', async (req, res) => {
   const { category } = req.params;
-  const { page = 1 } = req.query;  // varsayılan olarak sayfa numarasını 1 olarak ayarlar
+  const { page = 1 } = req.query;  
 
   try {
     let products;
-    const perPage = 10; // Sayfa başına kaç ürün çekileceği
+    const perPage = 10;
     const skip = (page - 1) * perPage;
-
-    // Filtreleme, "Bütün elanlar" kategorisi için veya belirli bir kategori için uygulanır
     const filter = category === 'Bütün elanlar' ? {} : { category: category };
-    // Hem kategoriye hem de sayfa numarasına göre ürünleri çekmek
+
     products = await Product.find(filter).skip(skip).limit(perPage);
 
     res.json(products);
@@ -35,10 +33,9 @@ router.get('/products/:category', async (req, res) => {
 });
 router.post('/', uploads.array("files"), (req, res, next) => {
   const images = req.files.map((file) => file.path);
-  // Tüm resimleri Cloudinary'ye yükle
+
   const uploadedImageIds = [];
   const promises = [];
-
   images.forEach((imagePath, index) => {
     promises.push(new Promise((resolve, reject) => {
       cloudinary.uploader.upload(imagePath, { public_id: `urun_resim_${Date.now()}_${index}` }, (error, result) => {
@@ -68,6 +65,16 @@ router.post('/', uploads.array("files"), (req, res, next) => {
         engine: req.body.engine,
         gearbox: req.body.gearbox,
         isNew: req.body.isNew,
+        year:req.body.year,
+        marka:req.body.marka,
+        camera:req.body.camera,
+        memory:req.body.memory,
+        walk:req.body.walk,
+        banType:req.body.banType,
+        homeType:req.body.homeType,
+        rooms:req.body.rooms,
+        area:req.body.area,
+        homeIsNew:req.body.homeIsNew,
         userId: req.body.userid,
         image: uploadedImageIds,
       });
@@ -114,7 +121,7 @@ router.delete('/:id', async (req, res, next) => {
       return res.status(404).json({ message: 'İlan bulunamadı' });
     }
 
-    // İlanın resimlerini Cloudinary'den silme
+    
     const imageIds = product.image;
     const deletePromises = imageIds.map((imageId) => {
       return new Promise((resolve, reject) => {
@@ -129,10 +136,10 @@ router.delete('/:id', async (req, res, next) => {
       });
     });
 
-    // Tüm resimlerin silinmesini bekleyin
+    
     await Promise.all(deletePromises);
 
-    // İlanı veritabanından sil
+   
     await Product.findByIdAndRemove(productId);
 
     res.json({ message: 'İlan başarıyla silindi' });

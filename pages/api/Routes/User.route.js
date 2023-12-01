@@ -19,7 +19,7 @@ callback(null,__dirname + "/profilephotos");
 const uploads=multer({storage:storage});
 router.post('/', uploads.single("file"), async (req, res) => {
   const { name, email, password } = req.body;
-  let avatar = ''; // Initialize the avatar variable
+  let avatar = ''; 
 
   if (req.file) {
     try {
@@ -30,7 +30,6 @@ router.post('/', uploads.single("file"), async (req, res) => {
       return res.status(500).json({ message: 'Image upload failed' });
     }
   } else {
-    // Generate a random image URL (for example, using a UUID)
     avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwTGD1DFMdHwC6PdU3Br-wI5d9Ckhp8nsNkw&usqp=CAU";
   }
 
@@ -40,7 +39,7 @@ router.post('/', uploads.single("file"), async (req, res) => {
     const user = new User({
       name: name,
       email: email,
-      avatar: avatar, // Use the uploaded image or the random image URL
+      avatar: avatar, 
       password: hashedPassword,
       wishlist:[]
     });

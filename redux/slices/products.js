@@ -26,34 +26,25 @@ export  const productsData = createSlice({
   initialState:{
    data:[],
    loading:true,
-   error:null,
+   error:false,
    searchProducts:[],
    searchLoading:false,
-   searchError:false
+   searchError:false,
   },
   reducers: {
+  refreshData:(state)=>{
+    state.data=[]
+  }
   },
   extraReducers: (builder) => {
-    builder.addCase(products.pending, (state) => {
-      state.loading=true
-        state.error = null;
-      })
-      builder.addCase(products.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.meta.arg.page === 1 ? action.payload : [...state.data, ...action.payload];
-        console.log(action.payload);
-      })
-      builder.addCase(products.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
       builder.addCase(SearchProduct.pending,(state,action)=>{
        state.searchLoading=true
        state.searchError=false
       });
+
       builder.addCase(SearchProduct.fulfilled,(state,action)=>{
         state.searchLoading=false
-        state.searchProducts=action.payload
+        state.data=action.payload
       });
       builder.addCase(SearchProduct.rejected,(state,action)=>{
         state.searchLoading=false;
@@ -63,6 +54,6 @@ export  const productsData = createSlice({
 
 });
 
-export const {} = productsData.actions;
+export const {refreshData} = productsData.actions;
 
 export default productsData.reducer;

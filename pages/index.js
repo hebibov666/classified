@@ -15,9 +15,6 @@ export default function Home() {
   return (
     <main>
      <Header openLogin={setLogin}/>
-     <div className='w--[95%] m-2 box-border bg-[#F1F3F7] rounded-[10px]'>
-     <AdvancedSearch/>
-     </div>
      <SelectCategory setCategory={setCategory}/>
      <div className='flex w-full  max-[1015px]:flex-col'>
       <Books category={category} />

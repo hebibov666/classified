@@ -26,7 +26,7 @@ function NewPost() {
   const [user,setUser]=useState(null)
   useEffect(()=>{
   if(window.localStorage.getItem("login")){
-    setUser(localStorage.getItem("login"))
+    setUser(localStorage.getItem("login").replace(/^"(.*)"$/, '$1'));
   }else{
     setUser(null)
   }
@@ -52,6 +52,16 @@ function NewPost() {
       gearbox:"",
       fuelType:"",
       engine:"",
+      year:"",
+      marka:"",
+      camera:"",
+      memory:"",
+      walk:"",
+      banType:"",
+      homeType:"",
+      rooms:"",
+      area:"",
+      homeIsNew:"",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -69,8 +79,17 @@ formdata.append("isNew",values.isNew)
 formdata.append("gearbox",values.gearbox)
 formdata.append("fuelType",values.fuelType)
 formdata.append("engine",values.engine)
-
-console.log(values);
+formdata.append("year",values.year)
+formdata.append("marka",values.marka)
+formdata.append("camera",values.camera)
+formdata.append("memory",values.memory)
+formdata.append("walk",values.walk)
+formdata.append("banType",values.banType)
+formdata.append("homeType",values.homeType)
+formdata.append("rooms",values.rooms)
+formdata.append("area",values.area)
+formdata.append("homeIsNew",values.homeIsNew)
+console.log(formdata);
       const files = form.current.files;
       for (let i = 0; i < photos.length; i++) {
         formdata.append(`files`, photos[i]);
@@ -79,7 +98,7 @@ console.log(Object.fromEntries(formdata));
       if (user!=null) {
         setSuccess(true);
         try {
-          const response = await axios.post('https://listingwebsite.onrender.com/products', formdata);
+          const response = await axios.post('http://localhost:3001/products', formdata);
 
           if (!response.ok) {
             throw new Error('HTTP Xətası: ' + response.status);
@@ -89,7 +108,7 @@ console.log(Object.fromEntries(formdata));
           console.error('Xəta:', error);
         } finally {
           setSuccess(false);
-
+router.push("/")
         }
         console.log(user);
       }
@@ -119,23 +138,59 @@ console.log(Object.fromEntries(formdata));
     switch (selectedCategory) {
       case "Telefon":
         return (
+          <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
           <select name='model' value={formik.values.model}
-          onChange={formik.handleChange} className='w-[80%]  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
+          onChange={formik.handleChange} className='w-full  h-[30px] pl-2 outline-none border-0 text-[#a9a9a9]'>
               <option hidden>Marka</option>
             {options[1].models.map(item => {
               return <option>{item}</option>
             })}
           </select>
+          <input type='text' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' name='marka' value={formik.values.marka} placeholder='Model'></input>
+          <input type='number' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' name='camera' value={formik.values.camera} placeholder='Kamera'></input>
+          <input type='number' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' name='memory' value={formik.values.memory} placeholder='Yaddaş'></input>
+          <select name='color'  value={formik.values.color}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Rəng</option>
+            {colors.map(color => {
+              return <option value={color}>{color}</option>
+            })}
+          </select>
+          <select name='isNew'  value={formik.values.isNew}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Məhsul vəziyyəti</option>
+            <option >Yeni</option>
+            <option >İkinci əl
+            </option>
+          </select>
+          </div>
         );
       case "Komputer":
         return (
+          <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
           <select name='model' value={formik.values.model}
-          onChange={formik.handleChange} className='w-[80%]  h-[30px] outline-none border-0 pl-2 text-[#a9a9a9]'>
+          onChange={formik.handleChange} className='w-full  h-[30px] outline-none border-0 pl-2 text-[#a9a9a9]'>
               <option hidden>Marka</option>
-            {options[3].models.map(item => {
+            {options[4].models.map(item => {
               return <option>{item}</option>
             })}
           </select>
+          <input type='text' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' name='marka' value={formik.values.marka} placeholder='Model'></input>
+          <select name='color'  value={formik.values.color}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Rəng</option>
+            {colors.map(color => {
+              return <option value={color}>{color}</option>
+            })}
+          </select>
+          <select name='isNew'  value={formik.values.isNew}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Məhsul vəziyyəti</option>
+            <option >Yeni</option>
+            <option >İkinci əl
+            </option>
+          </select>
+          </div>
         );
       case "Televizor":
         return (
@@ -143,10 +198,17 @@ console.log(Object.fromEntries(formdata));
             <select name='model' value={formik.values.model}
             onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
                 <option hidden>Marka</option>
-              {options[4].models.map(item => {
+              {options[5].models.map(item => {
                 return <option>{item}</option>
               })}
             </select>
+            <select name='isNew'  value={formik.values.isNew}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Məhsul vəziyyəti</option>
+            <option >Yeni</option>
+            <option >İkinci əl
+            </option>
+          </select>
           </div>
         );
         case "Nəqliyyat":
@@ -159,6 +221,14 @@ console.log(Object.fromEntries(formdata));
               return <option>{item}</option>
             })}
           </select>
+          <input type='text' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' name='marka' value={formik.values.marka} placeholder='Model'></input>
+          <select name='banType' value={formik.values.banType}
+          onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+             <option hidden>Ban növü</option>
+            {options[2].banTypes.map(item => {
+              return <option>{item}</option>
+            })}
+          </select>
           <select name='fuelType' value={formik.values.fuelType}
           onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
            <option hidden>Yanacaq növü</option>
@@ -167,7 +237,7 @@ console.log(Object.fromEntries(formdata));
           <option>Qaz</option>
           <option>Elektrik</option>
           </select>
-          <input type='text' className='w-full outline-none border-0  h-[30px] pl-2' name='engine' value={formik.values.engine} placeholder='Mühərrik həcmi'></input>
+          <input type='text' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' name='engine' value={formik.values.engine} placeholder='Mühərrik sm³'></input>
           <select name='gearbox' value={formik.values.gearbox}
           onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
            <option hidden>Sürətlər qutusu</option>
@@ -176,7 +246,48 @@ console.log(Object.fromEntries(formdata));
           <option>Variator</option>
           <option>Robotlaşdırılmış</option>
           </select>
+         
+          <input type='number' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' name='year' value={formik.values.year} placeholder='Buraxılış ili'></input>
+          <input type='number' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' name='walk' value={formik.values.walk} placeholder='Yürüş km²' ></input>
+          <select name='isNew'  value={formik.values.isNew}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Maşının vəziyyəti</option>
+            <option >Salon</option>
+            <option >Sürülmüş</option>
+          </select>
+          <select name='color'  value={formik.values.color}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Rəng</option>
+            {colors.map(color => {
+              return <option value={color}>{color}</option>
+            })}
+          </select>
         </div>
+        );
+        case "Daşınmaz əmlak":
+        return (
+          <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
+            <select name='model' value={formik.values.model}
+            onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+                <option hidden>Mənzilin tipi</option>
+                <option >Bina evi</option>
+                <option >Həyət evi</option>
+            </select>
+            <select name='homeType' value={formik.values.homeType}
+            onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
+                <option hidden>Elanın tipi</option>
+                <option >Satılır</option>
+                <option >Kiraye verilir</option>
+            </select>
+            <input type='number' name='rooms' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' placeholder='Otaq sayı'></input>
+            <input type='number' name='area' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' placeholder='Sahəsi m²'></input>
+            <select name='homeIsNew'  value={formik.values.isNew}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Mənzil vəziyyəti</option>
+            <option >Köhnə tikili</option>
+            <option >Yeni tikili</option>
+          </select>
+           </div>
         );
         case "Aksessuar":
           return(
@@ -184,10 +295,17 @@ console.log(Object.fromEntries(formdata));
             <select name='model' value={formik.values.model}
             onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
                 <option hidden>Məhsul tipi</option>
-              {options[5].models.map(item => {
+              {options[6].models.map(item => {
                 return <option>{item}</option>
               })}
             </select>
+            <select name='isNew'  value={formik.values.isNew}
+            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
+            <option hidden>Məhsul vəziyyəti</option>
+            <option >Yeni</option>
+            <option >İkinci əl
+            </option>
+          </select>
           </div>
           );
       default:
@@ -203,7 +321,7 @@ console.log(Object.fromEntries(formdata));
   return (
     <div className='flex newpost flex-col items-center bg-[#F8F9FD]  pb-[60px] '>
       <div className='flex w-full items-center gap-[20px] justify-start'>
-        <div className='flex relative h-[40px] w-full justify-center bg-blue-600 text-white font-bold items-center'>
+        <div className='flex relative h-[40px] w-full justify-center bg-red-600 text-white font-bold items-center'>
           <ArrowBackIcon onClick={() => router.back()} className='absolute top-2 left-2' fontSize='medium' />
           <h1 className='text-xl'>Yeni elan əlavə et</h1>
         </div>
@@ -212,25 +330,11 @@ console.log(Object.fromEntries(formdata));
         <form onSubmit={formik.handleSubmit} encType='multipart/form-data' className="w-[80%] max-[600px]:w-[100%]  noscroll h-[100%]   gap-[20px] bg-[#F8F9FD] pt-[40px] grid grid-cols-1 justify-center  place-items-center">
           <select name='category' value={formik.values.category} onChange={(e) =>setSelectedCategory(e.currentTarget.value)} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
            <option hidden>Kateqoriya seçin</option>
-           {options.map(category => {
+          {options.map(category => {
               return <option value={category.name} className={category.name==="Bütün elanlar" ? "hidden" : null}>{category.name}</option>
             })}
           </select>
           {renderFormBasedOnCategory()}
-          <select name='color'  value={formik.values.color}
-            onChange={formik.handleChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
-            <option hidden>Rəng</option>
-            {colors.map(color => {
-              return <option value={color}>{color}</option>
-            })}
-          </select>
-          <select name='isNew'  value={formik.values.isNew}
-            onChange={formik.handleChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
-            <option hidden>Məhsul vəziyyəti</option>
-            <option >Yeni</option>
-            <option >İkinci əl
-            </option>
-          </select>
           <select name='city'  value={formik.values.city}
             onChange={formik.handleChange} className='w-[80%] outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
             <option hidden>Şəhər</option>
@@ -241,7 +345,7 @@ console.log(Object.fromEntries(formdata));
           <input
             type='text'
             name="title"
-            placeholder='Elan basligi'
+            placeholder='Elan başlığı'
             className='w-[80%] outline-none border-0  h-[30px] pl-2'
             value={formik.values.title}
             onChange={formik.handleChange}
@@ -250,7 +354,7 @@ console.log(Object.fromEntries(formdata));
           <input
             type='text'
             name="price"
-            placeholder='Qiymet'
+            placeholder='Qiymət'
             className='w-[80%] outline-none border-0  h-[30px] pl-2 mt-[-10px]'
             value={formik.values.price}
             onChange={formik.handleChange}
@@ -258,7 +362,7 @@ console.log(Object.fromEntries(formdata));
           {formik.touched.price && formik.errors.price && <p className='text-red-600  text-start w-[80%] pl-[2px] mt-[-15px]'>{formik.errors.price}</p>}
           <textarea
             name="description"
-            placeholder='description'
+            placeholder='Məhsul haqqında '
             className='w-[80%] outline-none border-0 textarea pl-2 mt-[-10px]'
             value={formik.values.description}
             onChange={formik.handleChange}
@@ -295,8 +399,8 @@ console.log(Object.fromEntries(formdata));
               );
             })}
           </div>
-          <button type='submit' className='w-[80%] bg-blue-600 h-[40px] text-white'>
-            {success === true ? 'Paylasilir...' : 'Paylas'}
+          <button type='submit' className='w-[80%] bg-red-600 h-[40px] text-white'>
+            {success === true ? 'Paylaşılır...' : 'Paylaş'}
           </button>
         </form>
       </div>
