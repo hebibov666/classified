@@ -8,7 +8,6 @@ import SelectCategory from './components/SelectCategory'
 import BottomMenu from './components/BottomMenu'
 import AdvancedSearch from './AdvancedSearch'
 import BannerSlider from './components/BannnerSlider'
-import SpecialAds from './components/SpecialAds'
 const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [login,setLogin]=useState(false)
