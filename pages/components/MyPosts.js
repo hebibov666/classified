@@ -7,6 +7,7 @@ import { RemovePost } from '@/redux/slices/userSlice';
 import Link from 'next/link';
 import { getUser } from '@/redux/slices/userSlice';
 import axios from "axios"
+import moment from 'moment';
 function MyPosts({userId}) {
     const [posts, setPosts] = useState([])
     const [modal, setModal] = useState(false)
@@ -36,7 +37,15 @@ getData()
             setModal(false)
         })
     }
-
+    const Mymoment=(date)=>{
+        if(moment(date).format("DD")==moment().format("DD")){
+          return "Bugün, " +  moment(date).format("HH:mm")
+        }else if(moment().format("DD")-1==moment(date).format("DD")){
+          return "Dünən " +  moment(date).format("HH:mm")
+        }else{
+          return moment(date).format('HH:mm')
+        }
+      }
     return (
         <div className='w-full'>
             {posts && posts.length != 0 ? 
@@ -51,7 +60,7 @@ getData()
                         <div className="flex flex-col w-full justify-start  pl-2  gap-[5px]">
                             <h1 className="text-black text-[21px] font-bold">{post.price}</h1>
                             <p className="text-[18px] h-[30px] w-[90%] overflow-ellipsis overflow-hidden">{post.name}</p>
-                            <p className="text-[12px] text-[grey] ">{post.date}</p>
+                            <p className="text-[12px] text-[grey] ">{Mymoment(post.date)}</p>
                         </div>
                         </Link>
                     </div> })}</div> : <div className='w-full h-[100px] flex flex-col gap-[20px]  pt-[30px] items-center justify-center'>

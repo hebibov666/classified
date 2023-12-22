@@ -43,7 +43,7 @@ if(moment(product.date).format("DD")==moment().format("DD")){
   }else if(moment().format("DD")-1==moment(product.date).format("DD")){
     date= "Dünən" +  moment(product.date).format("HH:mm")
   }else{
-    date= moment(product.date).format('HH:mm')
+    date= moment(product.date).format('YYYY-MM-DD, HH:mm')
   }
     return (
         <div className="flex flex-col w-full h-full">
@@ -126,7 +126,7 @@ export default Detail
 
 export async function getServerSideProps(context) {
     const { id } = context.query
-    const response = await axios.get(`http://localhost:3001/products/${id}`)
+    const response = await axios.get(`https://listingwebsite.onrender.com/products/${id}`)
     const item = await response.data[0];
     console.log(item)
     return {

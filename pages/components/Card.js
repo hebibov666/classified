@@ -37,11 +37,11 @@ function Card({title,image,price,date,id,city,favorites,vip}){
       
       const Mymoment=(date)=>{
         if(moment(date).format("DD")==moment().format("DD")){
-          return "Bugün" +  moment(date).format("HH:mm")
+          return "Bugün, " +  moment(date).format("HH:mm")
         }else if(moment().format("DD")-1==moment(date).format("DD")){
-          return "Dünən" +  moment(date).format("HH:mm")
+          return "Dünən, " +  moment(date).format("HH:mm")
         }else{
-          return moment(date).format('HH:mm')
+          return moment(date).format('YYYY-MM-DD ,HH:mm')
         }
       }
       

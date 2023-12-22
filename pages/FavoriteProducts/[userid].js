@@ -10,7 +10,7 @@ function FavoriteProducts({item}){
   console.log(item)
     return(
         <div className="flex flex-col gap-[30px] w-full">
-            <div className="flex w-full bg-blue-700 h-[40px] font-bold text-white items-center gap-[40px] justify-start pl-2">
+            <div className="flex w-full bg-red-600 h-[40px] font-bold text-white items-center gap-[40px] justify-start pl-2">
             <Link href="/">
                <ArrowBackIosNewIcon className="absolute top-2 left-2"></ArrowBackIosNewIcon>
                </Link>
