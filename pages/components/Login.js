@@ -55,7 +55,7 @@ function Login() {
     onChange={(e) => setPassword(e.target.value)}
         />
         {error != "" ? <p className='text-red-400 text-start w-full pl-[2px]'>{error}</p> : null}
-        <button   onClick={handleLogin} className='outline-none bg-blue-500 rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'>
+        <button   onClick={handleLogin} className='outline-none bg-red-600 rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'>
            {loading===true ? "Giriş edilir..." : " Giriş et"}
         </button>
    </div>

@@ -11,13 +11,16 @@ function BannerSlider() {
             className='sliderbanner'
              centeredSlides={true}
         autoplay={{
-          delay: 2500,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         modules={[Autoplay]}
 
 
         >
+             <SwiperSlide className='p-[5px]'>
+                <img className='rounded-[10px] aspect-w-16 aspect-h-9' src='./banner1.png'></img>
+            </SwiperSlide>
             <SwiperSlide className='p-[5px]'>
                 <img className='rounded-[10px] aspect-w-16 aspect-h-9' src='./banner.png'></img>
             </SwiperSlide>

@@ -69,18 +69,14 @@ const ProductScheam = new mongoose.Schema(
         banType: {
             type: String,
         },
-        homeType: {
-            type: String,
+        viewCount:{
+            type:Number,
+            default:0
         },
-        rooms: {
-            type: mongoose.Schema.Types.Mixed,
-        },
-        area: {
-            type: mongoose.Schema.Types.Mixed,
-        },
-        homeIsNew: {
-            type: String,
-        },
+        isVip:{
+            type:Boolean,
+            default:true
+        }
     },
     {
         suppressReservedKeysWarning: true, 

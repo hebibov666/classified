@@ -69,7 +69,7 @@ setParametr((prevParams) => ({
           return (
             <select name='model' 
             onChange={handleInputChange} className='w-[80%]  h-[40px] outline-none border-0 pl-2 text-[#a9a9a9]'>
-              {options[4].models.map(item => {
+              {options[3].models.map(item => {
                 return <option>{item}</option>
               })}
             </select>
@@ -129,38 +129,13 @@ setParametr((prevParams) => ({
           </select>
             </div>
             );
-            case "Daşınmaz əmlak":
-              return (
-                <div className='w-full md:grid sm:grid sm:grid-cols-2 lg:grid lg:grid-cols-3 md:grid-cols-3 flex flex-col gap-[20px]  text-[#a9a9a9]'>
-                  <select name='model' 
-                  onChange={handleInputChange}  className='w-full h-[40px] pl-2 outline-none border-0'>
-                      <option hidden>Mənzilin tipi</option>
-                      <option >Bina evi</option>
-                      <option >Həyət evi</option>
-                  </select>
-                  <select name='homeType' 
-                  onChange={handleInputChange}  className='w-full h-[40px] pl-2 outline-none border-0'>
-                      <option hidden>Elanın tipi</option>
-                      <option >Satılır</option>
-                      <option >Kiraye verilir</option>
-                  </select>
-                  <input type='number' name='rooms' onChange={handleInputChange}  className='w-full outline-none border-0 h-[40px] pl-2' placeholder='Otaq sayı'></input>
-          
-                  <select name='homeIsNew' 
-                  onChange={handleInputChange}  className='w-[80%] h-[40px] outline-none border-0 text-[#a9a9a9]  pl-2'>
-                  <option hidden>Mənzil vəziyyəti</option>
-                  <option >Köhnə tikili</option>
-                  <option >Yeni tikili</option>
-                </select>
-                 </div>
-              );
             case "Aksessuar":
               return(
                 <div className='w-full flex flex-col gap-[20px]  text-[#a9a9a9]'>
                 <select name='model'
                 onChange={handleInputChange} className='w-full h-[40px] pl-2 outline-none border-0'>
                     <option hidden>Məhsul tipi</option>
-                  {options[6].models.map(item => {
+                  {options[5].models.map(item => {
                     return <option>{item}</option>
                   })}
                 </select>
@@ -225,7 +200,7 @@ setParametr((prevParams) => ({
 </div>
 
 
-<div className="grid bg-[#EBEDF3] min-h-[100vh] p-2 max-[480px]:gap-[5px] pb-[50px] basis-[100%] grid-cols-3 max-[480px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+<div className="grid bg-white min-h-[100vh] p-2 max-[480px]:gap-[5px] pb-[50px] basis-[100%] grid-cols-3 max-[480px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 {data && data.map(product=>{
 return   <Card  favorites={favorites} key={product._id} title={product.name} image={product.image[0]} id={product._id} price={product.price} />
 })}

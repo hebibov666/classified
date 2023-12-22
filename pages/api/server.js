@@ -23,6 +23,7 @@ const FavoriteProducts=require("./Routes/FavoriteProducts")
 const SearchProduct=require("./Routes/SearchProduct")
 const AdvancedSearch=require("./Routes/AdvancedSearch");
 const MyAds= require("./Routes/MyAds")
+const getOwner=require("./Routes/GetOwner")
 app.use("/products",ProductRoute)
 app.use("/users",UserRoute)
 app.use("/login",LoginRoute)
@@ -30,6 +31,7 @@ app.use("/favori",FavoriteProducts)
 app.use("/search",SearchProduct)
 app.use("/advancedsearch",AdvancedSearch)
 app.use("/myposts",MyAds)
+app.use("/getOwner",getOwner)
 app.use((req,res,next)=>{
    const err=new Error("Not found");
    err.status=404

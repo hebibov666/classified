@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const multer=require('multer')
 const cloudinary=require("../cloudinary.js")
 const jwtSecret = process.env.JWT_SECRET;
+
 const storage=multer.diskStorage({
   destination:function(req,file,callback){
 callback(null,__dirname + "/profilephotos");

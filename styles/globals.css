@@ -21,9 +21,8 @@ body {
 
     background: white !important;
     touch-action: manipulation;
-   
-
-}
+   }
+  
 .helvetica{
   font-family:Arial, Helvetica, sans-serif
 }
@@ -172,4 +171,8 @@ select,input{
 .sliderbanner{
   height:100% !important;
   width: 100% !important;
+}
+.shadow{
+  box-shadow:  3px 3px 20px #f5f5f5,
+  -20px -20px 60px #ebebeb;
 }

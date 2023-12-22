@@ -7,7 +7,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from "axios"
 import { getUser } from "@/redux/slices/userSlice";
 import { useRouter } from "next/router";
-function Card({title,image,price,id,favorites}){
+import moment from 'moment';
+function Card({title,image,price,date,id,city,favorites,vip}){
     const userId=useSelector(state=>state.user.userId)
     const [add,setAdd]=useState(false)
     const dispatch=useDispatch()
@@ -34,6 +35,15 @@ function Card({title,image,price,id,favorites}){
       }
       };
       
+      const Mymoment=(date)=>{
+        if(moment(date).format("DD")==moment().format("DD")){
+          return "Bugün" +  moment(date).format("HH:mm")
+        }else if(moment().format("DD")-1==moment(date).format("DD")){
+          return "Dünən" +  moment(date).format("HH:mm")
+        }else{
+          return moment(date).format('HH:mm')
+        }
+      }
       
 return(
   <div>
@@ -43,10 +53,10 @@ return(
 <div className="flex w-full justify-center w-full h-[170px]">
 <img className="rounded-t-[7px] w-full h-[150px]  min-[644px]:h-[200px] lg:h-[180px]  object-cover" src={`https://res.cloudinary.com/dohj3wr2c/image/upload/${image}`}></img>
 </div>
-<div className="flex helvetica flex-col w-full justify-between h-[130px]  pl-2">
+<div className="flex helvetica  flex-col w-full justify-between h-[130px]  pl-2">
     <h1 className="text-[#212C3A] text-[18px] price font-bold">{price }  Azn</h1>
     <p className="text-[16px] h-[41px] text mt-[-3px] text-[#212C3A] w-[90%] overflow-ellipsis overflow-hidden">{title}</p>
-    <p className="text-[12px] text-[grey] mt-[7px] ">21.09.2023</p>
+    <p className="text-[12px] text-[grey] mt-[7px] ">{Mymoment(date)}</p>
 </div>
 </Link>
     </div>

@@ -7,7 +7,7 @@ const mongoose=require("mongoose");
 router.post('/', async (req, res) => {
     const {
         category, model, city, minPrice, maxPrice, fuelType, gearbox,
-        engine, isNew, year, banType, color, rooms, homeIsNew, homeType
+        engine, isNew, year, banType, color,
     } = req.body;
 
     try {
@@ -23,9 +23,6 @@ router.post('/', async (req, res) => {
         if (color) filter.color = color;
         if (year) filter.year = year;
         if (banType) filter.banType = banType;
-        if (rooms) filter.rooms = rooms;
-        if (homeIsNew !== undefined) filter.homeIsNew = homeIsNew;
-        if (homeType) filter.homeType = homeType;
         if (minPrice !== undefined || maxPrice !== undefined) {
             filter.price = {};
             if (minPrice !== undefined) filter.price.$gte = minPrice;

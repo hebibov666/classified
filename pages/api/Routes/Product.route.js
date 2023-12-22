@@ -1,9 +1,11 @@
+require("dotenv").config()
 const express = require("express");
 const router = express.Router();
 const Product = require("../Product.model.js")
 const Favori = require("../Favori.model.js")
 const multer = require('multer')
 const cloudinary = require("../cloudinary.js")
+const axios = require('axios');
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, __dirname + "/uploads");
@@ -53,7 +55,8 @@ router.post('/', uploads.array("files"), (req, res, next) => {
 
   Promise.all(promises)
     .then(() => {
-      const product = new Product({
+      // Boş olmayan değerlere sahip bir nesne oluştur
+      const productData = {
         name: req.body.title,
         price: req.body.price,
         description: req.body.description,
@@ -65,26 +68,30 @@ router.post('/', uploads.array("files"), (req, res, next) => {
         engine: req.body.engine,
         gearbox: req.body.gearbox,
         isNew: req.body.isNew,
-        year:req.body.year,
-        marka:req.body.marka,
-        camera:req.body.camera,
-        memory:req.body.memory,
-        walk:req.body.walk,
-        banType:req.body.banType,
-        homeType:req.body.homeType,
-        rooms:req.body.rooms,
-        area:req.body.area,
-        homeIsNew:req.body.homeIsNew,
+        year: req.body.year,
+        marka: req.body.marka,
+        camera: req.body.camera,
+        memory: req.body.memory,
+        walk: req.body.walk,
+        banType: req.body.banType,
         userId: req.body.userid,
+        viewCount: 0,
+        isVip: true,
         image: uploadedImageIds,
-      });
+      };
+
+      // Boş değerlere sahip alanları filtrele
+      const filteredProductData = Object.fromEntries(
+        Object.entries(productData).filter(([key, value]) => value !== undefined && value !== null && value !== '')
+      );
+
+      const product = new Product(filteredProductData);
 
       product.save()
         .then(savedProduct => {
           res.json(savedProduct);
         })
         .catch(err => {
-
           res.status(500).json({ message: 'Meshul qeyd edilmədi' });
         });
     })
@@ -96,7 +103,7 @@ router.post('/', uploads.array("files"), (req, res, next) => {
 
 router.get('/:id', async (req, res) => {
   const id = req.params.id;
-
+  increaseViewCount(id)
   try {
 
     const product = await Product.find({ _id: id });
@@ -110,6 +117,22 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Elanlar gətiriləmədi' });
   }
 });
+
+async function increaseViewCount(id) {
+  try {
+    const ilan = await Product.findById(id);
+    if (!ilan) {
+      console.error('İlan bulunamadı.');
+      return;
+    }
+
+    ilan.viewCount += 1;
+    await ilan.save();
+    console.log('Bakış sayısı güncellendi:', ilan.viewCount);
+  } catch (error) {
+    console.error('Bakış sayısı güncellenirken bir hata oluştu:', error);
+  }
+}
 
 router.delete('/:id', async (req, res, next) => {
   const productId = req.params.id;

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { addPost } from '@/redux/slices/userSlice';
 import SearchIcon from '@mui/icons-material/Search';
 import { getUser } from '@/redux/slices/userSlice';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 function Header({openLogin}){
     const dispatch=useDispatch()
     const router=useRouter()

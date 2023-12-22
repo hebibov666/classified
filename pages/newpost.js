@@ -58,10 +58,6 @@ function NewPost() {
       memory:"",
       walk:"",
       banType:"",
-      homeType:"",
-      rooms:"",
-      area:"",
-      homeIsNew:"",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -86,23 +82,19 @@ formdata.append("memory",values.memory)
 formdata.append("walk",values.walk)
 formdata.append("banType",values.banType)
 formdata.append("homeType",values.homeType)
-formdata.append("rooms",values.rooms)
-formdata.append("area",values.area)
-formdata.append("homeIsNew",values.homeIsNew)
-console.log(formdata);
       const files = form.current.files;
       for (let i = 0; i < photos.length; i++) {
         formdata.append(`files`, photos[i]);
       }
-console.log(Object.fromEntries(formdata));
       if (user!=null) {
         setSuccess(true);
         try {
-          const response = await axios.post('http://localhost:3001/products', formdata);
+          const response = await axios.post('https://listingwebsite.onrender.com/products', formdata);
 
           if (!response.ok) {
             throw new Error('HTTP Xətası: ' + response.status);
           }
+          console.log(response)
           setSuccess(false);
         } catch (error) {
           console.error('Xəta:', error);
@@ -110,9 +102,7 @@ console.log(Object.fromEntries(formdata));
           setSuccess(false);
 router.push("/")
         }
-        console.log(user);
       }
-      console.log(user);
     },
   });
 
@@ -198,7 +188,7 @@ router.push("/")
             <select name='model' value={formik.values.model}
             onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
                 <option hidden>Marka</option>
-              {options[5].models.map(item => {
+              {options[3].models.map(item => {
                 return <option>{item}</option>
               })}
             </select>
@@ -264,38 +254,13 @@ router.push("/")
           </select>
         </div>
         );
-        case "Daşınmaz əmlak":
-        return (
-          <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
-            <select name='model' value={formik.values.model}
-            onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
-                <option hidden>Mənzilin tipi</option>
-                <option >Bina evi</option>
-                <option >Həyət evi</option>
-            </select>
-            <select name='homeType' value={formik.values.homeType}
-            onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
-                <option hidden>Elanın tipi</option>
-                <option >Satılır</option>
-                <option >Kiraye verilir</option>
-            </select>
-            <input type='number' name='rooms' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' placeholder='Otaq sayı'></input>
-            <input type='number' name='area' onChange={formik.handleChange} className='w-full outline-none border-0  h-[30px] pl-2' placeholder='Sahəsi m²'></input>
-            <select name='homeIsNew'  value={formik.values.isNew}
-            onChange={formik.handleChange} className='w-full outline-none border-0 text-[#a9a9a9] h-[30px] pl-2'>
-            <option hidden>Mənzil vəziyyəti</option>
-            <option >Köhnə tikili</option>
-            <option >Yeni tikili</option>
-          </select>
-           </div>
-        );
         case "Aksessuar":
           return(
             <div className='w-[80%] flex flex-col gap-[20px]  text-[#a9a9a9]'>
             <select name='model' value={formik.values.model}
             onChange={formik.handleChange} className='w-full h-[30px] pl-2 outline-none border-0'>
                 <option hidden>Məhsul tipi</option>
-              {options[6].models.map(item => {
+              {options[5].models.map(item => {
                 return <option>{item}</option>
               })}
             </select>

@@ -2,7 +2,7 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 export const products = createAsyncThunk("products", async ({category,page}) => {
-  const response = await axios.get(`http://localhost:3001/products/products/${category}?page=${page}`)
+  const response = await axios.get(`https://listingwebsite.onrender.com/products/products/${category}?page=${page}`)
   console.log(response);
   return response.data
 })

@@ -124,7 +124,7 @@ const selectImage=(e)=>{
       ) : null}
       <button
         onClick={Usercreate}
-        className='outline-none bg-blue-500 rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'
+        className='outline-none bg-red-600 rounded-[5px] w-full h-[40px] flex items-center justify-center p-[5px] text-white'
       >
         {pending === true ? 'Qeydiyyat tamamlanır...' : 'Tamamla'}
       </button>
