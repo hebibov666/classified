@@ -2,20 +2,20 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 export const products = createAsyncThunk("products", async ({category,page}) => {
-  const response = await axios.get(`https://listingwebsite.onrender.com/products/products/${category}?page=${page}`)
+  const response = await axios.get(`https://weblisting.onrender.com/products/products/${category}?page=${page}`)
   console.log(response);
   return response.data
 })
 
 export const SearchProduct=createAsyncThunk('user/SearchProduct',async(text)=>{
-  const request=await axios.get(`https://listingwebsite.onrender.com/search/${text}`)
+  const request=await axios.get(`https://weblisting.onrender.com/search/${text}`)
    
  return request.data
 
 })
 
 export const AdvancedSearchs=createAsyncThunk('user/SearchProduct',async(parameter)=>{
-  const request=await axios.post(`https://listingwebsite.onrender.com/advancedsearch`,parameter)
+  const request=await axios.post(`https://weblisting.onrender.com/advancedsearch`,parameter)
    console.log(request.data)
  return request.data
 

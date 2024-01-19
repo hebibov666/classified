@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 export const userLogin=createAsyncThunk('user/userLogin',async(userData)=>{
-  const request=await axios.post("https://listingwebsite.onrender.com/login",userData)
+  const request=await axios.post("https://weblisting.onrender.com/login",userData)
   const response=request.data
 if(response.token){
   localStorage.setItem('user',JSON.stringify(response.token))
@@ -13,7 +13,7 @@ export const getUser=createAsyncThunk('user/getUser',async()=>{
  if(typeof window!=="undefined" && window.localStorage){
   var token=localStorage.getItem("user")
     }
-  const request=await axios.get('https://listingwebsite.onrender.com/login', {
+  const request=await axios.get('https://weblisting.onrender.com/login', {
     headers: {
       Authorization: `Bearer ${token}`,
     }
@@ -24,7 +24,7 @@ export const getUser=createAsyncThunk('user/getUser',async()=>{
 
 
 export const RemovePost=createAsyncThunk('user/RemovePost',async(id)=>{
-  const request=await axios.delete(`https://listingwebsite.onrender.com/products/${id}`) 
+  const request=await axios.delete(`https://weblisting.onrender.com/products/${id}`) 
   const response=request.data
 console.log(response);
   return response

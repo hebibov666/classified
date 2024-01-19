@@ -15,7 +15,7 @@ function MyPosts({userId}) {
 const userid=userId
     const getData=async()=>{
         try{
-          const response=await axios.get(`https://listingwebsite.onrender.com/myposts/${userid}`)
+          const response=await axios.get(`https://weblisting.onrender.com/myposts/${userid}`)
         setPosts(response.data)
         }catch(err){
         console.log(err)

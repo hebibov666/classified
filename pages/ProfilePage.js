@@ -26,7 +26,7 @@ const router=useRouter()
         router.push("/")
     }
     const deleteUser=()=>{
-      axios.delete(`https://listingwebsite.onrender.com/login/${user?._id}`) 
+      axios.delete(`https://weblisting.onrender.com/login/${user?._id}`) 
       .then((response) => {
         localStorage.removeItem("user")
         router.push("/")

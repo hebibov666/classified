@@ -44,7 +44,7 @@ export default FavoriteProducts
 
 export async function getServerSideProps(context){
   const {userid}=context.query
-  const response = await axios.get(`https://listingwebsite.onrender.com/favori/${userid}`)
+  const response = await axios.get(`https://weblisting.onrender.com/favori/${userid}`)
   const item = await response.data;
   console.log(userid)
   return {

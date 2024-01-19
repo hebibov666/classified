@@ -20,7 +20,7 @@ function Card({title,image,price,date,id,city,favorites,vip}){
         }
       if(userId && userId!=null){
        try {
-          const response = await axios.post(`https://listingwebsite.onrender.com/favori`,data);
+          const response = await axios.post(`https://weblisting.onrender.com/favori`,data);
           if (response.status !== 200) { // HTTP başarı durumunu kontrol et
             throw new Error('HTTP Xətası: ' + response.status,setMessage(response.status + "Xətası"));
           }

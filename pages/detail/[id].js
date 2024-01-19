@@ -126,7 +126,7 @@ export default Detail
 
 export async function getServerSideProps(context) {
     const { id } = context.query
-    const response = await axios.get(`https://listingwebsite.onrender.com/products/${id}`)
+    const response = await axios.get(`https://weblisting.onrender.com/products/${id}`)
     const item = await response.data[0];
     console.log(item)
     return {

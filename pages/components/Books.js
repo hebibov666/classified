@@ -20,7 +20,7 @@ function Books({ category,text }) {
 
 const getData=async()=>{
 try{
-  const response=await axios.get(`https://listingwebsite.onrender.com/products/products/${category}?page=${page}`)
+  const response=await axios.get(`https://weblisting.onrender.com/products/products/${category}?page=${page}`)
  if(page===1){
  setData(response.data)
  }else{
